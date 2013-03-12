@@ -1,0 +1,18 @@
+<div id="loginpatch" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="patchLabel" aria-hidden="true">
+	<div class="modal-header">
+		<a type="button" class="close" href="/register" aria-hidden="true">register</a>
+		<h3 id="patchLabel">登录</h3>
+	</div>
+	<div class="modal-body">
+		<form action="/login/" method="POST">
+			<p>用户名</p>
+			<input type="text" name="username">
+			<p>密码</p>
+			<input type="password" name="password">
+			<div class="modal-footer">
+				<input type="submit" class="btn btn-primary" value="登录">
+				<input type="button" class="btn" data-dismiss="modal" value="取消">
+			</div>
+		</form>
+	</div>
+</div>
