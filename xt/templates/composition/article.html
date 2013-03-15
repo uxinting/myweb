@@ -3,8 +3,10 @@
 	<head>
 		<title>{{ title }}</title>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+		<link rel="stylesheet" href="/static/css/base.css"/>
 		<link rel="shortcut icon" href="/static/img/favicon.ico">
-		<link rel="stylesheet" href="/static/css/base.css">
+		<link rel="stylesheet" href="/static/css/article.css"/>
+		<script src="/static/js/tab.js"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -43,17 +45,41 @@
 				{{ summary }}
 			</div>
 			<div class="content">
-				<img src="/static/img/ym.png">
+				<div class="tabs">
+					<ul id="tabmenu">
+						<li class="act">
+							<a href="#tab1">1</a>
+						</li>
+						<li>
+							<a href="#tab2">2</a>
+						</li>
+					</ul>
+					<div class="clear"></div>
+					<div name="tab1" id="tabcontent">
+						<ul>
+							{% for content in contents %}
+							<li>
+								<a href="show/{{ forloop.counter }}">{{ content }}</a>
+							</li>
+							{% endfor %}
+						</ul>
+						<ul>
+							<li>
+								<a href="">none here</a>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="clear"></div>
 		<div class="footer">
 			<div class="music">
-				<a href="" id="icon-pp"></a>
+				<a id="icon-pp" href=""></a>
 			</div>
 			<div class="info">
-				{{ config.registered }} / {{ config.limit }}
+				0 / 0
 			</div>
 		</div>
 	</body>
-</html>	
+</html>

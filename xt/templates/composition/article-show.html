@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+		<link rel="stylesheet" href="/static/css/base.css"/>
+		<link rel="shortcut icon" href="/static/img/favicon.ico">
+		<link rel="stylesheet" href="/static/css/article.css"/>
+		<link rel="stylesheet" href="/static/css/article-show.css"/>
+	</head>
+	<body class="container">
+		<div class="article-header">
+			<h5 class="article-about"><a href="">About</a></h5>
+			<div class="linknav">
+				<div class="prev-next" >
+					<h1>
+						<a class="article-home" href="">文章</a>
+					</h1>
+					<a href="/compositions/show/{{ prev }}">< prev</a>
+					<a href="/compositions/show/{{ nxt }}">next ></a>
+				</div>
+			</div>
+		</div>
+		<div class="article">
+			<div class="article-left">
+				<a href="" class="article-list" title="列表"></a>
+			</div>
+			<div class="article-right">
+				<a href="" class="article-common" title="评论"></a>
+			</div> 
+			<div class="article-context">
+				<div class="top-left"></div>
+				<div class="top-right"></div>
+				<div class="bottom-left"></div>
+				<div class="bottom-right"></div>
+				<div class="context">
+					<h3>{{ filename }}</h3>
+					{% for data in datas %}
+						<p>{{ data }}</P>
+					{% endfor %}
+					<p>
+						dfklajdkfjaksldfjkasldjfklasjdfijewfio jadkflajsdfkjaefio jadklfjasdkljfa kldsjfklasdjfklasdjfkjasdklfjasld 
+					</p>
+					<p>
+						Hello, It is Article one, this is paragraphy one, to be long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long
+					</p>
+				</div><!-- -->
+			</div>
+			<div class="article-footer">
+				<div class="prev-next">
+					<a href="/compositions/show/{{ prev }}">< prev</a>
+					<a href="/compositions/show/{{ nxt }}">next ></a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
