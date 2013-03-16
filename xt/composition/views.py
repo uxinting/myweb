@@ -20,10 +20,11 @@ def show(request, index):
     branches = Branch.objects.all()
     config = Config.objects.get(id=1)
     title = u'ÎÅµÀ'
-    filename = os.listdir(COMPOSITIONS)[int(index) - 1]
+    names = os.listdir(COMPOSITIONS)
+    filename = names[int(index) - 1]
     filepath = os.path.join(COMPOSITIONS, filename)
     datas = open(filepath).readlines()
-    nxt = len(os.listdir(COMPOSITIONS)) > int(index) and repr(int(index) + 1) or repr(int(index))
+    nxt = len(names) > int(index) and repr(int(index) + 1) or repr(int(index))
     prev = int(index) <= 1 and repr(int(index)) or repr(int(index) - 1)
     return render_to_response('composition/article-show.html', locals())
 

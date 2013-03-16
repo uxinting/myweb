@@ -10,23 +10,33 @@
 	</head>
 	<body class="container">
 		<div class="article-header">
-			<h5 class="article-about"><a href="">About</a></h5>
+			<h5 class="article-about"><a href="/about">About</a></h5>
 			<div class="linknav">
 				<div class="prev-next" >
 					<h1>
-						<a class="article-home" href="">文章</a>
+						<a class="article-home" href="/compositions">文章</a>
 					</h1>
 					<a href="/compositions/show/{{ prev }}">< prev</a>
 					<a href="/compositions/show/{{ nxt }}">next ></a>
 				</div>
 			</div>
 		</div>
-		<div class="article">
-			<div class="article-left">
-				<a href="" class="article-list" title="列表"></a>
+		<div id="article">
+			<div id="article-left">
+				<div id="article-list-trigger" title="列表"></div>
+				<div id="article-list">
+					<ul>
+						{% for name in names %}
+						<li>
+							<a href="/compositions/show/{{ forloop.counter }}">{{ name }}</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
 			</div>
-			<div class="article-right">
-				<a href="" class="article-common" title="评论"></a>
+			<div id="article-right">
+				<div id="article-common-trigger" title="评论"></div>
+				<div id="article-common"></div>
 			</div> 
 			<div class="article-context">
 				<div class="top-left"></div>
@@ -36,12 +46,12 @@
 				<div class="context">
 					<h3>{{ filename }}</h3>
 					{% for data in datas %}
-						<p>{{ data }}</P>
+						<p class="data">{{ data }}</P>
 					{% endfor %}
-					<p>
-						dfklajdkfjaksldfjkasldjfklasjdfijewfio jadkflajsdfkjaefio jadklfjasdkljfa kldsjfklasdjfklasdjfkjasdklfjasld 
+					<p class="data">
+						dfklajdkfjaksldfjkasldjfklasjdfijewfiojadkflajsdfkjaefiojadklfjasdkljfakldsjfklasdjfklasdjfkjasdklfjasld 
 					</p>
-					<p>
+					<p class="data">
 						Hello, It is Article one, this is paragraphy one, to be long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long
 					</p>
 				</div><!-- -->
@@ -53,5 +63,7 @@
 				</div>
 			</div>
 		</div>
+		
+		<script src="/static/js/move.js"></script>
 	</body>
 </html>

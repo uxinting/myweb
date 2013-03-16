@@ -1,7 +1,12 @@
 .container {
 	height: 900px;
 	padding: 0; 
+	position: relative;
 	font-size: 16px;
+}
+
+.data {
+	word-break: break-all;
 }
 
 .article-header {
@@ -15,7 +20,6 @@
 .article-about {
 	position: absolute;
 	margin-top: 5px;
-	font-style: thin;
 	top: 10px;
 	left: 0px;
 }
@@ -33,7 +37,6 @@ h1 {
 h1 > a:link, 
 h1 > a:visited {
 	color: rgb(159, 159, 159);
-	font-style: thin;
 }
 
 .linknav {
@@ -41,41 +44,87 @@ h1 > a:visited {
 	height: 50px;
 }
 
-.article {
+#article {
 	width: 60%;
 	min-width: 700px;
 	height: 90%;
-	margin: 5px auto;
-}
-
-.article-left {
-	width: 3%;
-	height: 97%;
-	float: left;
-	background-color: #cccccc;
-}
-
-.article-right {
-	width: 3%;
-	height: 97%;
-	float: right;
-	background-color: #cccccc;
-}
-
-.article-list,
-.article-common {
 	display: block;
+	position: relative;
+	margin: 0px auto;
+	z-index: 2;
+}
+
+#article-left {
+	width: auto;
+	height: 97%;
+	position: absolute;
+	left: 0px;
+	font-size: 0px;
+	background-color: rgb(240, 240, 240);
+}
+
+#article-list-trigger {
+	float: left;
+	width: auto;
+	height: 100%;
+	background-color: #cccccc;
+}
+
+#article-list {
+	float: left;
+	width: auto;
+	height: 100%;
+	font-size: 15px;
+}
+
+#article-right {
+	width: auto;
+	position: absolute;
+	height: 97%;
+	right: 0px;
+	font-size: 0px;
+	text-align: right;
+	background-color: rgb(240, 240, 240);
+}
+
+#article-common-trigger {
+	float: right;
+	width: auto;
+	height: 100%;
+	background-color: #cccccc;
+}
+
+#article-common {
+	float: right;
+	width: auto;
+	height: 100%;
+	font-size: 15px;
+}
+
+#article-list-trigger:hover,
+#article-common-trigger:hover {
+	background-color: #99ccff;
+}
+
+#article-list ul li {
+	display: block;
+	height: 30px;
+	margin: 10px 0;
+}
+
+#article-list ul li a {
+	display: block;
+	font-size: 16px;
 	width: 100%;
 	height: 100%;
-}
-
-.article-list:hover,
-.article-common:hover {
-	background-color: silver;
+	line-height: 30px;
+	margin: 5px 0;
+	text-indent: 5px;
 }
 
 .article-context {
 	position: relative;
+	display: block;
 	width: 94%;
 	height: 97%;
 	margin: 0 3%;
@@ -91,7 +140,7 @@ h1 > a:visited {
 	display: block;
 	width: 16px;
 	height: 16px;
-	background: url('./img/corner.gif') top left;
+	background: url('../img/corner.gif') top left;
 }
 
 .top-right {
@@ -101,27 +150,27 @@ h1 > a:visited {
 	display: block;
 	width: 16px;
 	height: 16px;
-	background: url('./img/corner.gif') -16px 0;
+	background: url('../img/corner.gif') -16px 0;
 }
 
 .bottom-left {
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	display: blok;
+	display: block;
 	width: 16px;
 	height: 16px;
-	background: url('./img/corner.gif') 0 -16px;
+	background: url('../img/corner.gif') 0 -16px;
 }
 
 .bottom-right {
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	display: blok;
+	display: block;
 	width: 16px;
 	height: 16px;
-	background: url('./img/corner.gif') -16px -16px;
+	background: url('../img/corner.gif') -16px -16px;
 }
 
 .context {
@@ -138,6 +187,7 @@ h3 {
 .article-footer {
 	width: 100%;
 	height: 3%;
+	position: relative;
 }
 
 .prev-next {
