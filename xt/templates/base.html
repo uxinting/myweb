@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 		<link rel="stylesheet" href="/static/css/base.css"/>
 		<link rel="shortcut icon" href="/static/img/favicon.ico">
-		<link rel="stylesheet" href="/static/css/article.css"/>
+		{% block stylesheet %}{% endblock %}
 	</head>
 	<body>
 		<div class="header">
@@ -49,11 +49,13 @@
 		</div>
 		<div class="clear"></div>
 		<div class="footer">
-			<div class="music">
-				<a id="icon-pp" href=""></a>
-			</div>
-			<div class="info">
-				0 / 0
+			<div class="footer-container">
+				<div class="music">
+					<a id="icon-pp" href=""></a>
+				</div>
+				<div class="info">
+					0 / 0
+				</div>
 			</div>
 		</div>
 		

@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="/static/css/article.css"/>
+{% endblock %}
+
 {% block content %}
 <div class="content">
 	<div class="tabs">
@@ -11,8 +15,9 @@
 				<a href="#tab2">2</a>
 			</li>
 		</ul>
+		<a href="" class="btn">new</a>
 		<div class="clear"></div>
-		<div name="tab1" id="tabcontent">
+		<div id="tabcontent">
 			<ul>
 				{% for content in contents %}
 				<li>

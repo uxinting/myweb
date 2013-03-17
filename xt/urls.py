@@ -10,6 +10,7 @@ urlpatterns = patterns('xt.views',
                        url(r'^logout/$', 'logout'),
                        url(r'^register/$', 'register'),
                        (r'^compositions/', include('xt.composition.urls')),
+                       (r'^calligraphys', include('xt.calligraphy.urls')),
     # Examples:
     # url(r'^$', 'xt.views.home', name='home'),
     # url(r'^xt/', include('xt.foo.urls')),
