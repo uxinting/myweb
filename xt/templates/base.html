@@ -1,152 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>{{ title }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- CSS -->
-    <link href="/static/docs/assets/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/docs/assets/css/docs.css"></link>
-	<link rel="stylesheet" href="/static/docs/assets/js/google-code-prettify/prettify.css"></link>
-    <style type="text/css">
-
-      /* Sticky footer styles
-      -------------------------------------------------- */
-
-      html,
-      body {
-        height: 100%;
-        /* The html and body elements cannot have any padding or margin. */
-        padding-top: 0px;
-      }
-
-      /* Wrapper for page content to push down footer */
-      #wrap {
-        min-height: 100%;
-        height: auto !important;
-        height: 100%;
-        /* Negative indent footer by it's height */
-        margin: 0 auto -60px;
-      }
-
-      /* Set the fixed height of the footer here */
-      #push,
-      #footer {
-        height: 60px;
-      }
-      #footer {
-        background-color: #f5f5f5;
-      }
-
-      /* Lastly, apply responsive CSS fixes as necessary */
-      @media (max-width: 767px) {
-        #footer {
-          margin-left: -20px;
-          margin-right: -20px;
-          padding-left: 20px;
-          padding-right: 20px;
-        }
-      }
-
-
-
-      /* Custom page CSS
-      -------------------------------------------------- */
-      /* Not required for template or sticky footer method. */
-
-      .container {
-        width: auto;
-        max-width: 680px;
-      }
-      .container .credit {
-        margin: 20px 0;
-      }
-
-    </style>
-    <link href="/static/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/docs/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/docs/assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/docs/assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="/static/docs/assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="/static/docs/assets/ico/favicon.png">
-  </head>
-
-  <body>
-
-    <!-- Part 1: Wrap all page content here -->
-    <div id="wrap">
-
-      <!-- Begin page content -->
-	    <div class="container-fluid">
-			<div class="pull-right">
-				{% if isloginhtml %}
-				{% else %}
-					{% if user.is_authenticated %}
-						<a href="" class="btn btn-link">{{ user.username }}</a>
-						<a href="/logout" class="btn btn-link">logout</a>
-					{% else %}
-						<a href="#loginpatch" role="button" data-toggle="modal">login</a>
-						{% include 'loginpatch.html' %}
-					{% endif %}
-				{% endif %}
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+		<link rel="stylesheet" href="/static/css/base.css"/>
+		<link rel="shortcut icon" href="/static/img/favicon.ico">
+		<link rel="stylesheet" href="/static/css/article.css"/>
+	</head>
+	<body>
+		<div class="header">
+			<div class="header-container">
+				<div class="logo">
+					<img src="/static/img/logo.png">
+				</div>
+				<div class="nav">
+					<div class="iconnav">
+						<ul class="iconmenu">
+							<li>
+								<a href="" id="icon-msg"></a>
+							</li>
+							<li>
+								<a href="" id="icon-user"></a>
+							</li><!---->
+						</ul>
+					</div>
+					<div class="linknav">
+						<ul class="linkmenu">
+							{% for branch in branches %}
+								{% ifequal forloop.counter currentpage %}
+									<li class="act">
+								{% else %}
+									<li>
+								{% endifequal %}
+										<a href="/{{ branch.responsehtml }}">{{ branch.name }}</a>
+									</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="container">
-			{% block middle %}{% endblock %}
+		<div class="clear"></div>
+		<div class="main">
+			<div class="summary">
+				{{ summary }}
+			</div>
+			{% block content %}{% endblock %}
 		</div>
-
-    	<div id="push"></div>
-    </div>
-
-    <div id="footer">
-    	<div class="container">
-	    	<div align="center">
-	    		<ul class="masthead-links">
-					{% for branch in branches %}
-						<li >
-							{% ifequal branch.responsehtml '#aboutpatch' %}
-								<a href="/{{ branch.responsehtml }}" role="button" data-toggle="modal">{{ branch.name }}</a>
-							{% else %}
-								<a href="/{{ branch.responsehtml }}">{{ branch.name }}</a>
-							{% endifequal %}
-						</li>
-					{% endfor %}
-				</ul>
-				{% include 'aboutpatch.html' %}
-	    		<br>
-				{{ config.registered }} {{ config.limit }}
-	    	</div>
-    	</div>
-    </div>
-
-
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/static/docs/assets/js/jquery.js"></script>
-    <script src="/static/docs/assets/js/bootstrap-transition.js"></script>
-    <script src="/static/docs/assets/js/bootstrap-alert.js"></script>
-    <script src="/static/docs/assets/js/bootstrap-modal.js"></script>
-    <script src="/static/docs/assets/js/bootstrap-dropdown.js"></script>
-    <script src="/static/docs/assets/js/bootstrap-scrollspy.js"></script>
-    <script src="/static/docs/assets/js/bootstrap-tab.js"></script>
-    <script src="/static/docs/assets/js/bootstrap-tooltip.js"></script>
-    <script src="/static/docs/assets/js/bootstrap-popover.js"></script>
-    <script src="/static/docs/assets/js/bootstrap-button.js"></script>
-    <script src="/static/docs/assets/js/bootstrap-collapse.js"></script>
-    <script src="/static/docs/assets/js/bootstrap-carousel.js"></script>
-    <script src="/static/docs/assets/js/bootstrap-typeahead.js"></script>
-
-  </body>
+		<div class="clear"></div>
+		<div class="footer">
+			<div class="music">
+				<a id="icon-pp" href=""></a>
+			</div>
+			<div class="info">
+				0 / 0
+			</div>
+		</div>
+		
+		{% block script %}{% endblock %}
+		<script src="/static/js/tab.js"></script>
+	</body>
 </html>

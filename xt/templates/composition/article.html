@@ -1,86 +1,35 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>{{ title }}</title>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-		<link rel="stylesheet" href="/static/css/base.css"/>
-		<link rel="shortcut icon" href="/static/img/favicon.ico">
-		<link rel="stylesheet" href="/static/css/article.css"/>
-	</head>
-	<body>
-		<div class="header">
-			<div class="logo">
-				<img src="/static/img/logo.png">
-			</div>
-			<div class="nav">
-				<div class="iconnav">
-					<ul class="iconmenu">
-						<li>
-							<a href="" id="icon-msg"></a>
-						</li>
-						<li>
-							<a href="" id="icon-user"></a>
-						</li><!---->
-					</ul>
-				</div>
-				<div class="linknav">
-					<ul class="linkmenu">
-						{% for branch in branches %}
-							{% ifequal forloop.counter currentpage %}
-								<li class="act">
-							{% else %}
-								<li>
-							{% endifequal %}
-									<a href="/{{ branch.responsehtml }}">{{ branch.name }}</a>
-								</li>
-						{% endfor %}
-					</ul>
-				</div>
-			</div>
-		</div>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content">
+	<div class="tabs">
+		<ul id="tabmenu">
+			<li class="act">
+				<a href="#tab1">1</a>
+			</li>
+			<li>
+				<a href="#tab2">2</a>
+			</li>
+		</ul>
 		<div class="clear"></div>
-		<div class="main">
-			<div class="summary">
-				{{ summary }}
-			</div>
-			<div class="content">
-				<div class="tabs">
-					<ul id="tabmenu">
-						<li class="act">
-							<a href="#tab1">1</a>
-						</li>
-						<li>
-							<a href="#tab2">2</a>
-						</li>
-					</ul>
-					<div class="clear"></div>
-					<div name="tab1" id="tabcontent">
-						<ul>
-							{% for content in contents %}
-							<li>
-								<a href="show/{{ forloop.counter }}">{{ content }}</a>
-							</li>
-							{% endfor %}
-						</ul>
-						<ul>
-							<li>
-								<a href="">none here</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+		<div name="tab1" id="tabcontent">
+			<ul>
+				{% for content in contents %}
+				<li>
+					<a href="show/{{ forloop.counter }}">{{ content }}</a>
+				</li>
+				{% endfor %}
+			</ul>
+			<ul>
+				<li>
+					<a href="">none here</a>
+				</li>
+			</ul>
 		</div>
-		<div class="clear"></div>
-		<div class="footer">
-			<div class="music">
-				<a id="icon-pp" href=""></a>
-			</div>
-			<div class="info">
-				0 / 0
-			</div>
-		</div>
-		
-		<script src="/static/js/tab.js"></script>
-	</body>
-</html>
+	</div>
+	</div>
+{% endblock %}
+
+{% block script %}
+<script src="/static/js/tab.js"></script>
+{% endblock %}
