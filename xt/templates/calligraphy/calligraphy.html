@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="content">
+<div class="content" id="calligraphy-grids">
 	<ul class="grid-row">
 		<li>
 			<img src="/static/img/ym.png"/>
@@ -48,6 +48,10 @@
 			<img src="/static/img/ym.png"/>
 		</li>
 	</ul>
-	<a href="javascript: alert('d')" class="btn">Load more</a>
+	<a href="javascript: loadMore()" class="btn">Load more</a>
 </div>
+{% endblock %}
+
+{% block script %}
+<script src="/static/js/loadmore.js"></script>
 {% endblock %}
