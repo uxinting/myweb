@@ -8,32 +8,11 @@
 <div class="content">
 	<div id="calligraphy-grids">
 		<ul class="grid-row">
-			<li>
-				<img src="/static/img/ym.png"/>
-			</li>
-			<li>
-				<img src="/static/img/ym.png"/>
-			</li>
-			<li>
-				<img src="/static/img/ym.png"/>
-			</li>
-			<li>
-				<img src="/static/img/ym.png"/>
-			</li>
-		</ul>
-		<ul class="grid-row">
-			<li>
-				<img src="/static/img/ym.png"/>
-			</li>
-			<li>
-				<img src="/static/img/ym.png"/>
-			</li>
-			<li>
-				<img src="/static/img/ym.png"/>
-			</li>
-			<li>
-				<img src="/static/img/ym.png"/>
-			</li>
+			{% for pic in pictures %}
+				<li>
+					<img src="/static/calligraphys/{{ pic.name }}" style="{{ pic.style }}"/>
+				</li>
+			{% endfor %}
 		</ul>
 	</div>
 	<a href="javascript: loadMore()" class="btn">Load more</a>

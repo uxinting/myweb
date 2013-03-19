@@ -9,7 +9,7 @@ if (window.XMLHttpRequest) {
 function getData() {
 	if (xHRObject.readyState == 4 && xHRObject.status == 200) {
 		var doc = xHRObject.responseText;
-		
+		alert(doc)
 		if (doc == '') {
 			alert('没有了')
 			return
@@ -29,8 +29,9 @@ function getData() {
 function loadMore() {
 	//Reset the function
 	xHRObject.onreadystatechange = getData;
-	
-	xHRObject.open("GET", "/calligraphys/ajax?opt=loadmore", true);
+	var imgs = document.getElementsByTagName('img')
+	alert(imgs.length)
+	xHRObject.open("GET", "/calligraphys/ajax?opt=loadmore&index=" + imgs.length, true);
 	
 	xHRObject.send(null);
 }

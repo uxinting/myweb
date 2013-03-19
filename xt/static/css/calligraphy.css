@@ -17,10 +17,13 @@
 	width: 280px;
 	height: 280px;
 	margin: 0 10px 5px;
+	font-size: 15px;
 }
 
 .grid-row li > img {
+	display: block;
 	width: 280px;
+	border: 1px rgb(210, 210, 210) solid;
 }
 
 .btn {
