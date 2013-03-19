@@ -7,13 +7,21 @@ if (window.XMLHttpRequest) {
 }
 
 function getData() {
-	if (xHRObject.readyState == 4) {
+	if (xHRObject.readyState == 4 && xHRObject.status == 200) {
 		var doc = xHRObject.responseText;
+		
+		if (doc == '') {
+			alert('没有了')
+			return
+		}
+		
 		var grid = document.getElementById('calligraphy-grids')
-		alert(doc)
+
 		if (grid != null) {
 			var node = document.createElement('ul')
-			node.className = 'grid-show'
+			node.className = 'grid-row'
+			node.innerHTML = doc
+			grid.appendChild(node)
 		}
 	}
 }
@@ -22,7 +30,7 @@ function loadMore() {
 	//Reset the function
 	xHRObject.onreadystatechange = getData;
 	
-	xHRObject.open("GET", "/calligraphys/ajax", true);
+	xHRObject.open("GET", "/calligraphys/ajax?opt=loadmore", true);
 	
 	xHRObject.send(null);
 }

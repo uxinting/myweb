@@ -2,6 +2,9 @@
 from django.shortcuts import render_to_response
 from xt.models import Config, Branch
 from django.http.response import HttpResponse
+import os
+
+CALLIGRAPHYS = os.path.join(os.path.dirname(__file__), 'calligraphys')
 
 def contents(request):
     summary = u'常有心于词墨'
@@ -12,4 +15,11 @@ def contents(request):
     return render_to_response('calligraphy/calligraphy.html', locals())
 
 def ajax(request):
-    return HttpResponse('hello')
+    class PIC():
+        name = ''
+        style = ''
+    if (request.GET['opt'] == 'loadmore'):
+        pictures = os.listdir(CALLIGRAPHYS)
+        return render_to_response('calligraphy/ajax-loadmore.html', locals())
+    else:
+        return HttpResponse('')
