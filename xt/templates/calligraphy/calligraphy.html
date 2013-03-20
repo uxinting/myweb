@@ -10,7 +10,9 @@
 		<ul class="grid-row">
 			{% for pic in pictures %}
 				<li>
-					<img src="/static/calligraphys/{{ pic.name }}" style="{{ pic.style }}"/>
+					<a href="show?pic={{ pic.name }}">
+						<img src="/static/calligraphys/{{ pic.name }}" style="{{ pic.style }}"/>
+					</a>
 				</li>
 			{% endfor %}
 		</ul>
@@ -20,5 +22,6 @@
 {% endblock %}
 
 {% block script %}
+<script src="/static/js/verticalmiddle.js"></script>
 <script src="/static/js/loadmore.js"></script>
 {% endblock %}

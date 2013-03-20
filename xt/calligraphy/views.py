@@ -30,7 +30,7 @@ def contents(request):
 def ajax(request):
     pictures = []
     if (request.GET['opt'] == 'loadmore'):
-        index = request.GET['index']
+        index = int(request.GET['index'])
         if (not index):
             return
         for pic in os.listdir(CALLIGRAPHYS)[index: index+4]:
@@ -38,8 +38,9 @@ def ajax(request):
             #image = Image.open(os.path.join(CALLIGRAPHYS), f)
             p = PicInfo()
             p.name = pic
+            p.style = 'width: 280px'
             #pic.style = image.size[0] > image.size[1] and 'width: ' + image.size[0] or 'height: ' + image.size[1]
-            pictures.append(pic)
+            pictures.append(p)
         return render_to_response('calligraphy/ajax-loadmore.html', locals())
     else:
         return HttpResponse('')

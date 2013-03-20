@@ -1,5 +1,13 @@
 var xHRObject = false
 
+function middleImg() {
+	var imgnodes = document.getElementById('calligraphy-grids').getElementsByTagName('img')
+	for (var j = 0; j < imgnodes.length; j++) {
+		imgnodes[j].style.top = (140 - imgnodes[j].height / 2) + 'px'
+	}
+}
+//window.onload = middleImg
+
 if (window.XMLHttpRequest) {
 	xHRObject = new XMLHttpRequest();
 } else if (window.ActiveXObject) {
@@ -9,7 +17,7 @@ if (window.XMLHttpRequest) {
 function getData() {
 	if (xHRObject.readyState == 4 && xHRObject.status == 200) {
 		var doc = xHRObject.responseText;
-		alert(doc)
+		
 		if (doc == '') {
 			alert('没有了')
 			return
@@ -23,6 +31,11 @@ function getData() {
 			node.innerHTML = doc
 			grid.appendChild(node)
 		}
+		
+/*		var imgnodes = document.getElementById('calligraphy-grids').getElementsByTagName('img')
+		for (var i = imgnodes.length-4; i < imgnodes.length; i++) {
+			imgnodes[i].style.top = (140 - imgnodes[i].height / 2) + 'px'
+		}*/
 	}
 }
 
@@ -30,7 +43,7 @@ function loadMore() {
 	//Reset the function
 	xHRObject.onreadystatechange = getData;
 	var imgs = document.getElementsByTagName('img')
-	alert(imgs.length)
+	
 	xHRObject.open("GET", "/calligraphys/ajax?opt=loadmore&index=" + imgs.length, true);
 	
 	xHRObject.send(null);
