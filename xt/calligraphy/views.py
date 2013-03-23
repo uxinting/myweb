@@ -6,41 +6,42 @@ import os
 
 CALLIGRAPHYS = 'xt/static/calligraphys'
 
-class PicInfo():
-    name = ''
-    style = ''
-    
 def contents(request):
     summary = u'常有心于词墨'
     currentpage = 4
     config = Config.objects.all()
     branches = Branch.objects.all()
     title = u'词墨'
-    pictures = []
-    for pic in os.listdir(CALLIGRAPHYS)[:16]:
-        #import Image
-        #image = Image.open(os.path.join(CALLIGRAPHYS, pic))
-        p = PicInfo()
-        p.name = pic
-        p.style = 'width: 280px'
-        #p.style = image.size[0] > image.size[1] and 'width: ' + repr(image.size[0]) + 'px' or 'height: ' + repr(image.size[1]) + 'px'
-        pictures.append(p)
+    pictures =  os.listdir(CALLIGRAPHYS)[:16]
     return render_to_response('calligraphy/calligraphy.html', locals())
 
+def show(request):
+    title = u'词墨'
+    pic = request.GET['pic']
+    pictures = os.listdir(CALLIGRAPHYS)
+    try:
+        index = pictures.index(pic)
+        if (index <= 0):
+            prev = pic
+        else:
+            prev = pictures[index - 1]
+        
+        if (index >= len(pictures) - 1):
+            nxt = pic
+        else:
+            nxt = pictures[index + 1]
+    except:
+        prev = nxt = pic = ""
+    
+    description = "null"
+    return render_to_response('calligraphy/calligraphy-show.html', locals())
+
 def ajax(request):
-    pictures = []
     if (request.GET['opt'] == 'loadmore'):
         index = int(request.GET['index'])
         if (not index):
             return
-        for pic in os.listdir(CALLIGRAPHYS)[index: index+4]:
-            #import Image
-            #image = Image.open(os.path.join(CALLIGRAPHYS), f)
-            p = PicInfo()
-            p.name = pic
-            p.style = 'width: 280px'
-            #pic.style = image.size[0] > image.size[1] and 'width: ' + image.size[0] or 'height: ' + image.size[1]
-            pictures.append(p)
+        pictures =  os.listdir(CALLIGRAPHYS)[index: index+4]
         return render_to_response('calligraphy/ajax-loadmore.html', locals())
     else:
         return HttpResponse('')

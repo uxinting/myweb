@@ -17,8 +17,6 @@ def contents(request):
 
 def show(request, index):
     # user = request.user
-    branches = Branch.objects.all()
-    config = Config.objects.get(id=1)
     title = u'не╣ю'
     names = os.listdir(COMPOSITIONS)
     filename = names[int(index) - 1]

@@ -1,11 +1,30 @@
 var xHRObject = false
 
+function imgCenter() {
+	var img = document.getElementById('pic')
+	var container = document.getElementById('pic-container')
+	img.style.position = 'absolute'
+	if (img.width < container.offsetWidth) {
+		img.style.left = (container.offsetWidth - img.width) / 2 + 'px'
+	}
+	if (img.height < container.offsetHeight) {
+		img.style.top = (container.offsetHeight - img.height) /2 + 'px'
+	}
+}
+
 function middleImg() {
 	var imgnodes = document.getElementById('calligraphy-grids').getElementsByTagName('img')
 	for (var j = 0; j < imgnodes.length; j++) {
 		imgnodes[j].style.top = (140 - imgnodes[j].height / 2) + 'px'
+		if (img.width < 280) {
+			img.style.left = (container.offsetWidth - img.width) / 2 + 'px'
+		}
+		if (img.height < container.offsetHeight) {
+			img.style.top = (container.offsetHeight - img.height) /2 + 'px'
+		}
 	}
 }
+
 //window.onload = middleImg
 
 if (window.XMLHttpRequest) {

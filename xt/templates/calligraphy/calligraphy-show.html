@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<link rel="stylesheet" href="/static/css/base.css"/>
+		<link rel="shortcut icon" href="/static/img/favicon.ico">
+		<link rel="stylesheet" href="/static/css/calligraphy-show.css"/>
+	</head>
+	<body onload="imgCenter()">
+		<div class="pic-prev">
+			<a href="/calligraphys/show?pic={{ prev }}"></a>
+		</div>
+		<div class="pic-next">
+			<a href="/calligraphys/show?pic={{ nxt }}"></a>
+		</div>
+		<div id="pic-container">
+			<img id="pic" src="/static/calligraphys/{{ pic }}"/>
+			<a class="back" href="/calligraphys/">back</a>
+			<div class="pic-desc">
+				{{ description }}
+			</div>
+		</div>
+		<script type="text/javascript" src="/static/js/loadmore.js"></script>
+	</body>
+</html>
