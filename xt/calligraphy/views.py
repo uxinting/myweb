@@ -8,7 +8,7 @@ CALLIGRAPHYS = 'xt/static/calligraphys'
 
 def contents(request):
     summary = u'常有心于词墨'
-    currentpage = 4
+    currentpage = 3
     config = Config.objects.all()
     branches = Branch.objects.all()
     title = u'词墨'

@@ -12,6 +12,7 @@ urlpatterns = patterns('xt.views',
                        (r'^compositions/', include('xt.composition.urls')),
                        (r'^calligraphys/', include('xt.calligraphy.urls')),
                        (r'^about/', include('xt.about.urls')),
+                       (r'^tool', include('xt.tool.urls')),
     # Examples:
     # url(r'^$', 'xt.views.home', name='home'),
     # url(r'^xt/', include('xt.foo.urls')),
