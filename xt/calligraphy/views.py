@@ -22,12 +22,12 @@ def show(request):
     try:
         index = pictures.index(pic)
         if (index <= 0):
-            prev = pic
+            prev = pictures[len(pictures) - 1]
         else:
             prev = pictures[index - 1]
         
         if (index >= len(pictures) - 1):
-            nxt = pic
+            nxt = pictures[0]
         else:
             nxt = pictures[index + 1]
     except:
