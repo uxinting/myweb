@@ -1,8 +1,8 @@
 # _*_ coding: gb2312 _*_
 from django.shortcuts import render_to_response
 from xt.models import Config, Branch
-from django.http.response import HttpResponse
 import os
+from django.http import HttpResponse
 
 CALLIGRAPHYS = 'xt/static/calligraphys'
 
@@ -12,7 +12,7 @@ def contents(request):
     config = Config.objects.all()
     branches = Branch.objects.all()
     title = u'词墨'
-    pictures =  os.listdir(CALLIGRAPHYS)[:16]
+    pictures = os.listdir(CALLIGRAPHYS)[:16]
     return render_to_response('calligraphy/calligraphy.html', locals())
 
 def show(request):
@@ -41,7 +41,7 @@ def ajax(request):
         index = int(request.GET['index'])
         if (not index):
             return
-        pictures =  os.listdir(CALLIGRAPHYS)[index: index+4]
+        pictures = os.listdir(CALLIGRAPHYS)[index: index + 4]
         return render_to_response('calligraphy/ajax-loadmore.html', locals())
     else:
         return HttpResponse('')

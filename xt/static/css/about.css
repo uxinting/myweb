@@ -1,3 +1,6 @@
+body {
+	overflow: hidden;
+}
 .about-container {
 	width: 100%;
 	min-width: 1200px;
@@ -16,9 +19,9 @@
 	position: relative;
 	width: 320px;
 	height: 100%;
+	margin-left: 0px;
+	left: 0;
 	float: left;
-	margin-left: -10px;
-	padding-left: 20px;	
 }
 
 .about-trigger {
@@ -52,17 +55,18 @@
 }
 
 .logo {
-	margin-top: 80px;
+	margin-top: 10%;
 }
 
 .self-info {
 	clear: both;
-	padding-top: 80px;
+	height: 100%;
+	padding-top: 10%;
 }
 
 .self-contact {
 	position: absolute;
-	bottom: 40px;
+	top: 70%;
 }
 
 ul li {

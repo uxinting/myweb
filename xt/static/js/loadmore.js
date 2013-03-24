@@ -26,7 +26,7 @@ function getData() {
 		var doc = xHRObject.responseText;
 		
 		if (doc == '') {
-			alert('æ²¡æœ‰äº†')
+			alert("Ã»ÓÐÁË")
 			return
 		}
 		

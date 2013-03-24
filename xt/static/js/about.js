@@ -3,18 +3,19 @@ function moveList(direct, targetId) {
 	var target = document.getElementById(targetId)
 	var w = target.offsetWidth
 	var offset = target.offsetLeft
+	target.style.marginLeft
 
-	//target.style.position = 'absolute'
 	if (direct == 'hide') {
 		if (parseInt(offset) + parseInt(w) <= 20)
 			clearInterval(moveJobId)
 		else 
-			target.style.left = (parseInt(offset) - 6) + 'px'
+			target.style.left = (parseInt(offset) - 10) + 'px'
+			//target.style.marginLeft = (parseInt(offset) - 6) + 'px'
 	} else {
 		if (parseInt(offset) >= 0)
 			clearInterval(moveJobId)
 		else 
-			target.style.left = (parseInt(offset) + 6) + 'px'
+			target.style.left = (parseInt(offset) + 10) + 'px'
 	}
 }
 
