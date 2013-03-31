@@ -1,7 +1,9 @@
-{% for pic in pictures %}
-<li>
-	<a href="show?pic={{ pic }}">
-		<img src="/static/calligraphys/{{ pic }}"/>
-	</a>
-</li>
-{% endfor %}
+<ul class="grid-row">
+	{% for pic in pictures %}
+	<li>
+		<a href="show?pic={{ pic }}">
+			<img src="/static/calligraphys/{{ pic }}"/>
+		</a>
+	</li>
+	{% endfor %}
+</ul>

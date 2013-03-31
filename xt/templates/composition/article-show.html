@@ -14,7 +14,7 @@
 			<div class="linknav">
 				<div class="prev-next" >
 					<h1>
-						<a class="article-home" href="/compositions">文章</a>
+						<a class="article-home" href="/compositions">Article</a>
 					</h1>
 					<a href="/compositions/show/{{ prev }}">< prev</a>
 					<a href="/compositions/show/{{ nxt }}">next ></a>
@@ -23,7 +23,7 @@
 		</div>
 		<div id="article">
 			<div id="article-left">
-				<div id="article-list-trigger" title="列表"></div>
+				<div id="article-list-trigger" title="list"></div>
 				<div id="article-list">
 					<ul>
 						{% for name in names %}
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			<div id="article-right">
-				<div id="article-common-trigger" title="评论"></div>
+				<div id="article-common-trigger" title="common"></div>
 				<div id="article-common"></div>
 			</div> 
 			<div class="article-context">
@@ -64,6 +64,7 @@
 			</div>
 		</div>
 		
-		<script src="/static/js/move.js"></script>
+		<script src="/static/js/jquery.js"></script>
+		<script src="/static/js/article-show.js"></script>
 	</body>
 </html>
