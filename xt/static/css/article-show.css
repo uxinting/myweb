@@ -69,6 +69,7 @@ h1 > a:visited {
 	width: auto;
 	height: 100%;
 	background-color: #cccccc;
+	box-shadow: 2px 0px 2px #888888;
 }
 
 #article-list {
@@ -93,6 +94,7 @@ h1 > a:visited {
 	width: auto;
 	height: 100%;
 	background-color: #cccccc;
+	box-shadow: -2px 0px 2px #888888;
 }
 
 #article-common {

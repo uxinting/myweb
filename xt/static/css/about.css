@@ -34,6 +34,10 @@ body {
 	background-color: white;
 }
 
+.about-trigger:hover {
+	cursor: pointer;
+}
+
 #icon-left {
 	display: block;
 	margin-top: 10px;

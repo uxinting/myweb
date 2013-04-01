@@ -4,24 +4,24 @@
 		<title>{{ title }}</title>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 		<link rel="stylesheet" href="/static/css/base.css"/>
+		<link rel="stylesheet" href="/static/css/logindialog.css"/>
 		<link rel="shortcut icon" href="/static/img/favicon.ico">
-		<bgsound src="/static/musics/Kiss The Rain.mp3" loop="-1"></bgsound>
 		{% block stylesheet %}{% endblock %}
 	</head>
 	<body>
 		<div class="header">
 			<div class="header-container">
 				<div class="logo">
-					<img src="/static/img/logo.png">
+					<img src="/static/img/logo3.png">
 				</div>
 				<div class="nav">
 					<div class="iconnav">
 						<ul class="iconmenu">
 							<li>
-								<a href="" id="icon-msg"></a>
+								<a href="javascript:;" id="icon-msg"></a>
 							</li>
 							<li>
-								<a href="" id="icon-user"></a>
+								<a href="javascript:;" id="icon-user"></a>
 							</li><!---->
 						</ul>
 					</div>
@@ -60,7 +60,9 @@
 			</div>
 		</div>
 		
+		{% include 'logindialog.html' %}
 		<script src="/static/js/jquery.js"></script>
+		<script src="/static/js/base.js"></script>
 		{% block script %}{% endblock %}
 	</body>
 </html>
