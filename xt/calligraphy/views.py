@@ -8,11 +8,11 @@ from xt import settings
 CALLIGRAPHYS = os.path.join(settings.MEDIA_ROOT, 'calligraphys')
 
 def contents(request):
-    summary = u'常有心于词墨'
     currentpage = 3
     config = Config.objects.all()
     branches = Branch.objects.all()
-    title = u'词墨'
+    title = branches.get(id=currentpage).name
+    summary = branches.get(id=currentpage).summary
     pictures = os.listdir(CALLIGRAPHYS)[:16]
     return render_to_response('calligraphy/calligraphy.html', locals())
 

@@ -6,11 +6,11 @@ from django.http.response import HttpResponse
 import os
 
 def tools(request):
-    title = u'以用'
-    summary = u'以利器善公之事'
     branches = Branch.objects.all()
     config = Config.objects.all()
     currentpage = 4
+    title = branches.get(id=currentpage).name
+    summary = branches.get(id=currentpage).summary
     return render_to_response('tool/tools.html', locals())
 
 def upload(request):

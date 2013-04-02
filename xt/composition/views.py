@@ -7,13 +7,13 @@ from xt import settings
 COMPOSITIONS = os.path.join(settings.MEDIA_ROOT, 'compositions')
 
 def contents(request):
-    summary = u'闻道有先后，得而录之'
     contents = os.listdir(COMPOSITIONS)
     # user = request.user
     currentpage = 2;
     branches = Branch.objects.all()
     config = Config.objects.get(id=1)
-    title = u'识文'
+    title = branches.get(id=currentpage).name
+    summary = branches.get(id=currentpage).summary
     return render_to_response('composition/article.html', locals())
 
 def show(request, index):

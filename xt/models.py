@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class Branch(models.Model):
     name = models.CharField(max_length=30)
+    summary = models.CharField(max_length=64)
     responsehtml = models.CharField(max_length=16)
     
     def __unicode__(self):
