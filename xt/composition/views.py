@@ -8,7 +8,7 @@ COMPOSITIONS = os.path.join(settings.MEDIA_ROOT, 'compositions')
 
 def contents(request):
     contents = os.listdir(COMPOSITIONS)
-    # user = request.user
+    user = request.user
     currentpage = 2;
     branches = Branch.objects.all()
     config = Config.objects.get(id=1)

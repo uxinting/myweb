@@ -6,6 +6,7 @@ from httplib import HTTPResponse
 from django.contrib.auth.forms import UserCreationForm
 from xt.models import UserProfile
 from xt.models import Branch, Config
+from xt import settings
 
 def welcome(request):
     branches = Branch.objects.all()
@@ -27,6 +28,12 @@ def login(request):
         try:
             username = request.POST['username']
             password = request.POST['password']
+            
+            if (request.POST.get('remeber-me', '') == 'on'):
+                settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+            else:
+                settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+            
             user = auth.authenticate(username=username, password=password)
             if user is not None and user.is_active:
                 auth.login(request, user)
@@ -34,9 +41,10 @@ def login(request):
             else:
                 return render_to_response('xt/login.html', locals())
         except:
-            pass
-
-    return render_to_response('xt/login.html', locals())
+           return HttpResponse('exception ' + request.POST)
+    else:
+        return HttpResponse(request.method)
+#    return render_to_response('xt/login.html', locals())
 
 def register(request):
     title = u'зЂВс'
@@ -69,3 +77,15 @@ def register(request):
         pass
         
     return render_to_response('xt/register.html')
+
+def message(request):
+    if (request.method == 'POST'):
+        subject = request.POST.get('subject', '')
+        contents = request.POST.get('contents', '')
+        
+        if (not subject or not contents):
+            return HttpResponseRedirect(request.path)
+        
+        return render_to_response('xt/message.html', locals())
+    else:
+        return HttpResponseRedirect(request.path)

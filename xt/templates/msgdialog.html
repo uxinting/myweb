@@ -1,6 +1,6 @@
 <div id="fade">
 </div>
-<form id="dialog" action="/login/" method="POST">
+<form id="dialog" action="/message/" method="POST">
 	<div class="modalhead">
 		<h3>
 			<a id="icon-close"></a>
@@ -9,18 +9,17 @@
 	<div class="modalcontent">
 		<p> 
 			<div class="modallabel">
-				name:
+				subject:
 			</div>
-			<input type="text" name="username"/>
+			<input type="text" name="subject"/>
 		</p>
 		<p>
 			<div class="modallabel">
-				password:
+				your words:
 			</div>
-			<input type="password" name="password"/>
+			<textarea rows="20" name="contents"></textarea>
 		</p>
 	</div>
-	<input type="checkbox" name="remeber-me">remeber me</input>
 	<div class="modalfooter">
 		<input type="submit" id="btnsubmit" value="Go"></input>
 	</div>

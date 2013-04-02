@@ -9,6 +9,7 @@ def tools(request):
     branches = Branch.objects.all()
     config = Config.objects.all()
     currentpage = 4
+    user = request.user
     title = branches.get(id=currentpage).name
     summary = branches.get(id=currentpage).summary
     return render_to_response('tool/tools.html', locals())

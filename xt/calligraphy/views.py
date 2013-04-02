@@ -9,6 +9,7 @@ CALLIGRAPHYS = os.path.join(settings.MEDIA_ROOT, 'calligraphys')
 
 def contents(request):
     currentpage = 3
+    user = request.user
     config = Config.objects.all()
     branches = Branch.objects.all()
     title = branches.get(id=currentpage).name

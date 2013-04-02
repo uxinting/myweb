@@ -4,11 +4,17 @@
 		<title>{{ title }}</title>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 		<link rel="stylesheet" href="/static/css/base.css"/>
-		<link rel="stylesheet" href="/static/css/logindialog.css"/>
+		<link rel="stylesheet" href="/static/css/dialog.css"/>
 		<link rel="shortcut icon" href="/static/img/favicon.ico">
 		{% block stylesheet %}{% endblock %}
 	</head>
 	<body>
+		{% if user.is_authenticated %}
+			{% include 'configdialog.html' %}
+			{% include 'msgdialog.html' %}
+		{% else %}
+			{% include 'logindialog.html' %}
+		{% endif %}
 		<div class="header">
 			<div class="header-container">
 				<div class="logo">
@@ -17,12 +23,21 @@
 				<div class="nav">
 					<div class="iconnav">
 						<ul class="iconmenu">
-							<li>
-								<a href="javascript:;" id="icon-msg"></a>
-							</li>
-							<li>
-								<a href="javascript:;" id="icon-user"></a>
-							</li><!---->
+							{% if user.is_authenticated %}
+								<li>
+									<a href="javascript:;" id="icon-msg"></a>
+								</li>
+								<li>
+									<a href="javascript:;" id="icon-config"></a>
+								</li>
+								<li>
+									<p style="display: block; padding: 0; margin: 0; font-size: 14px;">{{ user.username }}</p>
+								</li>
+							{% else %}
+								<li>
+									<a href="javascript:;" id="icon-user"></a>
+								</li>
+							{% endif %}
 						</ul>
 					</div>
 					<div class="linknav">
@@ -60,7 +75,6 @@
 			</div>
 		</div>
 		
-		{% include 'logindialog.html' %}
 		<script src="/static/js/jquery.js"></script>
 		<script src="/static/js/base.js"></script>
 		{% block script %}{% endblock %}

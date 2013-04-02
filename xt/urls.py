@@ -10,6 +10,7 @@ urlpatterns = patterns('xt.views',
                        url(r'^login/$', 'login'),
                        url(r'^logout/$', 'logout'),
                        url(r'^register/$', 'register'),
+                       url(r'^message/$', 'message'),
                        (r'^compositions/', include('xt.composition.urls')),
                        (r'^calligraphys/', include('xt.calligraphy.urls')),
                        (r'^about/', include('xt.about.urls')),
@@ -34,4 +35,5 @@ staticurlpatterns = patterns('',
                              )
 
 urlpatterns += mediaurlpatterns
+urlpatterns += staticurlpatterns
 

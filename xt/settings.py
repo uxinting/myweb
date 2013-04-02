@@ -4,7 +4,7 @@ import os
 DEFAULT_CHARSET = 'utf-8'
 FILE_CHARSET = 'gb18030'
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -12,6 +12,9 @@ ADMINS = (
 )
 
 AUTH_PROFILE_MODULE = 'xt.userprofile'
+ALLOWED_HOSTS = '*'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 MANAGERS = ADMINS
 

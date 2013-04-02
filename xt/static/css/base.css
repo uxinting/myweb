@@ -73,7 +73,16 @@ body {
 	display: inline-block;
 	line-height: 30px;
 	margin-right: 15px;
+	padding: 0;
 }
+
+.iconmenu p {
+	display: block;
+	padding: 0;
+	margin: 0;
+	font-size: 14px;
+	color: rgb(129, 129, 129);
+} 
 
 #icon-msg {
 	display: block;
@@ -88,8 +97,22 @@ body {
 	background-image: url('../img/glyphicons-halflings.png');
 }
 
+#icon-config {
+	display: block;
+	margin-top: 10px;
+	width: 14px;
+	height: 14px;
+	background-image: url('../img/glyphicons-halflings-gray.png');
+	background-position: -264px 0px;
+}
+
+#icon-config:hover {
+	background-image: url('../img/glyphicons-halflings.png');
+}
+
 #icon-user {
 	display: block;
+	margin-top: 10px;
 	width: 14px;
 	height: 14px;
 	background-image: url('../img/glyphicons-halflings-gray.png');
