@@ -11,8 +11,8 @@ def welcome(request):
     branches = Branch.objects.all()
     currentpage = 1;
     config = Config.objects.get(id=1)
-    title = u'欢迎'
-    summary = u'萍水相逢   步步珍惜'
+    title = u'初面'
+    summary = u'萍水相逢 步步珍惜'
     user = request.user
     return render_to_response('xt/welcome.html', locals())
 

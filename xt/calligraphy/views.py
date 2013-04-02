@@ -3,8 +3,9 @@ from django.shortcuts import render_to_response
 from xt.models import Config, Branch
 import os
 from django.http import HttpResponse
+from xt import settings
 
-CALLIGRAPHYS = 'xt/static/calligraphys'
+CALLIGRAPHYS = os.path.join(settings.MEDIA_ROOT, 'calligraphys')
 
 def contents(request):
     summary = u'常有心于词墨'

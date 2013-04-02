@@ -2,8 +2,9 @@
 from django.shortcuts import render_to_response
 from xt.models import Branch, Config
 import os
+from xt import settings
 
-COMPOSITIONS = os.path.join(os.path.dirname(__file__), 'compositions')
+COMPOSITIONS = os.path.join(settings.MEDIA_ROOT, 'compositions')
 
 def contents(request):
     summary = u'闻道有先后，得而录之'
@@ -12,12 +13,12 @@ def contents(request):
     currentpage = 2;
     branches = Branch.objects.all()
     config = Config.objects.get(id=1)
-    title = u'闻道'
+    title = u'识文'
     return render_to_response('composition/article.html', locals())
 
 def show(request, index):
     # user = request.user
-    title = u'闻道'
+    title = u'识文'
     names = os.listdir(COMPOSITIONS)
     filename = names[int(index) - 1]
     filepath = os.path.join(COMPOSITIONS, filename)
