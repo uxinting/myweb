@@ -22,7 +22,7 @@ class UserProfile(models.Model):
     
     major = models.CharField(max_length=255)
     favor = models.CharField(max_length=255)
-    law = models.TextField()
+    maxim = models.TextField()
     personal = models.CharField(max_length=255)
     
     def __unicode__(self):
