@@ -61,6 +61,14 @@
 	border-top: 1px rgb(151, 151,151) solid;
 }
 
+.modalfooter a {
+	margin-left: 10px;
+}
+
+.modalfooter a:hover {
+	color: rgb(126, 126, 146);
+}
+
 #btnsubmit {
 	width: 80px;
 	height: 30px;
