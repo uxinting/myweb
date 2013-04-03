@@ -4,15 +4,22 @@ import os
 DEFAULT_CHARSET = 'utf-8'
 FILE_CHARSET = 'gb18030'
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('xinting', 'wu.xinting@hotmail.com'),
 )
 
 AUTH_PROFILE_MODULE = 'xt.userprofile'
+
 ALLOWED_HOSTS = '*'
+
+EMAIL_HOST = 'smtp.126.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'wuxintingaoyun@126.com'
+SERVER_EMAIL = 'wuxintingaoyun@126.com'
+EMAIL_HOST_PASSWORD = 'wuxinting@#$89'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 

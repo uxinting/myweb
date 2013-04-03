@@ -1,0 +1,79 @@
+.login-container {
+	width: 600px;
+	border-radius: 7px;
+	border: 1px rgb(226, 226, 226) solid;
+	margin: 100px auto;
+}
+
+.login-head {
+	width: 100%;
+	height: 40px;
+	position: relative;
+	font-size: 30px;
+	font-family: Garamond, serif 'Lucida Console';
+	color: rgb(251, 251, 251);
+	background-color: rgb(174, 167, 159);
+	border-radius: 7px 7px 0 0;
+}
+
+.login-head-title {
+	position: absolute;
+	bottom: 0;
+	left: 5px;
+}
+
+.login-head img {
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	top: 0;
+	left: 110px;
+}
+
+#icon-close {
+	margin-top: 15px;
+	margin-right: 10px;
+}
+
+.login-content {
+	width: 70%;
+	margin: 0 auto;
+	color: rgb(126, 126, 126);
+}
+
+.login-label {
+	margin: 5px 0;
+}
+
+.login-content input {
+	width: 100%;
+	height: 22px;
+	border: 1px rgb(174, 167, 159) solid;
+	padding: 0 5px;
+}
+
+
+.login-footer {
+	width: 70%;
+	margin: 15px auto;
+	padding: 0;
+}
+
+#btnsubmit {
+	width: 80px;
+	height: 30px;
+	border: none;
+	border-radius: 8px;
+}
+
+#btnsubmit:hover {
+	background: rgb(0, 210, 0);
+}
+
+.login-footer a {
+	margin-left: 10px;
+}
+
+.login-footer a:hover {
+	color: rgb(126, 126, 146);
+}

@@ -33,21 +33,6 @@
 	height: 100px;
 }
 
-#icon-close {
-	display: block;
-	float: right;
-	font-size: 14px;
-	width: 14px;
-	height: 15px;
-	background-image: url('/static/img/glyphicons-halflings-white.png');
-	background-position: -312px 0px;
-}
-
-#icon-close:hover {
-	cursor: pointer;
-	background-color: gray;
-}
-
 .modalcontent {
 	display: block;
 }

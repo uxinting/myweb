@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from xt.models import UserProfile
 from xt.models import Branch, Config
 from xt import settings
+from django.core.mail import mail_admins, send_mail
 
 def welcome(request):
     branches = Branch.objects.all()
@@ -81,10 +82,15 @@ def register(request):
 def message(request):
     if (request.method == 'POST'):
         subject = request.POST.get('subject', '')
-        contents = request.POST.get('contents', '')
+        message = request.POST.get('message', '')
         
-        if (not subject or not contents):
+        if (not subject or not message):
             return HttpResponseRedirect(request.path)
+        
+        try:
+            mail_admins(subject, message)
+        except:
+           pass
         
         return render_to_response('xt/message.html', locals())
     else:
