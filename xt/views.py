@@ -48,29 +48,28 @@ def login(request):
 def register(request):
     title = u'³õ»á'
     if request.method == 'POST':
-#        try:
-        username = request.POST['username']
-        email = request.POST['e-mail']
-        password = request.POST['password']
-        
-        last_name = request.POST.get('nickname', '')
-        major = request.POST.get('major', '')
-        favor = request.POST.get('favor', '')
-        maxim = request.POST.get('maxim', '')
-        
-        user = auth.models.User.objects.create_user(username, email, password)
-        if user is not None:
-            user.last_name = last_name
-            user.save()
-        
-        userprofile = UserProfile.objects.create(user=user, major=major,favor=favor, maxim=maxim)
-        if not userprofile:
-            userprofile.save()
-        
-        auth.login(request, user)
-        return HttpResponseRedirect('/')
-#        except:
-#            pass
+        try:
+            username = request.POST['username']
+            email = request.POST['e-mail']
+            password = request.POST['password']
+            
+            last_name = request.POST.get('nickname', '')
+            major = request.POST.get('major', '')
+            favor = request.POST.get('favor', '')
+            maxim = request.POST.get('maxim', '')
+            
+            user = auth.models.User.objects.create_user(username, email, password)
+            if user is not None:
+                user.last_name = last_name
+                user.save()
+            
+            userprofile = UserProfile.objects.create(user=user, major=major,favor=favor, maxim=maxim)
+            if not userprofile:
+                userprofile.save()
+            
+            return HttpResponseRedirect('/')
+        except:
+            pass
     else:
         return render_to_response('xt/register.html')
 

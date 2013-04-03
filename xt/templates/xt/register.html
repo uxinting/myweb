@@ -15,44 +15,49 @@
 				<a href="/" id="icon-close"></a>
 			</div>
 			<div class="login-content">
-				<p>
-					<div class="login-label">username</div>
+				
+					<div class="login-label">username
+						<div class="error-info">*</div>
+					</div>
 					<input type="text" name="username">
-				</p>
-		
-				<p>
-					<div class="login-label">password</div>
+				
+					<div class="login-label">password
+						<div class="error-info">*</div>
+					</div>
 					<input type="password" name="password">
-				</p>
-		
-				<p>
-					<div class="login-label">nick name</div>
+				
+					<div class="login-label">nick name
+						<div class="error-info">*</div>
+					</div>
 					<input type="text" name="nickname">
-				</p>
-		
-				<p>
-					<div class="login-label">e-mail</div>
+				
+					<div class="login-label">e-mail
+						<div class="error-info">*</div>
+					</div>
 					<input type="text" name="e-mail">
-				</p>
-		
-				<p>
-					<div class="login-label">major</div>
-					<input type="text" name="major">
-				</p>
-		
-				<p>
-					<div class="login-label">favor</div>
-					<input type="text" name="favor">
-				</p>
-		
-				<p>
-					<div class="login-label">maxim</div>
-					<input type="text" name="maxim">
-				</p>
+					
+					<div id="separator"></div>
+					<div id="user-profile">
+						<div class="login-label">major</div>
+						<input type="text" name="major">
+					
+						<div class="login-label">favor</div>
+						<input type="text" name="favor">
+					
+						<div class="login-label">maxim</div>
+						<input type="text" name="maxim">
+					</div>
 			</div>
 			<div class="login-footer">
 				<input type="submit" id="btnsubmit" value="Go">
 			</div>
 		</form>
+		
+		<script src="/static/js/jquery.js"></script>
+		<script>
+			$('#separator').click(function() {
+				$('#user-profile').slideToggle('slow');
+			});
+		</script>
 	</body>
 </html>

@@ -42,16 +42,45 @@
 }
 
 .login-label {
-	margin: 5px 0;
+	margin: 20px 0 5px 0;
+	display: block;
+	position: relative;
 }
 
 .login-content input {
 	width: 100%;
 	height: 22px;
 	border: 1px rgb(174, 167, 159) solid;
-	padding: 0 5px;
+	text-indent: 5px;
 }
 
+.error-info {
+	color: red;
+	text-align: right;
+	position: absolute;
+	display: inline-block;
+	right: 5px;
+	top: 28px;
+}
+
+#separator {
+	width: 120%;
+	height: 5px;
+	margin-top: 20px;
+	margin-left: -10%;
+	border-style: solid;
+	border-width: 2px 0 0 0;
+	border-color: rgb(174, 167, 159);
+}
+
+#separator:hover {
+	cursor: pointer;
+	border-width: 5px 0 0 0;
+}
+
+#user-profile {
+	display: none;
+}
 
 .login-footer {
 	width: 70%;
