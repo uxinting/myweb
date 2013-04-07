@@ -1,0 +1,70 @@
+.tool-form {
+	width: 940px;
+	height: 150px;
+	margin: 10px auto;
+	font-size: 16px;
+	text-align: left;
+	border: 1px rgb(226, 226, 226) solid;
+	border-radius: 5px;
+	box-shadow: 1px 1px 2px #888888;
+}
+
+.form-head {
+	margin: 10px;
+	color: rgb(126, 126, 126);
+}
+
+.form-content {
+	margin: 10px;
+}
+
+.file {
+	width: 100%;
+	padding: 0;
+}
+
+.option {
+	margin: 10px 0 0 0;
+}
+
+.form-footer {
+	width: 100%;
+	text-align: right;
+}
+
+#filename {
+	display: inline-block;
+	width: 79%;
+	margin: 0;
+}
+
+#file {
+	display: inline-block; 
+	width: 19%;
+	line-height: 25px;
+	position:relative; 
+	top: 7px;
+	text-align: center;
+	color: rgb(159, 159, 159);
+	border-radius: 5px;
+	background: rgb(231, 231, 231);
+	overflow:hidden;
+}
+
+#file:hover {
+	color: rgb(50, 50, 50);
+	background-color: #99ccff;
+	cursor: pointer;
+}
+
+#file > input{
+	position:absolute; 
+	right:0; 
+	top:0; 
+	font-size:100px; 
+	opacity: 0;
+}
+
+#btnsubmit {
+	margin-right: 15px;
+}

@@ -30,16 +30,15 @@
 	height: 100%;
 	position: relative;
 	display: block;
+	overflow: hidden;
 }
 
 .grid-row li img {
 	display: block;
-	position: absolute;
 	top: 0px;
 	max-width: 100%;
 	max-height: 100%;
 	margin: 0 auto;
-	vertical-align: middle;
 }
 
 .btn {

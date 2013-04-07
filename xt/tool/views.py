@@ -4,6 +4,7 @@ from xt.models import Branch, Config
 from django.conf import settings
 from django.http.response import HttpResponse
 import os
+from util import ReceiveFile
 
 def tools(request):
     branches = Branch.objects.all()
@@ -14,25 +15,21 @@ def tools(request):
     summary = branches.get(id=currentpage).summary
     return render_to_response('tool/tools.html', locals())
 
+def picture(request):
+    try:
+        if request.method == "POST":
+            ReceiveFile.RemoteFile2(request, 'file', 'picture').receive()
+            return HttpResponse('ok')
+        return HttpResponse('not post')
+    except Exception, e:
+        return HttpResponse(e)
+
 def upload(request):
     try:
         if request.method == 'POST':
-            file = request.FILES.get('file', '')
-            filename = file.name
+            file = ReceiveFile.RemoteFile(request).receive()
             
-            fname = os.path.join(settings.MEDIA_ROOT, 'file/', filename)
-            if os.path.exists(fname):
-                os.remove(fname)
-            dirs = os.path.dirname(fname)
-            if not os.path.exists(dirs):
-                os.makedirs(dirs)
-                
-            fp = open(fname, 'wb')
-            for content in file.chunks():
-                fp.write(content)
-            fp.close()
-            
-            return HttpResponse('ok' + filename + ' ' + fname)
+            return HttpResponse('ok' + file)
         return HttpResponse('not post')
     except Exception, e:
         return HttpResponse(e)

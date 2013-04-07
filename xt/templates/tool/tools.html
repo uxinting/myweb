@@ -1,10 +1,40 @@
 {% extends 'base.html' %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="/static/css/tool.css"/>
+{% endblock %}
+
 {% block content %}
 <div class="content">
-	<form class="tool" enctype="multipart/form-data" method="POST" action="upload/">
-		<input type="file" name="file">
-		<input type="submit" value="upload">
+	<form class="tool-form" action="picture/" method="post" enctype="multipart/form-data">
+		<div class="form-head">
+			Picture
+		</div>
+		<div class="form-content">
+			<div class="file">
+				<input type="text" readonly="readonly" id="filename" name="filename"/>
+				<div id="file">
+					<input type="file" accept="image/*" name="file"/>
+					browser
+				</div>
+			</div>
+			<div class="option">
+				<select name="position">
+					<option>top-left</option>
+					<option>top-right</option>
+					<option>bottom-left</option>
+					<option>bottom-right</option>
+				</select>
+				<input type="text" name="label">
+			</div>
+		</div>
+		<div class="form-footer">
+			<input type="submit" id="btnsubmit" value="Go">
+		</div>
 	</form>
 </div>
+{% endblock %}
+
+{% block script %}
+<script src="/static/js/tool.js"></script>
 {% endblock %}

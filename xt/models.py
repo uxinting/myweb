@@ -27,3 +27,20 @@ class UserProfile(models.Model):
     
     def __unicode__(self):
         return u'用户信息'
+    
+class Calligraphy(models.Model):
+    filename = models.CharField(max_length=128)
+    description = models.TextField()
+    date = models.DateTimeField()
+    author = models.ForeignKey(User)
+    
+    def __unicode__(self):
+        return self.filename
+    
+class Composition(models.Model):
+    filename = models.CharField(max_length=128)
+    date = models.DateTimeField()
+    author = models.ForeignKey(User)
+    
+    def __unicode__(self):
+        return self.filename

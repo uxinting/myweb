@@ -6,11 +6,7 @@ function middle() {
 	$('img').each(function() {
 		var height = $(this).parent().height();
 		var offsetTop = (height - $(this).height()) / 2;
-		$(this).css('top', offsetTop + 'px');
-		if ($(this).width() < $(this).height()) {
-			var offsetLeft = ($(this).parent().width() - $(this).width()) / 2;
-			$(this).css('left', offsetLeft + 'px');
-		}
+		$(this).css('marginTop', offsetTop + 'px');
 	});
 }
 
@@ -26,5 +22,7 @@ function loadMore() {
 		} else {
 			alert('Sorry, Service Error');
 		}
+		
+		middle();
 	});
 }

@@ -17,14 +17,14 @@
 				</div>
 				<div class="self-info">
 					<ul>
-						<li>{{ name }}</li>
+						<li>{{ me.last_name }}</li>
 						<li>{{ age }}</li>
-						<li>{{ university }}</li>
+						<li>{{ profile.major }}</li>
 					</ul>
 				</div>
 				<div class="self-contact">
 					<ul>
-						<li><a href="mailto:wuxintingaoyun@126.com">E-mail</a></li>
+						<li><a href="mailto:{{ me.email }}">E-mail</a></li>
 						<li>450589847</li>
 					</ul>
 				</div>
