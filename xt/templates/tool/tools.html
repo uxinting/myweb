@@ -6,14 +6,14 @@
 
 {% block content %}
 <div class="content">
-	<form class="tool-form" action="picture/" method="post" enctype="multipart/form-data">
+	<form class="tool-form" id="picture-form" action="picture/" method="post" enctype="multipart/form-data">
 		<div class="form-head">
 			Picture
 		</div>
 		<div class="form-content">
 			<div class="file">
-				<input type="text" readonly="readonly" id="filename" name="filename"/>
-				<div id="file">
+				<input type="text" readonly="readonly" class="filename" id="picture-filename" name="filename"/>
+				<div id="picture-file" class="btnfile">
 					<input type="file" accept="image/*" name="file"/>
 					browser
 				</div>
@@ -29,7 +29,64 @@
 			</div>
 		</div>
 		<div class="form-footer">
-			<input type="submit" id="btnsubmit" value="Go">
+			<a type="button" class="download" id="picture-download" disabled="disabled">{{ dl_picture }}</a>
+			<input type="submit" class="btnsubmit" id="picture-submit" value="Go">
+		</div>
+	</form>
+	
+	<form class="tool-form" id="word-form" action="word/" method="post" enctype="multipart/form-data">
+		<div class="form-head">
+			Word
+		</div>
+		<div class="form-content">
+			<div class="file">
+				<input type="text" readonly="readonly" class="filename" id="word-filename" name="filename"/>
+				<div id="word-file" class="btnfile">
+					<input type="file" accept="image/*" name="file"/>
+					browser
+				</div>
+			</div>
+			<div class="option">
+				<select name="position">
+					<option>top-left</option>
+					<option>top-right</option>
+					<option>bottom-left</option>
+					<option>bottom-right</option>
+				</select>
+				<input type="text" name="label">
+			</div>
+		</div>
+		<div class="form-footer">
+			<a type="button" class="download" id="word-download" disabled="disabled">{{ dl_word }}</a>
+			<input type="submit" class="btnsubmit" id="word-submit" value="Go">
+		</div>
+	</form>
+	
+	<form class="tool-form" id="audio-form" action="audio/" method="post" enctype="multipart/form-data">
+		<div class="form-head">
+			Audio
+		</div>
+		<div class="form-content">
+			<div class="file">
+				<input type="text" readonly="readonly" class="filename" id="audio-filename" name="filename"/>
+				<div id="audio-file" class="btnfile">
+					<input type="file" accept="image/*" name="file"/>
+					browser
+				</div>
+			</div>
+			<div class="option">
+				<select name="position">
+					<option>top-left</option>
+					<option>top-right</option>
+					<option>bottom-left</option>
+					<option>bottom-right</option>
+				</select>
+				<input type="text" name="label">
+			</div>
+		</div>
+		<div class="form-footer">
+			<a type="button" class="download" id="audio-download" disabled="disabled">{{ dl_audio }}</a>
+			<input type="submit" class="btnsubmit" id="audio-submit" value="Go">
 		</div>
 	</form>
 </div>

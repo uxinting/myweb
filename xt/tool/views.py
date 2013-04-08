@@ -1,10 +1,10 @@
 # _*_ coding: gb2312 _*_
 from django.shortcuts import render_to_response
 from xt.models import Branch, Config
-from django.conf import settings
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseRedirect
 import os
 from util import ReceiveFile
+from xt import settings
 
 def tools(request):
     branches = Branch.objects.all()
@@ -13,13 +13,27 @@ def tools(request):
     user = request.user
     title = branches.get(id=currentpage).name
     summary = branches.get(id=currentpage).summary
+    
+    dl_picture = request.session.get('picture', '')
+    dl_audio = request.session.get('audio', '')
+    dl_word = request.session.get('word', '')
+    
+    if dl_picture:
+        dl_picture = 'Processing..'
+        
+    if dl_audio:
+        dl_audio = 'Processing..'
+        
+    if dl_word:
+        dl_word = 'Processing..'
     return render_to_response('tool/tools.html', locals())
 
 def picture(request):
     try:
         if request.method == "POST":
             ReceiveFile.RemoteFile2(request, 'file', 'picture').receive()
-            return HttpResponse('ok')
+            request.session['picture'] = request.POST['filename']
+            return HttpResponseRedirect('/tools')
         return HttpResponse('not post')
     except Exception, e:
         return HttpResponse(e)
@@ -33,3 +47,19 @@ def upload(request):
         return HttpResponse('not post')
     except Exception, e:
         return HttpResponse(e)
+    
+def ajax(request):
+    try:
+        if request.method == 'GET':
+            type = request.GET['type']
+            file = request.session.get(type, 'none')
+            path = os.path.join(settings.MEDIA_ROOT, 'file/' + file + '.jpg')
+            if file:
+                if os.path.isfile(path):
+                    return HttpResponse('/media/file/' + file + '.jpg')
+                else:
+                    return HttpResponse('')
+            else:
+                return HttpResponse('')
+    except:
+        pass

@@ -69,15 +69,15 @@
 	color: rgb(126, 126, 146);
 }
 
-#btnsubmit {
+.btnsubmit {
 	width: 80px;
 	height: 30px;
 	border: none;
 	border-radius: 8px;
-	background-repeat: no-repeat;
 }
 
-#btnsubmit:hover {
+.btnsubmit:hover {
+	cursor: pointer;
 	background: rgb(0, 210, 0);
 }
 
