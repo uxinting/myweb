@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+		<title>{{ title }}</title>
+		
+		<link rel="shortcut icon" href="/static/img/favicon.ico"/>
+		<link rel="stylesheet" href="/static/SCEditor/minified/themes/default.min.css" type="text/css" media="all" />
+		<link rel="stylesheet" href="/static/css/base.css"/>
+		<link rel="stylesheet" href="/static/css/dialog.css"/>
+		<link rel="stylesheet" href="/static/css/article.css"/>
+		<link rel="stylesheet" href="/static/css/article-show.css"/>
+		<link rel="stylesheet" href="/static/css/article-create.css" />
+	</head>
+	<body class="container">
+		<div class="article-header">
+			<h5 class="article-about"><a href="/about">About</a></h5>
+			<div class="linknav">
+				<div class="prev-next" >
+					<h1>
+						<a class="article-home" href="/compositions">Article</a>
+					</h1>
+				</div>
+			</div>
+		</div>
+		<form action="" method="post" id="article">
+			<div>
+				<textarea name="bbcode_field"></textarea>
+			</div>
+
+			<div>
+				<label for="theme">Theme:</label>
+				<select id="theme">
+					<option value="default">Default</option>
+					<option value="modern">Modern</option>
+					<option value="office-toolbar">Office Toolbar</option>
+					<option value="office">Office</option>
+					<option value="square">Square</option>
+				</select>
+			</div>
+			<input type="submit" class="btnsubmit" value="Go">
+		</form>
+		
+		<script src="/static/js/jquery.js"></script>
+		<script src="/static/SCEditor/minified/jquery.sceditor.bbcode.min.js"></script>
+		<script src="/static/js/article-create.js"></script>
+	</body>
+</html>

@@ -24,4 +24,16 @@ $(document).ready(function() {
 			$('#article-right').animate({right: '0px'});
 		}
 	});
+	
+	var initEditor = function() {
+		$("textarea").sceditor({
+			plugins: 'bbcode',
+			emoticonsRoot: '/static/SCEditor/',
+			resizeEnabled: false,
+			readOnly: true,
+			style: "/static/SCEditor/minified/jquery.sceditor.default.min.css"
+		});
+	};
+	
+	initEditor();
 });

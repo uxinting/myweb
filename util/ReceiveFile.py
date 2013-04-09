@@ -40,6 +40,7 @@ class RemoteFile2:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect(('localhost', 8091))
         sock.send(pickle.dumps(info))
+        sock.close()
 
 class RemoteFile(threading.Thread):
     

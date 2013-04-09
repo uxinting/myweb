@@ -13,19 +13,8 @@ def tools(request):
     user = request.user
     title = branches.get(id=currentpage).name
     summary = branches.get(id=currentpage).summary
+    request.session.set_expiry(0)
     
-    dl_picture = request.session.get('picture', '')
-    dl_audio = request.session.get('audio', '')
-    dl_word = request.session.get('word', '')
-    
-    if dl_picture:
-        dl_picture = 'Processing..'
-        
-    if dl_audio:
-        dl_audio = 'Processing..'
-        
-    if dl_word:
-        dl_word = 'Processing..'
     return render_to_response('tool/tools.html', locals())
 
 def picture(request):
@@ -58,7 +47,7 @@ def ajax(request):
                 if os.path.isfile(path):
                     return HttpResponse('/media/file/' + file + '.jpg')
                 else:
-                    return HttpResponse('')
+                    return HttpResponse('process')
             else:
                 return HttpResponse('')
     except:

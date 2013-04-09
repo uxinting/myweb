@@ -22,14 +22,14 @@ def show(request, index):
     names = os.listdir(COMPOSITIONS)
     filename = names[int(index) - 1]
     filepath = os.path.join(COMPOSITIONS, filename)
-    datas = open(filepath).readlines()
+    datas = open(filepath).read()
     nxt = len(names) > int(index) and repr(int(index) + 1) or repr(int(index))
     prev = int(index) <= 1 and repr(int(index)) or repr(int(index) - 1)
     return render_to_response('composition/article-show.html', locals())
 
 def create (request):
-    user = request.user
-    branches = Branch.objects.all()
-    config = Config.objects.get(id=1)
-    title = u'闻道'
-    return render_to_response('composition/create.html', locals())
+    title = u'新文'
+    if request.method == 'POST':
+        pass
+    else:
+        return render_to_response('composition/article-create.html', locals())

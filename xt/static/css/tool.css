@@ -70,7 +70,7 @@
 }
 
 .download {
-	display: inline-block;
+	display: none;
 	width: 120px;
 	height: 30px;
 	margin: 0;
