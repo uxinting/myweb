@@ -5,7 +5,8 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('xinting.views',
-                       url('^$', 'welcome'),
+                       url(r'^$', 'welcome'),
+                       (r'^article', include('article.urls')),
     # Examples:
     # url(r'^$', 'xinting.views.home', name='home'),
     # url(r'^xinting/', include('xinting.foo.urls')),

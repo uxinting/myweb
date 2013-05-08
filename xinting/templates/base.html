@@ -10,11 +10,24 @@
 		{% block css %}{% endblock %}
 	</head>
 	<body>
-	{% block body %}{% endblock %}
+		<div class="row small-6">
+			<div class="row" id="topNav">
+				<ul class="breadcrumbs">
+					<li class="current"><a href="#">Home</a></li>
+					<li><a href="#">Article</a></li>
+					<li class="unavailable"><a href="#">Poem</a></li>
+					<li><a href="#">Calligraphy</a></li>
+					<li><a href="#">About</a></li>
+				</ul>
+			</div>
+			<div id="space"></div>
+		{% block body %}{% endblock %}
+		</div>
 	
 	<!-- Script -->
 	<script src="/static/js/jquery-1.9.1.js"></script>
 	<script src="/static/foundataion/js/foundation.min.js"></script>
+	<script src="/static/js/base.js"></script>
 	{% block script %}{% endblock %}
 	</body>
 </html>
