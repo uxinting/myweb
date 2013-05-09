@@ -1,7 +1,28 @@
 {% extends 'base.html' %}
 
-{% block 'body' %}
-<div class="row small-6">
+{% block css %}{% endblock %}
 
+{% block body %}
+<div class="row">
+	<div class="panel">
+		{% if all %}
+			<div style="width: 20px; height: 20px; background: gray; float: right;"></div>
+		{% endif %}
+		{% for article in articles %}
+		<div class="panel abstract">
+			<h4>{{ article.title }}</h4>
+			{% for content in article.contents %}
+			<p>{{ content }}</p>
+			{% endfor %}
+			{% if not all %}
+				...<a href="/article?title={{ article.title }}" class="push-11">more</a>
+			{% else %}
+				<div style="width: 20px; height: 20px; background: gray; float: right;"></div>
+			{% endif %}
+		</div>
+		{% endfor %}
+	</div>
 </div>
 {% endblock %}
+
+{% block script %}{% endblock %}

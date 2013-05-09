@@ -7,26 +7,25 @@
 		<!-- CSS -->
 		<link rel="stylesheet" href="/static/foundation/css/foundation.min.css" />
 		<link rel="stylesheet" href="/static/foundation/css/normalize.css" />
+		<link rel="stylesheet" href="/static/css/base.css" />
 		{% block css %}{% endblock %}
 	</head>
 	<body>
 		<div class="row small-6">
-			<div class="row" id="topNav">
+			<div class="row" id="topNav" style="padding-top: 20px;">
 				<ul class="breadcrumbs">
-					<li class="current"><a href="#">Home</a></li>
-					<li><a href="#">Article</a></li>
-					<li class="unavailable"><a href="#">Poem</a></li>
-					<li><a href="#">Calligraphy</a></li>
+					<li><a href="#">home</a></li>
 					<li><a href="#">About</a></li>
+					<li><a href="/article">Article</a></li>
+					<li><a href="#">Calligraphy</a></li>
 				</ul>
 			</div>
-			<div id="space"></div>
 		{% block body %}{% endblock %}
 		</div>
 	
 	<!-- Script -->
 	<script src="/static/js/jquery-1.9.1.js"></script>
-	<script src="/static/foundataion/js/foundation.min.js"></script>
+	<script src="/static/foundation/js/foundation.min.js"></script>
 	<script src="/static/js/base.js"></script>
 	{% block script %}{% endblock %}
 	</body>
