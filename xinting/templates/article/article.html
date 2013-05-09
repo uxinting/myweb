@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
-{% block css %}{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/article.css" />
+{% endblock %}
 
 {% block body %}
 <div class="row">
-	<div class="panel">
+	<div class="panel article">
 		{% if all %}
-			<div style="width: 20px; height: 20px; background: gray; float: right;"></div>
+			<a class="icon-comments push-11" href="javascript:;"></a>
 		{% endif %}
 		{% for article in articles %}
 		<div class="panel abstract">
@@ -15,14 +17,21 @@
 			<p>{{ content }}</p>
 			{% endfor %}
 			{% if not all %}
-				...<a href="/article?title={{ article.title }}" class="push-11">more</a>
-			{% else %}
-				<div style="width: 20px; height: 20px; background: gray; float: right;"></div>
+				……<a href="/article?title={{ article.title }}" class="push-11">more</a>
 			{% endif %}
 		</div>
 		{% endfor %}
 	</div>
+	<div class="panel small-5 hide">
+		<div class="panel abstract">
+			<h4>美国发布2013年中国军力报告 首次大篇幅关注中日钓鱼岛争端</h4>
+			<p>人民网北京5月7日电 当地时间5月6日，美国国防部发布《2013年度中国军事与安全态势发展报告》。该报告长达92页，分为6个章节、4个特别主题以及3个附录，主要涉及中国国防战略、军力发展、台海安全形势发展、中国军事现代化进程等方面内容。报告除重点关注了中国空军发展和首艘航母项目外，还首次以较大的篇幅关注中国和日本在钓鱼岛问题方面的动向和动态，并通过图表数据和地图详细解析了这一热点事件。</p>
+			...<a href="#" class="push-11">more</a>
+		</div>
+	</div>
 </div>
 {% endblock %}
 
-{% block script %}{% endblock %}
+{% block script %}
+<script src="/static/js/article.js"></script>
+{% endblock %}

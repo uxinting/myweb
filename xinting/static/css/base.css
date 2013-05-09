@@ -6,3 +6,10 @@
 p {
 	text-indent: 2em;
 }
+
+.icon-comments {
+	width: 16px;
+	height: 16px;
+	display: block;
+	background-image: url('../img/comments.png');
+}
