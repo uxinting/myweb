@@ -7,6 +7,9 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+DUOSHUO_SECRET = '748a86d6a509c72cc71eeb56930b4f1d'
+DUOSHUO_SHORT_NAME = 'xinting'
+
 MANAGERS = ADMINS
 
 DATABASES = {
@@ -123,6 +126,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'article',
     'xinting',
+    'duoshuo',
 )
 
 # A sample logging configuration. The only tangible logging
