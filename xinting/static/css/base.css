@@ -14,12 +14,19 @@ p {
 	background-image: url('../img/comments.png');
 }
 
+.icon-comments-add {
+	width: 16px;
+	height: 16px;
+	display: block;
+	background-image: url('../img/comments-add.png');
+}
+
 .icon-backtop {
+	position: fixed;
 	width: 48px;
 	height: 48px;
 	diplay: block;
-	display: fixed;
 	bottom: 20px;
 	right: 20px;
-	backgroun-image: url('../img/backtop.png');
+	background-image: url('../img/backtop.png');
 }

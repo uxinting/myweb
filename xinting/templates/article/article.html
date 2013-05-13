@@ -6,9 +6,9 @@
 
 {% block body %}
 <div class="row">
-	<div class="panel article">
+	<div class="panel" id="article">
 		{% if all %}
-			<a class="icon-comments push-11" href="javascript:;"></a>
+			<a id="comments" class="icon-comments push-11" href="javascript:;"></a>
 		{% endif %}
 		{% for article in articles %}
 		<div class="panel abstract">
@@ -22,13 +22,10 @@
 		</div>
 		{% endfor %}
 	</div>
-	<div class="panel small-5 hide">
-		<div class="panel abstract">
 			{% load duoshuo_tags %}
 			{% duoshuo_comments %}
-		</div>
-	</div>
 </div>
+<a class="icon-backtop" style="display: none;" href="javascript:;"></a>
 {% endblock %}
 
 {% block script %}
