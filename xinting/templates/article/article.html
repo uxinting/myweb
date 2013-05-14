@@ -22,8 +22,10 @@
 		</div>
 		{% endfor %}
 	</div>
-			{% load duoshuo_tags %}
-			{% duoshuo_comments %}
+	{% if all %}
+		{% load duoshuo_tags %}
+		{% duoshuo_comments %}
+	{% endif %}
 </div>
 <a class="icon-backtop" style="display: none;" href="javascript:;"></a>
 {% endblock %}

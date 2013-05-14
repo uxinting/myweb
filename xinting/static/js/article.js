@@ -28,5 +28,5 @@ $(function() {
 		}
 	});
 	
-	
+	$("[href='/article']").parent().addClass('current');
 })
