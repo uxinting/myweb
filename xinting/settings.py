@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'article',
     'xinting',
+    'calligraphy',
     'duoshuo',
 )
 

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block css %}{% endblock %}
+
+{% block body %}
+<ul class="small-block-grid-2 large-block-grid-4">
+{% for pic in calligraphys %}
+	<li><a class="th" href="/static/calligraphy/{{ pic }}"><img src="/static/calligraphy/{{ pic }}" ></a></li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+{% block script %}
+<script>
+$("[href='/calligraphy']").addClass('current');
+</script>
+{% endblock %}

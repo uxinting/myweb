@@ -7,6 +7,7 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns('xinting.views',
                        url(r'^$', 'welcome'),
                        (r'^article', include('article.urls')),
+                       (r'^calligraphy', include('calligraphy.urls')),
     # Examples:
     # url(r'^$', 'xinting.views.home', name='home'),
     # url(r'^xinting/', include('xinting.foo.urls')),
