@@ -1,15 +1,15 @@
 $(function() {
 	setTimeout(function() {
-		$('.breadcrumbs').slideUp();
+		$('.breadcrumb').slideUp();
 	}, 2000)
 	
 	$('#topNav').mouseover(function() {
-		$('.breadcrumbs').slideDown();
+		$('.breadcrumb').slideDown();
 	});
 	
 	$('#topNav').mouseleave(function() {
 		setTimeout(function() {
-			$('.breadcrumbs').slideUp();
+			$('.breadcrumb').slideUp();
 		}, 2000)
 	});
 })

@@ -5,17 +5,22 @@
 		<meta content="text/html" http-equiv="content-type" charset="utf-8" />
 		
 		<!-- CSS -->
-		<link rel="stylesheet" href="/static/foundation/css/foundation.min.css" />
-		<link rel="stylesheet" href="/static/foundation/css/normalize.css" />
+		<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="/static/css/base.css" />
 		{% block css %}{% endblock %}
 	</head>
 	<body>
-		<div class="row small-7">
+		<div class="container">
 			<div class="row" id="topNav" style="padding-top: 20px;">
-				<ul class="breadcrumbs">
-					<li><a href="/">About</a></li>
-					<li><a href="/article">Article</a></li>
+				<ul class="breadcrumb">
+					<li>
+						<a href="/">Home</a>
+						<span class="divider"></span>
+					</li>
+					<li>
+						<a href="/article">Article</a>
+						<span class="divider"></span>
+					</li>
 					<li><a href="/calligraphy">Calligraphy</a></li>
 				</ul>
 			</div>
@@ -24,7 +29,7 @@
 	
 	<!-- Script -->
 	<script src="/static/js/jquery-1.9.1.js"></script>
-	<script src="/static/foundation/js/foundation.min.js"></script>
+	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/static/js/base.js"></script>
 	{% block script %}{% endblock %}
 	</body>

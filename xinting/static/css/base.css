@@ -26,7 +26,7 @@ p {
 	width: 48px;
 	height: 48px;
 	diplay: block;
-	bottom: 20px;
 	right: 20px;
-	background-image: url('../img/backtop.png');
+	bottom: 20px;
+	background: url(../img/backtop.png) 0 0 no-repeat;
 }

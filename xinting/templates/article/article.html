@@ -6,12 +6,12 @@
 
 {% block body %}
 <div class="row">
-	<div class="panel" id="article">
+	<div class="well" id="article">
 		{% if all %}
 			<a id="comments" class="icon-comments push-11" href="javascript:;"></a>
 		{% endif %}
 		{% for article in articles %}
-		<div class="panel abstract">
+		<div class="well abstract">
 			<h4>{{ article.title }}</h4>
 			{% for content in article.contents %}
 			<p>{{ content }}</p>

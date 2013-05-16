@@ -3,9 +3,13 @@
 {% block css %}{% endblock %}
 
 {% block body %}
-<ul class="small-block-grid-2 large-block-grid-4">
+<ul class="thumbnails">
 {% for pic in calligraphys %}
-	<li><a class="th" href="/static/calligraphy/{{ pic }}"><img src="/static/calligraphy/{{ pic }}" ></a></li>
+	<li class="span3">
+		<a class="thumbnail" href="/static/calligraphy/{{ pic }}">
+			<img src="/static/calligraphy/{{ pic }}" >
+		</a>
+	</li>
 {% endfor %}
 </ul>
 {% endblock %}
