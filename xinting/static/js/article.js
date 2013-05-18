@@ -5,7 +5,7 @@ $(function() {
 		$(document).scrollTop(10);
 		
 		function moveTop() {
-			$(document).scrollTop($(document).scrollTop() * 1.1);
+			$(document).scrollTop($(document).scrollTop() * 1.2);
 			if ($(document).scrollTop() > offset)
 				clearInterval(id);
 		}
@@ -22,11 +22,11 @@ $(function() {
 	$('.icon-backtop').click(function() {
 		var id = setInterval(moveTop, 10);
 		function moveTop() {
-			$(document).scrollTop($(document).scrollTop() / 1.1);
+			$(document).scrollTop($(document).scrollTop() / 1.2);
 			if ($(document).scrollTop() < 1)
 				clearInterval(id);
 		}
 	});
-	
+
 	$("[href='/article']").parent().addClass('active');
 })

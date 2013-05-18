@@ -7,20 +7,6 @@ p {
 	text-indent: 2em;
 }
 
-.icon-comments {
-	width: 16px;
-	height: 16px;
-	display: block;
-	background-image: url('../img/comments.png');
-}
-
-.icon-comments-add {
-	width: 16px;
-	height: 16px;
-	display: block;
-	background-image: url('../img/comments-add.png');
-}
-
 .icon-backtop {
 	position: fixed;
 	width: 48px;
