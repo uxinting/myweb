@@ -2,14 +2,15 @@
 
 {% block css %}
 <style>
-.fade- {
+.fade {
 	position: absolute;
 	display: block;
 	z-index: 2;
 	left: 0;
 	top: 0;
+	padding-top: 10px;
 	width: 100%;
-	height: 100%;
+	min-height: 100%;
 	background: black;
 }
 .thumbnail img:hover {
@@ -19,6 +20,7 @@
 .close {
 	width: 48px;
 	height: 48px;
+	opacity: 0.8;
 	background: url(/static/img/close.png) 0 0 no-repeat;
 }
 </style>
@@ -34,7 +36,7 @@
 	</li>
 {% endfor %}
 </ul>
-<div class="fade-">
+<div class="fade in" style="display: none">
 	<div class="close"></div>
 	<div class="container">
 		<div class="carousel slide" id="calli">
