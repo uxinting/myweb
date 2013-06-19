@@ -1,0 +1,75 @@
+body {
+	color: rgb(71, 72, 74);
+	background: rgb(204, 232, 207);
+	font-family: 微软雅黑, Verdana, sans-serif, 宋体;
+}
+
+.article {
+	margin: 0 auto;
+	width: 80%;
+}
+
+.article h1, h2, h3, h4, h5, h6 {
+	margin-bottom: 20px;
+	padding: 0 8px;
+	border-width: 0 0 1px 0;
+	border-solid: 1px;
+	border-color: rgb(159, 159, 159);
+}
+
+.article p {
+	font-size: 15px;
+	word-spacing: 5px;
+	letter-spacing: 1px;
+	line-height: 25px;
+	margin: 0;
+	padding: 20px 8px;
+}
+
+.highlight {
+	background-image: url(../img/article-bg.png);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: 0px 20px;
+	color: rgb(88, 88, 88);
+}
+
+.article-list li {
+	display: block;
+	padding: 5px 25px 30px;
+	margin-bottom: 15px;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	border-color: rgb(159, 159, 159);
+}
+
+.icon-backtop {
+	position: fixed;
+	display: none;
+	right: 100px;
+	bottom: 150px;
+}
+
+.icon-prev {
+	position: fixed;
+	display: block;
+	right: 110px;
+	bottom: 130px;
+}
+
+.icon-next {
+	position: fixed;
+	display: block;
+	right: 90px;
+	bottom: 130px;
+}
+
+.brand {
+	position: fixed;
+	left: 50px;
+	top: 100px;
+}
+
+.a:hover {
+	cursor: pointer;
+}
