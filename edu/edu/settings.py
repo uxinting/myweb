@@ -10,8 +10,14 @@ ADMINS = (
 MANAGERS = ADMINS
 
 #my settings
+DEFAULT_CHARSET = 'utf-8'
 AUTH_USER_MODEL = 'accounts.MyUser'
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+MYDOMAIN = 'https://localhost:8090'
+EMAIL_HOST = 'smtp.sina.cn'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'edu_server@sina.cn'
+EMAIL_HOST_PASSWORD = 'edu_server@#$89'
 
 DATABASES = {
     'default': {

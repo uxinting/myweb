@@ -49,14 +49,22 @@
 			}
 		});
 		
+		//default the error msg showed in the div identified by id of 'error'
 		$('form').submit(function() {
 			//check empty input
 			var inputs = $(this).find('input');
 			for (var i = 0; i < inputs.length; i++) {
 				var idata = $(inputs[i]);
 				if (idata.data('request') && idata.val() == '') {
-					idata.tooltip({'title': '不能为空'});
-					idata.tooltip('show');
+					var labelstr = $('[for="' + idata.attr('id') + '"]').text();
+					var errorid = idata.data('error');
+					if (typeof(errorid) == 'undefined')
+						errorid = '#error';
+					else
+						errorid = '#' + errorid;
+					
+					idata.focus();
+					$(errorid).text(labelstr + '不能为空').next().remove();
 					return false;
 				}
 			}
@@ -66,11 +74,31 @@
 			if (typeof(email) != 'undefined') {
 				var re = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 				if (!re.test(email.val())) {
-					email.tooltip({'title': '不是一个邮箱'}).tooltip('show');
+					var errorid = idata.data('error');
+					if (typeof(errorid) == 'undefined')
+						errorid = '#error';
+					else
+						errorid = '#' + errorid;
+						
+					$(errorid).text(email.val() + '不是一个邮箱');
 					return false;
 				}
 			}
 			return true;
 		});
 	});
+	
 }(window.jQuery);
+
+function activate() {
+	var email = $('[type="email"]').val();
+	$.get('/accounts/activate?email='+email, 
+		function(data, status) {
+			if (status == 'success') {
+				$('#error').text(data).next('span').remove();
+			} else {
+				$('#error').text('网络错误，请稍后再试').next().remove();
+			}
+		}
+	);
+}
