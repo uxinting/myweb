@@ -19,7 +19,7 @@ EMAIL_HOST = 'smtp.126.com'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'wuxintingaoyun@126.com'
 SERVER_EMAIL = 'wuxintingaoyun@126.com'
-EMAIL_HOST_PASSWORD = 'wuxinting@#$89'
+EMAIL_HOST_PASSWORD = '**************'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
