@@ -49,5 +49,28 @@
 			}
 		});
 		
+		$('form').submit(function() {
+			//check empty input
+			var inputs = $(this).find('input');
+			for (var i = 0; i < inputs.length; i++) {
+				var idata = $(inputs[i]);
+				if (idata.data('request') && idata.val() == '') {
+					idata.tooltip({'title': '不能为空'});
+					idata.tooltip('show');
+					return false;
+				}
+			}
+			
+			//check email format
+			var email = $('[type="email"]');
+			if (typeof(email) != 'undefined') {
+				var re = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+				if (!re.test(email.val())) {
+					email.tooltip({'title': '不是一个邮箱'}).tooltip('show');
+					return false;
+				}
+			}
+			return true;
+		});
 	});
 }(window.jQuery);
