@@ -92,8 +92,7 @@
 
 function activate() {
 	var email = $('[type="email"]').val();
-	$.get('/accounts/activate?email='+email, 
-		function(data, status) {
+	$.get('/accounts/activate?email='+email, function(data, status) {
 			if (status == 'success') {
 				$('#error').text(data).next('span').remove();
 			} else {

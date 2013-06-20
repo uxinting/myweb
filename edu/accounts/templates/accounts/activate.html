@@ -1,0 +1,13 @@
+{% extends 'accounts/base.html' %}
+
+{% block css %}
+<meta http-equiv="Refresh" content="3; url=/accounts/login" />
+{% endblock %}
+
+{% block body %}
+<div class="container text-center" style="margin-top: 150px;">
+	<div class="alert alert-info">
+		{{ error.msg }}<a href="/accounts/login">登录</a>
+	</div>
+</div>
+{% endblock %}

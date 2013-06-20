@@ -4,9 +4,8 @@ from django.template.context import RequestContext
 from accounts.models import MyUser
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
-from django.core.mail import send_mail
-from django.http import HttpResponse
-from django.core.mail.message import EmailMessage
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.mail.message import EmailMultiAlternatives
 
 def Login(request):
     title = u'登录'
@@ -18,10 +17,9 @@ def Login(request):
             user = authenticate(email=email, password=request.POST.get('password', None))
             
             if user is not None:
-                if  user.is_active:
+                if user.is_active:
                     login(request, user)#登录
-                    print request
-                    error['msg'] = u'成功'
+                    return HttpResponseRedirect(request.POST.get('next', '/'))
                 else:
                     error['msg'] = u'您的账号尚未激活'
                     error['href'] = u'javascript:activate();'
@@ -47,19 +45,41 @@ def Register(request):
 def Activate(request):
     try:
         email = request.GET.get('email', None)
+        
+        code = request.GET.get('code', None)
+
+        if code is None:
+            import time, hashlib
+            code = hashlib.md5(repr(time.time())).hexdigest()
+            request.session['code'] = code
+            request.session['email'] = email
+        else:
+            error = {}
+            if code == request.session.get('code', None):
+                try:
+                    user = MyUser.objects.get(email=request.session.get('email', None))
+                    user.is_active = True
+                    user.save()
+                    del request.session['code']
+                except Exception, e:
+                    print e
+                error['msg'] = u'成功激活账号'
+            else:
+                error['msg'] = u'无颜的激活邮件链接'
+            return render_to_response('accounts/activate.html', locals())
 
         if email is None:
             info = u'无效的邮件地址'
         else:
-            msg = EmailMessage('edu激活邮件',
-                              '<br><a href="http://localhost:8090/acounts/activate">点击激活账号</a>',
-                              'edu_server@sina.cn', 
-                              [email]
-                               )
-            msg.content_subtype = 'html'
-            msg.send(False)
+            subject, from_email, to = 'edu 激活邮件', 'edu_server@sina.cn', email
+            text_content = '点击激活账号'
+            html_content = '<p><a href="http://127.0.0.1:8090/accounts/activate?code=' + code + '">点击</a>激活账号</p>'
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
             info = u'激活邮件已发送，请注意查看邮箱'
     except Exception, e:
+        print e
         info = u'邮件发送失败，请稍后再试'
 
     return HttpResponse(info)
