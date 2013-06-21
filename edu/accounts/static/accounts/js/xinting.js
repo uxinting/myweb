@@ -63,7 +63,14 @@
 						var rs = checkEmail(cinput.val());
 						if (rs.status) {//成功之后应发送到服务器检验重复
 							cinput.parents('.control-group').removeClass('error').addClass('success');
-							;
+							
+							//ajaxcheck
+							ajaxCheckForm({
+								data: {input: 'email', value: cinput.val()},
+								success: function(data) {
+									rs = data;
+								}
+							});
 						}//if
 					}//if
 					
@@ -85,14 +92,30 @@
 					//nickname check
 					if (cinput.data('check') == 'nickname') {
 						var rs = checkNickname(cinput.val());
+						if (rs.status) {
+							//ajax check
+							ajaxCheckForm({
+								data: {input: 'nickname', value: cinput.val()},
+								success: function (data) {
+									rs = data;
+								}
+							});
+						}//if
 					}//if
 					
+					var cg = cinput.parents('.control-group')
 					if (rs.status) {
-						cinput.parents('.control-group').addClass('success');
+						if (cg.hasClass('error')) {
+							cg.removeClass('error');
+						}
+						cg.addClass('success');
 						cinput.next('span').text(rs.msg);
 						$('#noError').val('true');
 					} else {
-						cinput.parents('.control-group').addClass('error');
+						if (cg.hasClass('success')) {
+							cg.removeClass('success');
+						}
+						cg.addClass('error');
 						cinput.next('span').text(rs.msg);
 						$('#noError').val('false');
 					}
@@ -127,7 +150,7 @@ function checkEmail(email) {
 	if (re.test(email)) {
 		return {status: true, msg: ''};
 	} else {
-		return {status: false, msg: ''};
+		return {status: false, msg: '不是一个邮箱'};
 	}
 }
 
@@ -181,16 +204,30 @@ function csrfSafeMethod(method) {
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
-
+//ajax检验
+//opt.data opt.success=callback
+function ajaxCheckForm(opt) {
+	$.ajax({
+		type: 'POST',
+		async: false,
+		url: location.pathname,
+		dataType: 'json',
+		data: opt.data,
+		success: opt.success,
+		error: function(e, msg) {
+			alert(msg)
+		}
+	});
+}
 
 //激活
 function activate() {
 	var email = $('[type="email"]').val();
 	$.get('/accounts/activate?email='+email, function(data, status) {
 			if (status == 'success') {
-				$('#error').test(data).next('span').remove();
+				$('#error').text(data).next('span').remove();
 			} else {
-				$('#error').test('网络错误，请稍后再试').next().remove();
+				$('#error').text('网络错误，请稍后再试').next().remove();
 			}
 		}
 	);

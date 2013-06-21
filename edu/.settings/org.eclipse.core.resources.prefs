@@ -1,5 +1,7 @@
-#Wed Jun 19 21:05:07 CST 2013
+#Fri Jun 21 14:26:21 CST 2013
 eclipse.preferences.version=1
+encoding//accounts/__init__.py=utf-8
 encoding//accounts/models.py=utf-8
 encoding//accounts/urls.py=utf-8
+encoding//accounts/utils.py=utf-8
 encoding//accounts/views.py=utf-8

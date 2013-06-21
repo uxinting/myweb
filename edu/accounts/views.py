@@ -5,8 +5,9 @@ from accounts.models import MyUser
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.mail.message import EmailMultiAlternatives
 from django.db import IntegrityError
+from accounts.utils import send_activate_mail, userExist
+import accounts
 
 def Login(request):
     title = u'登录'
@@ -32,10 +33,11 @@ def Login(request):
             error['msg'] = u'无效的账号'
         
     else:#request method is get
+        if request.user is not None:
+            return HttpResponseRedirect("/")
         error['msg'] = u''
-        next = request.path.encode('utf-8')
-        if next.startswith('/accounts'):
-            next = '/'
+        next = request.GET.get('next', '/')
+        return HttpResponseRedirect(next)
     return render_to_response('accounts/login.html', locals(), context_instance=RequestContext(request))
 
 def Register(request):
@@ -43,56 +45,72 @@ def Register(request):
     if request.method == 'POST':
         error = {}
         try:
+            input = request.POST.get('input', None)
+            value = request.POST.get('value', None)
+            
+            if input is not None:
+                import json
+                #ajax check
+                cdata = {input: value}
+                
+                if not userExist(cdata):
+                    cdata['status'] = True
+                    cdata['msg'] = u'可用'
+                else:
+                    cdata['status'] = False
+                    cdata['msg'] = u'不可用'
+                return HttpResponse(json.dumps(cdata))
+            
             email = request.POST.get('email', None)
             password = request.POST.get('password1', None)
             nickname = request.POST.get('nickname', None)
             
             user = MyUser.objects.create_user(email, password, nickname)
-            user.save()
+            user.save()#注册成功
             error['msg'] = u'注册成功'
+            
+            #发送激活邮件
+            request.session['activate'] = send_activate_mail(email)
+            request.session.set_expiry(accounts.ACTIVATE_MAIL_EXPIRE * 3600)
         except IntegrityError:
             error['msg'] = u'重复账号，注册失败'
-        except:
+        except Exception, e:
             error['msg'] = u'注册失败，未知原因'
                 
     return render_to_response('accounts/register.html', locals(), context_instance=RequestContext(request))
 
 def Activate(request):
+    import base64
     try:
+        error = {}
         email = request.GET.get('email', None)
-        
         code = request.GET.get('code', None)
-
+        
+        if not userExist({'email': base64.b64decode(email)}):
+            info = u'无效的邮件地址'
+            email = None
+        
         if code is None:
-            import time, hashlib
-            code = hashlib.md5(repr(time.time())).hexdigest()
-            request.session['code'] = code
-            request.session['email'] = email
+            if email is not None:
+                request.session['activate'] = send_activate_mail(email)
+                request.session.set_expiry(accounts.ACTIVATE_MAIL_EXPIRE * 3600)
+                info = u'激活邮件已发送，请注意查看邮箱'
         else:
-            error = {}
-            if code == request.session.get('code', None):
+            activate = request.session['activate']
+            print activate, email, code
+            if code == activate.get('code', None) and email == activate.get('email', None):
                 try:
-                    user = MyUser.objects.get(email=request.session.get('email', None))
+                    user = MyUser.objects.get(email=base64.b64decode(email))
                     user.is_active = True
                     user.save()
-                    del request.session['code']
+                    error['msg'] = u'成功激活账号'
+                    request.session.flush()#清除session
                 except Exception, e:
                     print e
-                error['msg'] = u'成功激活账号'
+                    error['msg'] = u'激活出错'
             else:
-                error['msg'] = u'无颜的激活邮件链接'
+                error['msg'] = u'无效的激活邮件链接'
             return render_to_response('accounts/activate.html', locals())
-
-        if email is None:
-            info = u'无效的邮件地址'
-        else:
-            subject, from_email, to = 'edu 激活邮件', 'edu_server@sina.cn', email
-            text_content = '点击激活账号'
-            html_content = '<p><a href="http://127.0.0.1:8090/accounts/activate?code=' + code + '">点击</a>激活账号</p>'
-            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
-            info = u'激活邮件已发送，请注意查看邮箱'
     except Exception, e:
         print e
         info = u'邮件发送失败，请稍后再试'
