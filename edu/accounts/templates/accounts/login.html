@@ -18,13 +18,13 @@
 		<div class="control-group">
 			<label class="control-label" for="inputEmail">账号</label>
 			<div class="controls">
-				<input type="email" id="inputEmail" data-request="true" placeholder="邮箱名" name="email" value="{{ email }}">
+				<input type="email" id="inputEmail" data-check="email" placeholder="邮箱名" name="email" value="{{ email }}" required>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="inputPassword">密码</label>
 			<div class="controls">
-				<input type="password" id="inputPassword" data-request="true" placeholder="密码" name="password">
+				<input type="password" id="inputPassword" data-check="password" placeholder="密码" name="password" required>
 			</div>
 		</div>
 		<div class="control-group">
@@ -39,7 +39,8 @@
 				</div>
 			</div>
 		</div>
-		<input type="hidden" val="{{ next }}" />
+		<input type="hidden" val="false" id="noError" />
+		<input type="hidden" val="{{ next }}" name="next" />
 	</form>
 </div>
 </div>

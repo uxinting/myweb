@@ -49,54 +49,148 @@
 			}
 		});
 		
-		//default the error msg showed in the div identified by id of 'error'
-		$('form').submit(function() {
-			//check empty input
-			var inputs = $(this).find('input');
-			for (var i = 0; i < inputs.length; i++) {
-				var idata = $(inputs[i]);
-				if (idata.data('request') && idata.val() == '') {
-					var labelstr = $('[for="' + idata.attr('id') + '"]').text();
-					var errorid = idata.data('error');
-					if (typeof(errorid) == 'undefined')
-						errorid = '#error';
-					else
-						errorid = '#' + errorid;
+		//当Input失去焦点时检查内容
+		var inputs = $('form').find('input');
+		if (typeof(inputs) != 'undefined') {
+			for (var i = 0; i < inputs.length; i ++) {
+				$(inputs[i]).bind('blur', function(e) {
+					var cinput = $(this);
+					if (typeof(cinput.data('check')) == 'undefined') return;
 					
-					idata.focus();
-					$(errorid).text(labelstr + '不能为空').next().remove();
-					return false;
-				}
+					var rs = {};
+					//email check
+					if (cinput.data('check') == 'email') {
+						var rs = checkEmail(cinput.val());
+						if (rs.status) {//成功之后应发送到服务器检验重复
+							cinput.parents('.control-group').removeClass('error').addClass('success');
+							;
+						}//if
+					}//if
+					
+					//password check
+					if (cinput.data('check') == 'password') {
+						var rs = checkPasswd(cinput.val());
+					}//if
+					
+					if (cinput.data('check') == 'password-confirm') {
+						if ($('#inputPassword').val() != $('#inputPassword2').val()) {
+							rs['status'] = false;
+							rs['msg'] = '密码不一致'
+						} else {
+							rs['status'] = true;
+							rs['msg'] = '';
+						}
+					}
+					
+					//nickname check
+					if (cinput.data('check') == 'nickname') {
+						var rs = checkNickname(cinput.val());
+					}//if
+					
+					if (rs.status) {
+						cinput.parents('.control-group').addClass('success');
+						cinput.next('span').text(rs.msg);
+						$('#noError').val('true');
+					} else {
+						cinput.parents('.control-group').addClass('error');
+						cinput.next('span').text(rs.msg);
+						$('#noError').val('false');
+					}
+				});
+			}//for
+		}//if
+		
+		//form submit check
+		$('form').click(function() {
+			if($('#noError').val() == 'false') {
+				return false;
 			}
-			
-			//check email format
-			var email = $('[type="email"]');
-			if (typeof(email) != 'undefined') {
-				var re = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-				if (!re.test(email.val())) {
-					var errorid = idata.data('error');
-					if (typeof(errorid) == 'undefined')
-						errorid = '#error';
-					else
-						errorid = '#' + errorid;
-						
-					$(errorid).text(email.val() + '不是一个邮箱');
-					return false;
-				}
-			}
-			return true;
+		});
+		
+		//ajax safe post
+		$.ajaxSetup({
+		    crossDomain: false, // obviates need for sameOrigin test
+		    beforeSend: function(xhr, settings) {
+		        if (!csrfSafeMethod(settings.type)) {
+		            xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+		        }
+		    }
 		});
 	});
 	
 }(window.jQuery);
 
+//检查邮箱
+function checkEmail(email) {
+	//字母或下划线开头和结尾，由下划线，字母数字组成@前部分，@后由字母或下划线开头和结尾，点号，后加两或三位字母
+	var re = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	if (re.test(email)) {
+		return {status: true, msg: ''};
+	} else {
+		return {status: false, msg: ''};
+	}
+}
+
+//检查密码
+function checkPasswd(pw) {
+	//字母、数字、特殊字符 大于8位
+	
+	var rs = {};
+	//门槛：字母，下划线，数字，特殊字符 8-22位
+	var gate = /^[\_\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{8,22}$/;
+	if (!gate.test(pw)) {
+		rs['status'] = false;
+		rs['msg'] = '8-22位由字母，下划线，数字和特殊字符组成';
+		return rs; 
+	}
+	
+	//只有数字或字母
+	var only = /(^\d+$)|(^[a-zA-Z]+$)/;
+	if (only.test(pw)) {
+		rs['status'] = true;
+		rs['msg'] = '弱';
+		return rs;
+	}
+	
+	//只有数字和字母
+	var two = /^[a-zA-Z0-9]{8,22}$/;
+	if (two.test(pw)) {
+		rs['status'] = true;
+		rs['msg'] = '中';
+		return rs;
+	}
+	
+	rs['status'] = true;
+	rs['msg'] = '强';
+	return rs;
+}
+
+//检查昵称
+function checkNickname(nickname) {
+	var re = /^[a-zA-Z0-9\_]{4,16}$/;
+	if (!re.test(nickname)) {
+		return {status: false, msg: '4-16位由数字、字母、下划线组成'}
+	}
+	
+	return {status: true, msg: ''}
+}
+
+//csrf django functions
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+
+
+//激活
 function activate() {
 	var email = $('[type="email"]').val();
 	$.get('/accounts/activate?email='+email, function(data, status) {
 			if (status == 'success') {
-				$('#error').text(data).next('span').remove();
+				$('#error').test(data).next('span').remove();
 			} else {
-				$('#error').text('网络错误，请稍后再试').next().remove();
+				$('#error').test('网络错误，请稍后再试').next().remove();
 			}
 		}
 	);

@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail.message import EmailMultiAlternatives
+from django.db import IntegrityError
 
 def Login(request):
     title = u'登录'
@@ -39,7 +40,21 @@ def Login(request):
 
 def Register(request):
     title = u'注册'
-    
+    if request.method == 'POST':
+        error = {}
+        try:
+            email = request.POST.get('email', None)
+            password = request.POST.get('password1', None)
+            nickname = request.POST.get('nickname', None)
+            
+            user = MyUser.objects.create_user(email, password, nickname)
+            user.save()
+            error['msg'] = u'注册成功'
+        except IntegrityError:
+            error['msg'] = u'重复账号，注册失败'
+        except:
+            error['msg'] = u'注册失败，未知原因'
+                
     return render_to_response('accounts/register.html', locals(), context_instance=RequestContext(request))
 
 def Activate(request):

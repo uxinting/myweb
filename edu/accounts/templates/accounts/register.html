@@ -1,0 +1,59 @@
+{% extends 'accounts/base.html' %}
+
+{% block css %}{% endblock %}
+
+{% block body %}
+<div class="row-fluid">
+<div class="offset3" style="margin-top: 150px;">
+	<div class="navbar">
+		<a class="brand" href="/">eDu</a>
+	</div>
+	<form class="form-horizontal" method="post">{% csrf_token %}
+		<div class="control-group">
+			<div class="controls">
+				<div class="label label-important" id="error">{{ error.msg }}</div>
+				<span><a href="{{ error.href }}">{{ error.more }}</a></span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputEmail">账号</label>
+			<div class="controls controls-row">
+				<input type="email" id="inputEmail" data-check="email" placeholder="邮箱名" name="email" value="{{ email }}" required>
+				<span class="help-inline"></span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputPassword">密码</label>
+			<div class="controls controls-row">
+				<input type="password" id="inputPassword" required placeholder="密码" name="password1" data-check="password">
+				<span class="help-inline"></span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputPassword2">确认密码</label>
+			<div class="controls controls-row">
+				<input type="password" id="inputPassword2" required placeholder="确认密码" name="password2" data-check="password-confirm">
+				<span class="help-inline"></span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputNickname">昵称</label>
+			<div class="controls controls-row">
+				<input type="text" required placeholder="昵称" name="nickname" data-check="nickname">
+				<span class="help-inline"></span>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls controls-row">
+				<button type="submit" class="btn">注册</button>
+				<a class="btn btn-link" href="/accounts/login">已有账号，登录</a>
+			</div>
+		</div>
+		<input type="hidden" val="false" id="noError" />
+		<input type="hidden" val="{{ next }}" name="next"/>
+	</form>
+</div>
+</div>
+{% endblock %}
+
+{% block js %}{% endblock %}
