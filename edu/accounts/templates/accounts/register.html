@@ -44,6 +44,14 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label" for="inputPassword">验证码</label>
+			<div class="controls controls-row">
+				<input class="span2" type="text" id="inputVerify" required placeholder="右图中验证码" name="verify">
+				<img src="/accounts/verifycode"></img>
+				<a class="btn btn-link" href="javascript:changeVerify();">换一幅</a>
+			</div>
+		</div>
+		<div class="control-group">
 			<div class="controls controls-row">
 				<button type="submit" class="btn">注册</button>
 				<a class="btn btn-link" href="/accounts/login">已有账号，登录</a>

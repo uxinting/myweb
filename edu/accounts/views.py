@@ -8,7 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError
 from accounts.utils import send_activate_mail, userExist, check_mail_activate,\
     send_mail_forgetpw, check_mail_changepw, check_register_parameter,\
-    check_password_new
+    check_password_new, check_verify
 import cStringIO
 
 def Login(request):
@@ -16,6 +16,7 @@ def Login(request):
     error = {}
     if request.method == 'POST':
         try:
+            check_verify(request);
             email = request.POST.get('email', None)
             MyUser.objects.get(email=email)
             
@@ -34,6 +35,8 @@ def Login(request):
                 
         except ObjectDoesNotExist:
             error['msg'] = u'无效的账号'
+        except Exception, e:
+            error['msg'] = e
         
     else:#request method is get
         if request.user.is_authenticated():
@@ -62,9 +65,11 @@ def Register(request):
                     cdata['msg'] = u'可用'
                 else:
                     cdata['status'] = False
-                    cdata['msg'] = u'不可用'
-                return HttpResponse(cdata, 'json')
+                    cdata['msg'] = u'已存在'
+                import json
+                return HttpResponse(json.dumps(cdata), 'json')
             
+            check_verify(request);
             email = request.POST.get('email', None)
             password = request.POST.get('password1', None)
             nickname = request.POST.get('nickname', None)
@@ -80,7 +85,7 @@ def Register(request):
         except IntegrityError:
             error['msg'] = u'重复账号，注册失败'
         except Exception, e:
-            error['msg'] = repr(e)
+            error['msg'] = e
                 
     return render_to_response('accounts/register.html', locals(), context_instance=RequestContext(request))
 
@@ -90,49 +95,49 @@ def Password(request):
     if request.method == 'GET':
         if request.user.is_authenticated():#修改密码
             email = request.user.email
-            changepassword = True
+            password = 'change'
         else:#忘记密码
             error = check_mail_changepw(request)
             if error['status']:
-                newpassword = True
+                password = 'new'
                 email = error['email']
                 error['msg'] = u'请输入新密码'
             else:
-                forgetpassword = True
+                password = 'forget'
     else:
-        email = request.POST.get('email', '')
-        password1 = request.POST.get('password1', None)
-        password2 = request.POST.get('password2', None)
-        
-        if password2 and password1:#新密码提交
-            try:
+        try:
+            email = request.POST.get('email', '')
+            password1 = request.POST.get('password1', None)
+            password2 = request.POST.get('password2', None)
+            
+            if password2 and password1:#新密码提交
+                password = 'new'
+                
+                #例行检查
+                check_verify(request)
                 check_password_new(request)
-                if request.session['verify'] != request.POST.get('verify', None):
-                    newpassword = True
-                    error['msg'] = u'验证码错误'
+                
+                user = MyUser.objects.get(email=email)
+                user.set_password(password1)
+                user.save()
+                error['msg'] = u'修改密码成功'
+                return HttpResponseRedirect('accounts/activate')
+            elif password1:#密码修改
+                check_verify(request);
+                if not request.user.check_password('password1'):
+                    password = 'change'
+                    error['msg'] = u'账号用户名不匹配'
                 else:
-                    user = MyUser.objects.get(email=email)
-                    user.set_password(password1)
-                    user.save()
-                    return HttpResponseRedirect('accounts/login')
-            except ObjectDoesNotExist:
-                error['msg'] = u'无效的账号'
-            except Exception, e:
-                error['msg'] = repr(e)
-        elif password1:#密码修改
-            if not request.user.check_password('password1'):
-                changepassword = True
-                error['msg'] = u'账号用户名不匹配'
-            else:
-                newpassword = True
-                error['msg'] = u'请输入新密码'
-        else:#忘记密码
-            if request.session['verify'] != request.POST.get('verify', None):
-                forgetpassword = True
-                error['msg'] = u'验证码错误'
-            else:
-                forgetpassword = True
+                    password = 'new'
+                    error['msg'] = u'请输入新密码'
+            else:#忘记密码
+                password = 'forget'
+                check_verify(request);
                 error['msg'] = send_mail_forgetpw(request)
+        except ObjectDoesNotExist:
+            error['msg'] = u'无效的账号'
+        except Exception, e:
+            error['msg'] = e
         
     return render_to_response('accounts/password.html', locals(), context_instance=RequestContext(request))
 
@@ -147,7 +152,6 @@ def Activate(request):
             error['msg'] = check_mail_activate(request)
             return render_to_response('accounts/activate.html', locals())
     except Exception, e:
-        print e
         error['msg'] = u'邮件发送失败，请稍后再试'
 
     return HttpResponse(error['msg'])
@@ -159,14 +163,14 @@ def Verify(request):
     '''基本功能'''
     string = '12345679ACEFGHKMNPRTUVWXYabcdefghijhklmnopqrltuvwxyz'
     #图片宽度
-    img_width = 120
+    img_width = 115
     #图片高度
     img_height = 28
     #背景颜色
     background = (random.randrange(230,255),random.randrange(230,255),random.randrange(230,255))
     line_color = (random.randrange(0,255),random.randrange(0,255),random.randrange(0,255))
     #字号
-    font_size = 23
+    font_size = 22
     #加载字体
     font = ImageFont.truetype('msyh.ttf', font_size)
     #字体颜色
@@ -179,17 +183,18 @@ def Verify(request):
     code = random.sample(string, 4)
 
     #画干扰线
+    '''
     for i in range(random.randrange(3,5)):
         xy = (random.randrange(0,img_width),random.randrange(0,img_height),
               random.randrange(0,img_width),random.randrange(0,img_height))
-        draw.line(xy,fill=line_color,width=1)
+        draw.line(xy,fill=line_color,width=1)'''
         
     #写入验证码文字
     x = 3
     for i in code:
-        y = random.randrange(0, 5)
+        y = random.randrange(0, 3)
         draw.text((x,y), i, font=font, fill=random.choice(font_color))
-        x += 30
+        x += 28
         request.session['verify'] += i
     
     del x
@@ -200,13 +205,13 @@ def Verify(request):
     newPix = newImage.load()
     pix = im.load()
     
+    import math
     for y in range(0, img_height):
-        offset = random.choice([-1, 0, 1])
         for x in range(0, img_width):
             #新的x坐标点
-            newx = x + offset
+            #newx = x + offset
             #你可以试试如下的效果
-            #newx = x + math.sin(float(y)/10)*10
+            newx = x + math.sin(float(y)/10)*10
             if newx < img_width and newx > 0:
                 #把源像素通过偏移到新的像素点
                 newPix[newx,y] = pix[x,y]

@@ -9,8 +9,8 @@
 		<title>{{ title }}</title>
 		
 		<!-- CSS -->
-		<link rel="stylesheet" href="{% static '/static/edu/css/bootstrap.min.css' %}" />
-		<link rel="stylesheet" href="{% static 'edu/css/xinting.css' %}" />
+		<link rel="stylesheet" href="{% static 'books/css/bootstrap.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'books/css/xinting.css' %}" />
 		{% block css %}{% endblock %}
 		<style>
 		body { font-size: 14px; }
@@ -20,10 +20,10 @@
 		{% block body %}{% endblock %}
 				
 		<!-- Scripts -->
-		<script src="{% static 'edu/js/jquery-1.9.1.js' %}"></script>
-		<script src="{% static 'edu/js/jquery.cookie.js' %}"></script>
-		<script src="{% static 'edu/js/bootstrap.min.js' %}"></script>
-		<script src="{% static 'edu/js/xinting.js' %}"></script>
+		<script src="{% static 'books/js/jquery-1.9.1.js' %}"></script>
+		<script src="{% static 'books/js/jquery.cookie.js' %}"></script>
+		<script src="{% static 'books/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'books/js/xinting.js' %}"></script>
 		{% block js %}{% endblock %}
 	</body>
 </html>

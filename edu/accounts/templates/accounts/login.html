@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="row-fluid">
-<div class="span5 offset3">
+<div class="offset3">
 	<div class="navbar">
 		<a class="brand" href="/">eDu</a>
 	</div>
@@ -25,6 +25,14 @@
 			<label class="control-label" for="inputPassword">密码</label>
 			<div class="controls">
 				<input type="password" id="inputPassword" placeholder="密码" name="password" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputPassword">验证码</label>
+			<div class="controls controls-row">
+				<input class="span2" type="text" id="inputVerify" required placeholder="右图中验证码" name="verify">
+				<img src="/accounts/verifycode"></img>
+				<a class="btn btn-link" href="javascript:changeVerify();">换一幅</a>
 			</div>
 		</div>
 		<div class="control-group">

@@ -104,16 +104,16 @@ def check_register_parameter(request):
     password_re = r'^[\_\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{8,22}$'
     nickname_re = r'^[a-zA-Z0-9\_]{4,16}$'
     
-    if not email_re.match(email):
+    if not re.match(email_re, email):
         raise Exception(u'邮箱名非法')
     
     if password1 != password2:
         raise Exception(u'密码不一致')
     
-    if not password_re.match(password1):
+    if not re.match(password_re, password1):
         raise Exception(u'密码非法')
     
-    if not nickname_re.match(nickname):
+    if not re.match(nickname_re, nickname):
         raise Exception(u'昵称非法')
 
 def check_password_new(request):
@@ -125,8 +125,20 @@ def check_password_new(request):
     if password1 != password2:
         raise Exception(u'密码不一致')
     
-    if not password_re.match(password1):
+    if not re.match(password_re, password1):
         raise Exception(u'密码非法')
+    
+def check_verify(request):
+    verify = request.POST.get('verify', None)
+    if not verify:
+        raise Exception(u'未输入验证码')
+    
+    verify_s = request.session.get('verify', None)
+    if not verify_s:
+        raise Exception(u'无效的验证码')
+    
+    if verify != verify_s:
+        raise Exception(u'验证码错误')
 
 def userExist(p):
     '''p中必须有一个属性key对应的value作为where条件'''

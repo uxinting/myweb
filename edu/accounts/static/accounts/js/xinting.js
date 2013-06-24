@@ -124,7 +124,7 @@
 		}//if
 		
 		//form submit check
-		$('form').click(function() {
+		$('form').submit(function() {
 			if($('#noError').val() == 'false') {
 				return false;
 			}
@@ -235,5 +235,5 @@ function activate() {
 
 //换验证码
 function changeVerify() {
-	$('#inputVerify').next('img').attr('attr', '/accounts/verify?time=' + new Date().getTime());
+	$('#inputVerify').next('img').attr('src', '/accounts/verify?time=' + new Date().getTime());
 }
