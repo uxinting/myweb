@@ -4,6 +4,7 @@ import accounts
 from django.core.mail.message import EmailMultiAlternatives
 from django.db import connection
 from accounts.models import MyUser
+import re
 
 def send_activate_mail(request):
     '''发送一个激活邮件到email所指定的地址，函数返回一个校验码，以后核对.
@@ -92,6 +93,40 @@ def check_mail_changepw(request):
         return {'status': False, 'msg': u'无效的链接'}
     
     return {'status': True, 'msg': '', 'email': email}
+
+def check_register_parameter(request):
+    email = request.POST.get('email', None)
+    password1 = request.POST.get('password1', None)
+    password2 = request.POST.get('password2', None)
+    nickname = request.POST.get('nickname', None)
+    
+    email_re = r'^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$'
+    password_re = r'^[\_\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{8,22}$'
+    nickname_re = r'^[a-zA-Z0-9\_]{4,16}$'
+    
+    if not email_re.match(email):
+        raise Exception(u'邮箱名非法')
+    
+    if password1 != password2:
+        raise Exception(u'密码不一致')
+    
+    if not password_re.match(password1):
+        raise Exception(u'密码非法')
+    
+    if not nickname_re.match(nickname):
+        raise Exception(u'昵称非法')
+
+def check_password_new(request):
+    password1 = request.POST.get('password1', None)
+    password2 = request.POST.get('password2', None)
+    
+    password_re = r'^[\_\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{8,22}$'
+    
+    if password1 != password2:
+        raise Exception(u'密码不一致')
+    
+    if not password_re.match(password1):
+        raise Exception(u'密码非法')
 
 def userExist(p):
     '''p中必须有一个属性key对应的value作为where条件'''

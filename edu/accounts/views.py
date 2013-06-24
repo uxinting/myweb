@@ -7,7 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError
 from accounts.utils import send_activate_mail, userExist, check_mail_activate,\
-    send_mail_forgetpw, check_mail_changepw
+    send_mail_forgetpw, check_mail_changepw, check_register_parameter,\
+    check_password_new
 import cStringIO
 
 def Login(request):
@@ -68,6 +69,8 @@ def Register(request):
             password = request.POST.get('password1', None)
             nickname = request.POST.get('nickname', None)
             
+            check_register_parameter(request)
+            
             user = MyUser.objects.create_user(email, password, nickname)
             user.save()#注册成功
             error['msg'] = u'注册成功'
@@ -77,7 +80,7 @@ def Register(request):
         except IntegrityError:
             error['msg'] = u'重复账号，注册失败'
         except Exception, e:
-            error['msg'] = u'注册失败，未知原因'
+            error['msg'] = repr(e)
                 
     return render_to_response('accounts/register.html', locals(), context_instance=RequestContext(request))
 
@@ -103,6 +106,7 @@ def Password(request):
         
         if password2 and password1:#新密码提交
             try:
+                check_password_new(request)
                 if request.session['verify'] != request.POST.get('verify', None):
                     newpassword = True
                     error['msg'] = u'验证码错误'
