@@ -6,6 +6,9 @@ from django.db import connection
 from accounts.models import MyUser
 import re
 
+def html_to_text(html):
+    return ''.join(re.findall(r'(?<=>).*?(?=<)', html))
+
 def send_activate_mail(request):
     '''发送一个激活邮件到email所指定的地址，函数返回一个校验码，以后核对.
             将email用base64编码，并加入当时的的时间float格式的md5编码与其中
@@ -25,8 +28,9 @@ def send_activate_mail(request):
     code = hashlib.md5(repr(time.time())).hexdigest()
     
     url = accounts.ACTIVATE_URL + '?email=' + email + '&code=' + code
-    text_content = u'感谢您注册edu请点击链接激活您的账号该链接有效期' + repr(accounts.ACTIVATE_MAIL_EXPIRE) + u'小时'
+    #text_content = u'感谢您注册edu请点击链接激活您的账号该链接有效期' + repr(accounts.ACTIVATE_MAIL_EXPIRE) + u'小时'
     html_content = u'<p>感谢您注册edu</p><p>请<a href="' + url + u'">点击链接</a>激活您的账号</p><p>该链接有效期' + repr(accounts.ACTIVATE_MAIL_EXPIRE) + u'小时</p>'
+    text_content = html_to_text(html_content)
     
     msg = EmailMultiAlternatives(accounts.ACTIVATE_MAIL_SUBJECT, text_content, accounts.ACTIVATE_MAIL_FROM, [to])
     msg.attach_alternative(html_content, "text/html")
@@ -68,8 +72,8 @@ def send_mail_forgetpw(request):
     code = MyUser.objects.get(email=to).password.replace('+', '%2B')
     
     url = accounts.CHANGEPW_URL + '?email=' + email + '&code=' + code
-    text_content = u'请点击链接修改您的账号对应的密码'
     html_content = u'<p>请<a href="' + url + u'">点击链接</a>修改您的账号对应的密码</p>'
+    text_content = html_to_text(html_content)
     
     msg = EmailMultiAlternatives(accounts.CHANGEPW_MAIL_SUBJECT, text_content, accounts.MAIL_FROM, [to])
     msg.attach_alternative(html_content, "text/html")
