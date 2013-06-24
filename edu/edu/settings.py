@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'accounts',
     'books',
+    'readers',
 )
 
 # A sample logging configuration. The only tangible logging
