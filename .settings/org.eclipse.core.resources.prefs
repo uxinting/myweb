@@ -1,6 +1,9 @@
-#Tue May 14 16:16:57 CST 2013
+#Mon Jun 17 19:42:18 CST 2013
 eclipse.preferences.version=1
 encoding//article/views.py=utf-8
 encoding//calligraphy/urls.py=utf-8
 encoding//calligraphy/views.py=utf-8
+encoding//duoshuo/management/commands/ds_import.py=utf-8
+encoding//duoshuo/templatetags/duoshuo_tags.py=utf-8
+encoding//duoshuo/utils.py=utf-8
 encoding//xinting/views.py=utf-8
