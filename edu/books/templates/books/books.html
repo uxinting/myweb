@@ -1,5 +1,7 @@
 {% extends 'books/base.html' %}
 
+{% load staticfiles %}
+
 {% block css %}{% endblock %}
 
 {% block body %}
@@ -8,13 +10,12 @@
 	<a class="brand" href="/" data-toggle="tooltip" data-placement="bottom" title="回主页">eDu</a>
 	{% if user.is_authenticated %}
 	<ul class="nav pull-right">
-		<li><a href="#"><i class="icon-comment"></i></a></li>
-		<li><a href="#"><i class="icon-cog"></i></a></li>
+		<li><a href="javascript:{showConfig();}"><i class="icon-cog"></i></a></li>
 		<li><a href="/accounts/logout" data-toggle="tooltip" data-placement="bottom" title="退出">{{ user.nickname }}</a></li>
 	</ul>
 	{% else %}
 	<ul class="nav pull-right">
-		<li><a href="/accounts/login" data-toggle="tooltip" data-placement="bottom" title="登录">登录</a></li>
+		<li><a href="/accounts/login?next={{ request.path }}" data-toggle="tooltip" data-placement="bottom" title="登录">登录</a></li>
 	</ul>
 	{% endif %}
 </div>
@@ -46,6 +47,9 @@
 	
 	<div class="icon-backtop a" title="backtop"></div>
 </div>
+{% include 'books/config.html' %}
 {% endblock %}
 
-{% block js %}{% endblock %}
+{% block js %}
+<script src="{% static 'books/js/book.js' %}"></script>
+{% endblock %}

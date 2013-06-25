@@ -25,7 +25,7 @@ class Book(models.Model):
 class Chapter(models.Model):
     '''章节'''
     #章节名
-    subject = models.CharField()
+    subject = models.CharField(max_length=255)
     #所在书籍名
     book    = models.ForeignKey(Book)
     #第几章

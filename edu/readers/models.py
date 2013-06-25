@@ -12,7 +12,7 @@ class Reader(models.Model):
     #字号
     fontSize    = models.IntegerField(default=15)
     #词间距
-    wordSpace   = models.IntegerField(default=5)
+    #wordSpace   = models.IntegerField(default=5)
     #字符间距
     letterSpace = models.IntegerField(default=1)
     #行高
@@ -20,13 +20,13 @@ class Reader(models.Model):
     #段内距
     paraPadding = models.IntegerField(default=20)
     #是否自动高亮
-    highlight   = models.BooleanField(default=True)
+    hlBackground= models.BooleanField(default=True)
     #背景色
-    background  = models.CommaSeparatedIntegerField(default=[204, 232, 207])
+    background  = models.CommaSeparatedIntegerField(default=[204, 232, 207], max_length=16)
     #字色
-    fontColor   = models.CommaSeparatedIntegerField(default=[71, 72, 74])
+    fontColor   = models.CommaSeparatedIntegerField(default=[71, 72, 74], max_length=16)
     #高亮字色
-    hlColor     = models.CommaSeparatedIntegerField(default=[88, 88, 88])
+    #hlColor     = models.CommaSeparatedIntegerField(default=[88, 88, 88])
     #书签
     chapter     = models.ForeignKey(Chapter)
     #等级

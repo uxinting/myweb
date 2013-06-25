@@ -1,7 +1,7 @@
 !function($) {
 	$(function() {
 	
-		//Back to top icon functions
+		//Back to top icon functions回到顶端，控制回到顶部图标的显隐
 		$(document).scroll(function() {
 			if ($(this).scrollTop() > 0) {
 				$('.icon-backtop').show();
@@ -10,6 +10,7 @@
 			}
 		});
 		
+		//自动上滚
 		$('.icon-backtop').click(function() {
 			var id = setInterval(moveTop, 10);
 			function moveTop() {
@@ -19,12 +20,12 @@
 			}
 		});
 		
-		//prev button
+		//prev button上一篇
 		$('.icon-prev').click(function() {
 			
 		});
 		
-		//next button
+		//next button下一篇
 		$('.icon-next').click(function() {
 		
 		});
@@ -34,7 +35,7 @@
 			$(this).tooltip('show');
 		});
 		
-		//highlight
+		//highlight 文章高亮效果
 		$(document).mousemove(function(e) {
 			var yy = e.clientY;
 			var y = e.pageY;
@@ -49,7 +50,7 @@
 			}
 		});
 		
-		//当Input失去焦点时检查内容
+		//当Input失去焦点时检查内容，要有一个hidden的id为hasError的input作为结果保存
 		var inputs = $('form').find('input');
 		if (typeof(inputs) != 'undefined') {
 			for (var i = 0; i < inputs.length; i ++) {
@@ -124,9 +125,17 @@
 		}//if
 		
 		//form submit check
-		$('form').click(function() {
-			if($('#noError').val() == 'false') {
+		$('form').submit(function() {
+			if($('#noError').val() == false) {
 				return false;
+			}
+		});
+		
+		//控制某个div消失
+		$('.btn').click(function() {
+			var dmid = $(this).data('dismiss');
+			if (typeof(dmid) != 'undefined') {
+				$('#'+dmid).hide();
 			}
 		});
 		
@@ -235,5 +244,5 @@ function activate() {
 
 //换验证码
 function changeVerify() {
-	$('#inputVerify').next('img').attr('attr', '/accounts/verify?time=' + new Date().getTime());
+	$('#inputVerify').next('img').attr('src', '/accounts/verify?time=' + new Date().getTime());
 }

@@ -39,8 +39,8 @@ def Login(request):
             error['msg'] = e
         
     else:#request method is get
+        nxt = request.GET.get('next', '/')
         if request.user.is_authenticated():
-            print request.user
             return HttpResponseRedirect("/")
     return render_to_response('accounts/login.html', locals(), context_instance=RequestContext(request))
 

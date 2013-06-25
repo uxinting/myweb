@@ -4,6 +4,7 @@ body {
 	font-family: 微软雅黑, Verdana, sans-serif, 宋体;
 }
 
+/* 文章修饰 */
 .article {
 	margin: 0 auto;
 	width: 80%;
@@ -31,9 +32,9 @@ body {
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: 0px 20px;
-	color: rgb(88, 88, 88);
 }
 
+/* 目录修饰 */
 .article-list li {
 	display: block;
 	padding: 5px 25px 30px;
@@ -43,6 +44,7 @@ body {
 	border-color: rgb(159, 159, 159);
 }
 
+/* 回到顶部，上一篇，下一篇 */
 .icon-backtop {
 	position: fixed;
 	display: none;
@@ -64,6 +66,7 @@ body {
 	bottom: 130px;
 }
 
+/* loggo */
 .brand {
 	position: fixed;
 	left: 50px;
@@ -72,4 +75,17 @@ body {
 
 .a:hover {
 	cursor: pointer;
+}
+
+/* 设置框 */
+.config-container {
+	position: fixed;
+	display: none;
+	top: 0;
+	right: 0;
+	max-width: 50%;
+	padding: 20px 20px 0 0;
+	z-index: 999;
+	background: inherit;
+	overflow: auto;
 }
