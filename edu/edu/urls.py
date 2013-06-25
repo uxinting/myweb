@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-from edu import settings
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -9,6 +8,7 @@ urlpatterns = patterns('',
                        (r'^accounts', include('accounts.urls')),
                        url(r'^$', 'books.views.Books'),
                        (r'^books', include('books.urls')),
+                       (r'^readers', include('readers.urls')),
     # Examples:
     # url(r'^$', 'edu.views.home', name='home'),
     # url(r'^edu/', include('edu.foo.urls')),

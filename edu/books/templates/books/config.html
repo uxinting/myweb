@@ -1,11 +1,11 @@
 <!-- 设置样式 -->
 <div class="config-container" id="config-container">
-	<form class="form-horizontal" method="get">
+	<form class="form-horizontal" method="post" action="/readers/modify" >{% csrf_token %}
 		<div class="control-group">
 			<label class="control-label" for="inputBackground">背景色</label>
 			<div class="controls controls-row">
 				<div class="input-append">
-					<input class="span2" type="text" id="inputBackground" name="background" value="{{ reader.background }}">
+					<input class="span2" type="text" id="inputBackground" placeholder="204,232,207" name="background" value="{{ reader.background }}">
 				</div>
 			</div>
 		</div>
@@ -13,7 +13,7 @@
 			<label class="control-label" for="inputFontColor">文字颜色</label>
 			<div class="controls controls-row">
 				<div class="input-append">
-					<input class="span2" type="text" id="inputFontColor" name="fontColor" value="{{ reader.fontColor }}">
+					<input class="span2" type="text" placeholder="71,72,74" id="inputFontColor" name="fontColor" value="{{ reader.fontColor }}">
 				</div>
 			</div>
 		</div>
@@ -23,7 +23,6 @@
 				<select  class="span2" name="fontFamily" id="selectFontFamily" value="{{ reader.fontFamily }}">
 					<option checked="checked">微软雅黑</option>
 					<option>宋体</option>
-					<option>隶书</option>
 					<option>黑体</option>
 					<option>仿宋</option>
 					<option>楷体</option>
@@ -34,7 +33,7 @@
 			<label class="control-label" for="inputFontSize">字号</label>
 			<div class="controls">
 				<div class="input-append">
-					<input type="text" class="span2" id="inputFontSize" name="fontSize" value="{{ reader.fontSize }}">
+					<input type="text" class="span2" placeholder="15" id="inputFontSize" name="fontSize" value="{{ reader.fontSize }}">
 					<span class="add-on">px</span>
 				</div>
 			</div>
@@ -43,7 +42,7 @@
 			<label class="control-label" for="inputLetterSpace">字间距</label>
 			<div class="controls controls-row">
 				<div class="input-append">
-					<input class="span2" type="text" id="inputLetterSpace" name="letterSpace" value="{{ reader.letterSpace }}">
+					<input class="span2" type="text" placeholder="1" id="inputLetterSpace" name="letterSpace" value="{{ reader.letterSpace }}">
 					<span class="add-on">px</span>
 				</div>
 			</div>
@@ -52,7 +51,7 @@
 			<label class="control-label" for="inputLineHeight">行高</label>
 			<div class="controls controls-row">
 				<div class="input-append">
-					<input class="span2" type="text" id="inputLineHeight" name="lineHeight" value="{{ reader.lineHeight }}">
+					<input class="span2" type="text" placeholder="25" id="inputLineHeight" name="lineHeight" value="{{ reader.lineHeight }}">
 					<span class="add-on">px</span>
 				</div>
 			</div>
@@ -61,7 +60,7 @@
 			<label class="control-label" for="inputParaPad">段内距</label>
 			<div class="controls controls-row">
 				<div class="input-append">
-					<input class="span2" type="text" id="inputParaPad" name="paraPadding" value="{{ reader.paraPadding }}">
+					<input class="span2" type="text" placeholder="20" id="inputParaPad" name="paraPadding" value="{{ reader.paraPadding }}">
 					<span class="add-on">px</span>
 				</div>
 			</div>
@@ -71,9 +70,10 @@
 				<label class="checkbox">
 					<input type="checkbox" id="checkHLBg" name="hlBackground" value="{{ reader.hlBackground }}">高亮背景
 				</label>
-				<div class="controls-row">
-					<input type="submit" data-dismiss="config-container" class="btn btn-primary" value="确定" >
-					<div class="btn" data-dismiss="config-container">取消</div>
+				<div class="btn-group">
+					<button type="submit" data-dismiss="config-container" class="btn btn-primary" >确定</button>
+					<button type="button" class="btn btn-info" id="goDefault">默认</button>
+					<button type="button" class="btn" data-dismiss="config-container">取消</button>
 				</div>
 			</div>
 		</div>
