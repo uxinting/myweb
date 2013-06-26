@@ -18,10 +18,17 @@ $(function() {
 			'background-color': 'rgb(204, 232, 207)',
 			'color': 'rgb(71, 72, 74)',
 			'font-family': '微软雅黑'
-			});
+		});
 			
 		$('.article p').attr('style','font-size: 15px; word-spacing: 5px;letter-spacing: 1px; line-height: 25px; margin: 0;padding: 20px 8px;');
-		$('#config-container').find('form').clearForm();
+		
+		$('#inputBackground').val('204, 232, 207');
+		$('#inputFontColor').val('71, 72, 74');
+		$('#selectFontFamily')[0].options[0].selected = true;
+		$('#inputFontSize').val('15');
+		$('#inputLetterSpace').val('1');
+		$('#inputLineHeight').val('25');
+		$('#inputParaPad').val('20');
 	});
 	//绑定input blur事件
 	$('#inputBackground').blur(function (e) {

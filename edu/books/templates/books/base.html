@@ -14,7 +14,21 @@
 		<link rel="stylesheet" href="{% static 'books/css/xinting.css' %}" />
 		{% block css %}{% endblock %}
 		<style>
-		body { font-size: 14px; }
+		{% if reader %}
+		body { 
+			color: rgb({{ reader.fontColor }});
+			background-color: rgb({{ reader.background }});
+			font-family: {{ reader.fontFamily }};
+		}
+		
+		.article p {
+			font-size: {{ reader.fontSize }}px;
+			line-height: {{ reader.lineHeight }}px;
+			letter-spacing: {{ reader.letterSpace }}px;
+			padding: {{ reader.paraPadding }}px, 8px;
+					
+		}
+		{% endif %}
 		</style>
 	</head>
 	<body>
