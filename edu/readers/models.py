@@ -22,9 +22,9 @@ class Reader(models.Model):
     #是否自动高亮
     hlBackground= models.BooleanField(default=True)
     #背景色
-    background  = models.CommaSeparatedIntegerField(default='204, 232, 207', max_length=16)
+    background  = models.CharField(max_length=8)
     #字色
-    fontColor   = models.CommaSeparatedIntegerField(default='71, 72, 74', max_length=16)
+    fontColor   = models.CharField(max_length=8)
     #高亮字色
     #hlColor     = models.CommaSeparatedIntegerField(default=[88, 88, 88])
     #书签

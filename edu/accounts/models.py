@@ -51,8 +51,8 @@ class MyUser(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELD = ['nickname']
     
-    #class Meta:
-    #    db_table = 'user'
+    class Meta:
+        db_table = 'user'
     
     def get_full_name(self):
         return self.nickname

@@ -1,26 +1,32 @@
+{% extends 'readers/base.html' %}
+
+{% block css %}
+<style>
+form { margin-top: 150px; }
+</style>
+{% endblock %}
+
+{% block body %}
 <!-- 设置样式 -->
-<div class="config-container" id="config-container">
-	<form class="form-horizontal" method="post" action="/readers/modify" >
+<div class="row-fluid" id="config-container">
+<div class="offset3">
+	<form class="form-horizontal" method="post" >
 		<div class="control-group">
 			<label class="control-label" for="inputBackground">背景色</label>
 			<div class="controls controls-row">
-				<div class="input-append">
-					<input class="span2" type="text" id="inputBackground" placeholder="204,232,207" name="background" value="{{ reader.background }}">
-				</div>
+				<input type="text" class="pick-a-color" id="inputBackground" placeholder="204,232,207" name="background" value="{{ reader.background }}">
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="inputFontColor">文字颜色</label>
 			<div class="controls controls-row">
-				<div class="input-append">
-					<input class="span2" type="text" placeholder="71,72,74" id="inputFontColor" name="fontColor" value="{{ reader.fontColor }}">
-				</div>
+				<input type="text" class="pick-a-color" placeholder="71,72,74" id="inputFontColor" name="fontColor" value="{{ reader.fontColor }}">
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="selectFontFamily">字体</label>
 			<div class="controls">
-				<select  class="span2" name="fontFamily" id="selectFontFamily" value="{{ reader.fontFamily }}">
+				<select  name="fontFamily" id="selectFontFamily" value="{{ reader.fontFamily }}">
 					<option checked="checked">微软雅黑</option>
 					<option>宋体</option>
 					<option>黑体</option>
@@ -33,7 +39,7 @@
 			<label class="control-label" for="inputFontSize">字号</label>
 			<div class="controls">
 				<div class="input-append">
-					<input type="text" class="span2" placeholder="15" id="inputFontSize" name="fontSize" value="{{ reader.fontSize }}">
+					<input type="text" placeholder="15" id="inputFontSize" name="fontSize" value="{{ reader.fontSize }}">
 					<span class="add-on">px</span>
 				</div>
 			</div>
@@ -42,7 +48,7 @@
 			<label class="control-label" for="inputLetterSpace">字间距</label>
 			<div class="controls controls-row">
 				<div class="input-append">
-					<input class="span2" type="text" placeholder="1" id="inputLetterSpace" name="letterSpace" value="{{ reader.letterSpace }}">
+					<input type="text" placeholder="1" id="inputLetterSpace" name="letterSpace" value="{{ reader.letterSpace }}">
 					<span class="add-on">px</span>
 				</div>
 			</div>
@@ -51,7 +57,7 @@
 			<label class="control-label" for="inputLineHeight">行高</label>
 			<div class="controls controls-row">
 				<div class="input-append">
-					<input class="span2" type="text" placeholder="25" id="inputLineHeight" name="lineHeight" value="{{ reader.lineHeight }}">
+					<input type="text" placeholder="25" id="inputLineHeight" name="lineHeight" value="{{ reader.lineHeight }}">
 					<span class="add-on">px</span>
 				</div>
 			</div>
@@ -60,7 +66,7 @@
 			<label class="control-label" for="inputParaPad">段内距</label>
 			<div class="controls controls-row">
 				<div class="input-append">
-					<input class="span2" type="text" placeholder="20" id="inputParaPad" name="paraPadding" value="{{ reader.paraPadding }}">
+					<input type="text" placeholder="20" id="inputParaPad" name="paraPadding" value="{{ reader.paraPadding }}">
 					<span class="add-on">px</span>
 				</div>
 			</div>
@@ -80,3 +86,15 @@
 		<input type="hidden" value="false" id="noError" />
 	</form>
 </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+$(function() {
+	$('.pick-a-color').pickAColor({
+		showSavedColors: false
+	});
+});
+</script>
+{% endblock %}

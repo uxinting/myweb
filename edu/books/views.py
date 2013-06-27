@@ -25,7 +25,6 @@ def Share(request):
             error['msg'] = get_chapters(request.POST.get('rule', '^$'), open(fpath).readlines())
             error['status'] = True
         except Exception, e:
-            print e
             error['status'] = False
             error['msg'] = e
         import json

@@ -38,7 +38,7 @@
 			{% if request.user.is_authenticated %}
 			<ul class="nav pull-right">
 				<li><a href="/books/share"><i class="icon-share"></i></a></li>
-				<li><a href="javascript:{showConfig();}"><i class="icon-cog"></i></a></li>
+				<li><a href="/readers/config"><i class="icon-cog"></i></a></li>
 				<li><a href="/accounts/logout" data-toggle="tooltip" data-placement="bottom" title="退出">{{ request.user.nickname }}</a></li>
 			</ul>
 			{% else %}

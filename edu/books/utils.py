@@ -12,16 +12,15 @@ def save_file_from_request(request, name):
         path = get_save_folder()
         book = Book.objects.create(name=f.name,
                                    author=request.POST.get('author', 'unknown'),
-                                   share=request.user,
+                                   sharer=request.user,
                                    path=path,
                                    desc=request.POST.get('desc', ''))
         book.save()
-        out_f = open(os.path.join(path, book.id), 'wb')
-        
+        out_f = open(os.path.join(path, repr(book.id)), 'wb')
         for content in f.chunks():
             out_f.write(content)
         out_f.close()
-        return os.path.join(path, book.id)
+        return os.path.join(path, repr(book.id))
     except Exception, e:
         raise e
 
@@ -29,7 +28,7 @@ def get_chapters(rule, lines):
     chapters = []
     c_r = re.compile(rule)
     for line in lines:
+        line = line.decode('utf-8')
         if re.match(c_r, line):
-            print line
             chapters.append(line)
     return chapters

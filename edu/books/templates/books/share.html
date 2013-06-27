@@ -2,7 +2,11 @@
 
 {% load staticfiles %}
 
-{% block css %}{% endblock %}
+{% block css %}
+<style>
+form { margin-top: 150px; }
+</style>
+{% endblock %}
 
 {% block body %}
 <div class="row-fluid">
@@ -15,15 +19,22 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="inputDesc">描述</label>
-			<div class="controls" id="inputDesc">
-				<textarea placeholder="本书描述" name="desc" ></textarea>
+			<label class="control-label" for="inputRule">断章规则</label>
+			<div class="controls" id="inputRule">
+				<input type="text" placeholder="第*章" name="rule" >
+				<span class="help-line">如第*章、回、篇</span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="inputPriv">权限</label>
 			<div class="controls" id="inputPriv">
 				<input type="number" placeholder="0" name="priv" >
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputDesc">描述</label>
+			<div class="controls" id="inputDesc">
+				<textarea placeholder="本书描述" name="desc" ></textarea>
 			</div>
 		</div>
 		<div class="control-group">
@@ -47,8 +58,17 @@
 <script>
 $(function () {
 	var options = {
+		dataType: 'json',
 		success: function(data, status) {
-			alert(data + ' ' + status);
+			if (data.status) {
+				var cs = '';
+				for (var c in data.msg) {
+					cs += '\n' + data.msg[c];
+				}
+				alert(cs);
+			} else {
+				alert(data.msg);
+			}
 		}
 	};
 	$('#uploadBook').ajaxForm(options);

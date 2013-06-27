@@ -1,13 +1,8 @@
-function showConfig() {
-	var h = $(window).height();
-	$('#config-container').css({'height': h}).show();
-};
-
 $(function() {
 	//绑定ajax
 	var options = {
 		success: function(data, status) {
-			alert(data + ' ' + status);
+			alert(data);
 		}
 	};
 	$('#config-container form').ajaxForm(options);
@@ -31,26 +26,26 @@ $(function() {
 		$('#inputParaPad').val('20');
 	});
 	//绑定input blur事件
-	$('#inputBackground').blur(function (e) {
+	$('#inputBackground').change(function (e) {
 		var color = $(this).val().replace(/\s+/g, '')//去空格
 
-		var re = /^\d+,\d+,\d+$/
+		var re = /^[a-f0-9]{6}$/
 		if (!re.test(color)) {
 			$(this).val("");
 			return;
 		}
-		$('body').css({'background-color': 'rgb(' +color+')'});
+		$('body').css({'background-color': '#' +color});
 	});
 	
-	$('#inputFontColor').blur(function (e) {
+	$('#inputFontColor').change(function (e) {
 		var color = $(this).val().replace(/\s+/g, '')//去空格
 
-		var re = /^\d+,\d+,\d+$/
+		var re = /^[a-f0-9]{6}$/
 		if (!re.test(color)) {
 			$(this).val("");
 			return;
 		}
-		$('body').css({'color': 'rgb(' +color+')'});
+		$('body').css({'color': '#' +color});
 	});
 	
 	$('#selectFontFamily').change(function () {
