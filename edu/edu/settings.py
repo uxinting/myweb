@@ -19,6 +19,8 @@ EMAIL_PORT = 25
 EMAIL_HOST_USER = 'edu_server@sina.cn'
 EMAIL_HOST_PASSWORD = 'edu_server@#$89'
 
+LOGIN_URL = '/accounts/login'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.

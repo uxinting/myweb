@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 from django.db import models
 from django.utils import timezone
+from readers.models import Reader
 
 class Book(models.Model):
     
@@ -9,7 +10,7 @@ class Book(models.Model):
     #书作者
     author  = models.CharField(max_length=128)
     #分享者
-    sharer  = models.CharField(max_length=64)
+    sharer  = models.ForeignKey(Reader)
     #所在路径
     path    = models.FilePathField()
     #分享日期
