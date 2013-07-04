@@ -9,6 +9,9 @@ def Config(request):
     error = {}
     if request.method == 'GET':
         title = u'个人设置'
+        try:
+            reader = request.user.reader
+        except:pass
         return render_to_response('readers/config.html', locals())
     else:
         try:

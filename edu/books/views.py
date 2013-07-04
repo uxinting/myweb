@@ -21,8 +21,7 @@ def Share(request):
     else:
         error = {}
         try:
-            fpath = save_file_from_request(request, 'file')
-            error['msg'] = get_chapters(request.POST.get('rule', '^$'), open(fpath).readlines())
+            save_file_from_request(request, 'file')
             error['status'] = True
         except Exception, e:
             error['status'] = False

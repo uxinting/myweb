@@ -14,9 +14,11 @@ class Book(models.Model):
     #所在路径
     path    = models.FilePathField()
     #分享日期
-    date  = models.DateTimeField(default=timezone.now())
+    date    = models.DateTimeField(default=timezone.now())
     #权限
     priv    = models.IntegerField(default=0)
+    #热度
+    pop     = models.IntegerField(default=0)
     #描述
     desc    = models.TextField()
     

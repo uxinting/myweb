@@ -13,16 +13,14 @@ form { margin-top: 150px; }
 <div class="offset3">
 	<form method="POST" class="form-horizontal" enctype="multipart/form-data" id="uploadBook">
 		<div class="control-group">
-			<label class="control-label" for="inputAuthor">作者</label>
-			<div class="controls" id="inputAuthor">
-				<input type="text" placeholder="本书作者" name="author" >
+			<div class="controls">
+				<div class="label label-info" style="display: none;" id="info"></div>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="inputRule">断章规则</label>
-			<div class="controls" id="inputRule">
-				<input type="text" placeholder="第*章" name="rule" >
-				<span class="help-line">如第*章、回、篇</span>
+			<label class="control-label" for="inputAuthor">作者</label>
+			<div class="controls" id="inputAuthor">
+				<input type="text" placeholder="本书作者" name="author" >
 			</div>
 		</div>
 		<div class="control-group">
@@ -44,7 +42,7 @@ form { margin-top: 150px; }
 		</div>
 		<div class="control-group">
 			<div class="controls controls-row">
-				<button type="submit" class="btn btn-primary" >确定</button>
+				<button type="submit" class="btn btn-primary">确定</button>
 				<a type="button" class="btn" href="{{ nxt }}">返回</a>
 			</div>
 		</div>		
@@ -61,13 +59,9 @@ $(function () {
 		dataType: 'json',
 		success: function(data, status) {
 			if (data.status) {
-				var cs = '';
-				for (var c in data.msg) {
-					cs += '\n' + data.msg[c];
-				}
-				alert(cs);
+				$('#info').text('上传成功').show();
 			} else {
-				alert(data.msg);
+				$('#info').text('对不起，上传失败').show();
 			}
 		}
 	};

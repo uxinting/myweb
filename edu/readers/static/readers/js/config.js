@@ -17,8 +17,8 @@ $(function() {
 			
 		$('.article p').attr('style','font-size: 15px; word-spacing: 5px;letter-spacing: 1px; line-height: 25px; margin: 0;padding: 20px 8px;');
 		
-		$('#inputBackground').val('204, 232, 207');
-		$('#inputFontColor').val('71, 72, 74');
+		$('#inputBackground').val('cce8cf');
+		$('#inputFontColor').val('47484a');
 		$('#selectFontFamily')[0].options[0].selected = true;
 		$('#inputFontSize').val('15');
 		$('#inputLetterSpace').val('1');
@@ -34,7 +34,7 @@ $(function() {
 			$(this).val("");
 			return;
 		}
-		$('body').css({'background-color': '#' +color});
+		$('#testbody').css({'background-color': '#' +color});
 	});
 	
 	$('#inputFontColor').change(function (e) {
@@ -45,12 +45,12 @@ $(function() {
 			$(this).val("");
 			return;
 		}
-		$('body').css({'color': '#' +color});
+		$('#testbody').css({'color': '#' +color});
 	});
 	
 	$('#selectFontFamily').change(function () {
 		var sff = $(this);
-		$('body').css({'font-family': sff.val()});
+		$('#testbody').css({'font-family': sff.val()});
 	});
 	
 	$('#inputFontSize').blur(function () {

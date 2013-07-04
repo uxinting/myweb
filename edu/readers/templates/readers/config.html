@@ -9,18 +9,18 @@ form { margin-top: 150px; }
 {% block body %}
 <!-- 设置样式 -->
 <div class="row-fluid" id="config-container">
-<div class="offset3">
-	<form class="form-horizontal" method="post" >
+<div class="offset2 span5">
+	<form class="form-horizontal" method="post">
 		<div class="control-group">
 			<label class="control-label" for="inputBackground">背景色</label>
 			<div class="controls controls-row">
-				<input type="text" class="pick-a-color" id="inputBackground" placeholder="204,232,207" name="background" value="{{ reader.background }}">
+				<input type="text" class="pick-a-color" id="inputBackground" placeholder="cce8cf" name="background" value="{{ reader.background }}">
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="inputFontColor">文字颜色</label>
 			<div class="controls controls-row">
-				<input type="text" class="pick-a-color" placeholder="71,72,74" id="inputFontColor" name="fontColor" value="{{ reader.fontColor }}">
+				<input type="text" class="pick-a-color" placeholder="47484a" id="inputFontColor" name="fontColor" value="{{ reader.fontColor }}">
 			</div>
 		</div>
 		<div class="control-group">
@@ -77,14 +77,20 @@ form { margin-top: 150px; }
 					<input type="checkbox" id="checkHLBg" name="hlBackground" value="{{ reader.hlBackground }}">高亮背景
 				</label>
 				<div class="btn-group">
-					<button type="submit" data-dismiss="config-container" class="btn btn-primary" >确定</button>
+					<button type="submit" class="btn btn-primary" >确定</button>
 					<button type="button" class="btn btn-info" id="goDefault">默认</button>
-					<button type="button" class="btn" data-dismiss="config-container">取消</button>
+					<a type="button" class="btn" href="/">取消</a>
 				</div>
 			</div>
 		</div>
 		<input type="hidden" value="false" id="noError" />
 	</form>
+</div>
+<div id="testbody" class="span4" style="margin-top: 150px;">
+	<div class="article">
+		<p>测试1</p>
+		<p>测试2</p>
+	</div>
 </div>
 </div>
 {% endblock %}
