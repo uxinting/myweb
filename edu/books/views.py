@@ -3,11 +3,13 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from books.utils import save_file_from_request, get_chapters
 from django.contrib.auth.decorators import login_required
+from books.models import Book
 
 def Books(request):
     title = u'著作'
     try:
         reader = request.user.reader
+        books = Book.objects.all();
     except:
         pass
     return render_to_response('books/books.html', locals())

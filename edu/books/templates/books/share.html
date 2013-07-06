@@ -37,7 +37,7 @@ form { margin-top: 150px; }
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<input type="file" id="inputFile" placeholder="上传书籍" name="file" required>
+				<input type="file" data-type="button" id="inputFile" placeholder="上传书籍" name="file" required>
 			</div>
 		</div>
 		<div class="control-group">
@@ -66,6 +66,17 @@ $(function () {
 		}
 	};
 	$('#uploadBook').ajaxForm(options);
+	
+	//file componment
+	var fileComp = $('[type="file"]');
+	if (fileComp.data('type') == 'button') {
+		var btnFile = $('<div class="btn" style="position: static;"><span style="position: absolute">点击选择文件</span></div>');
+		fileComp.parent().append(btnFile);
+		btnFile.append(fileComp.addClass('fade'));
+		fileComp.change(function(){
+			btnFile.find('span').text(fileComp.val());
+		});
+	}
 });
 </script>
 {% endblock %}
