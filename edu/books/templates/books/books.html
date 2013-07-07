@@ -7,30 +7,24 @@
 {% block body %}
 <div class="container">
 	<ul class="article-list">
+		{% for book in books %}
 		<li>
 			<div class="article">
 				<h3>
-					神农本草经
+					{{ book.name }}
 					<br>
-					<small class="pull-right">&minus;xinting&nbsp;&nbsp;&nbsp;&nbsp;2013.5.29</small>	
+					<small class="pull-right">&minus;{{ book.sharer }}&nbsp;&nbsp;&nbsp;&nbsp;{{ book.date }}</small>	
 				</h3>
-				<p>《神农本草经》简称《本草经》或《本经》，是中国现存最早的药物学专著。《神农本草经》成书于东汉，并非出自一时一人之手，而是秦汉时期众多医学家总结、搜集、整理当时药物学经验成果的专著，是对中国中草药的第一次系统总结。其中规定的大部分药物学理论和配伍规则以及提出的“七情合和”原则在几千年的用药实践中发挥了巨大作用，被誉为中药学经典著作。因此很长一段历史时期内，它是医生和药师学习中药学的教科书，也是医学工作者案头必备的工具书之一。</p>
+				<p>{{ book.desc }}</p>
 				<a href="article.html" class="pull-right">更多</a>
 			</div>
 		</li>
-		<li>
-			<div class="article">
-				<h3>
-					黄帝内经
-					<br><small class="pull-right">&minus;xinting&nbsp;&nbsp;&nbsp;&nbsp;2013.5.28</small>
-				</h3>
-				<p>《黄帝内经》分《灵枢》、《素问》两部分，为古代医家托轩辕黄帝名之作，为医家、医学理论家联合创作，一般认为成书于春秋战国时期。在以黄帝、岐伯、雷公对话、问答的形式阐述病机病理的同时，主张不治已病，而治未病，同时主张养生、摄生、益寿、延年。是中国传统医学四大经典著作之一(《黄帝内经》、《难经》、《伤寒杂病论》、《神农本草经》)，是我国医学宝库中现存成书最早的一部医学典籍。是研究人的生理学、病理学、诊断学、治疗原则和药物学的医学巨著。在理论上建立了中医学上的“阴阳五行学说”、“脉象学说”“藏象学说”等。</p>
-				<a href="#" class="pull-right">更多</a>
-			</div>
-		</li>
+		{% endfor %}
 	</ul>
 	
-	<div class="icon-backtop a" title="backtop"></div>
+	<div class="icon-arrow-up icon-backtop a" data-toggle="tooltip" title="回到顶部"></div>
+	<div class="icon-arrow-left icon-prev a"  data-toggle="tooltip" title="上一篇" data-prev="true"></div>
+	<div class="icon-arrow-right icon-next a" data-toggle="tooltip" title="下一篇" data-next="true"></div>
 </div>
 {% endblock %}
 

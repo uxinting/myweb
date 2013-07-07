@@ -22,12 +22,24 @@
 		
 		//prev button上一篇
 		$('.icon-prev').click(function() {
-			
+			var href;
+			if (location.href.contains('?')) {
+				href = "&option=prev";
+			} else {
+				href = "?option=prev";
+			}
+			location.href = location.href + href; 
 		});
 		
 		//next button下一篇
 		$('.icon-next').click(function() {
-		
+			var href;
+			if (location.href.contains('?')) {
+				href = "&option=next";
+			} else {
+				href = "?option=next";
+			}
+			location.href = location.href + href;
 		});
 		
 		//data-toggle

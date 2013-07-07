@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from books.utils import save_file_from_request, get_chapters
 from django.contrib.auth.decorators import login_required
 from books.models import Book
@@ -8,8 +8,21 @@ from books.models import Book
 def Books(request):
     title = u'著作'
     try:
+        index = request.GET.get('index', None)
+        if not index:
+            return HttpResponseRedirect('/books/books.html?index=0')
+        
+        option = request.GET.get('option', None)
+        if option == 'prev':
+            index = index - 10
+            if index < 0:
+                index = 0;
+        elif option == 'next':
+            index = index + 10
+        else:pass
+        
+        books = Book.objects.all()[index : index+10];
         reader = request.user.reader
-        books = Book.objects.all();
     except:
         pass
     return render_to_response('books/books.html', locals())

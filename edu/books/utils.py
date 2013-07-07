@@ -10,15 +10,16 @@ def save_file_from_request(request, name):
     try:
         f = request.FILES.get(name, None)
         path = get_save_folder()
-        book = Book.objects.create(name=f.name,
+        book = Book.objects.create(name=''.join(f.name.split('.')[:-1]),
                                    author=request.POST.get('author', 'unknown'),
                                    sharer=request.user,
                                    path=path,
-                                   desc=request.POST.get('desc', ''))
+                                   desc=request.POST.get('desc', f.chunks()[:100]))
         book.save()
         out_f = open(os.path.join(path, repr(book.id)), 'wb')
         for content in f.chunks():
             out_f.write(content)
+            
         out_f.close()
         return os.path.join(path, repr(book.id))
     except Exception, e:
