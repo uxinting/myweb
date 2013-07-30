@@ -10,8 +10,9 @@ def Books(request):
     try:
         index = request.GET.get('index', None)
         if not index:
-            return HttpResponseRedirect('/books/books.html?index=0')
+            return HttpResponseRedirect('/?index=0')
         
+        index = int(index)
         option = request.GET.get('option', None)
         if option == 'prev':
             index = index - 10
@@ -20,11 +21,11 @@ def Books(request):
         elif option == 'next':
             index = index + 10
         else:pass
-        
-        books = Book.objects.all()[index : index+10];
+
+        books = Book.objects.all()[index : index+10]
         reader = request.user.reader
-    except:
-        pass
+    except Exception, e:
+        print e
     return render_to_response('books/books.html', locals())
 
 @login_required
@@ -41,5 +42,6 @@ def Share(request):
         except Exception, e:
             error['status'] = False
             error['msg'] = e
+        print error
         import json
         return HttpResponse(json.dumps(error), 'json')

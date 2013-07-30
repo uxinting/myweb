@@ -4,7 +4,7 @@ import os
 from books.models import Book
 
 def get_save_folder():
-    return os.path.join(os.path.dirname(__file__), 'books') 
+    return os.path.join(os.path.dirname(__file__), 'books').decode('gbk')
 
 def save_file_from_request(request, name):
     try:
@@ -14,7 +14,7 @@ def save_file_from_request(request, name):
                                    author=request.POST.get('author', 'unknown'),
                                    sharer=request.user,
                                    path=path,
-                                   desc=request.POST.get('desc', f.chunks()[:100]))
+                                   desc=request.POST.get('desc', 'no describe'))
         book.save()
         out_f = open(os.path.join(path, repr(book.id)), 'wb')
         for content in f.chunks():

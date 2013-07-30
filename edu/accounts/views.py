@@ -55,11 +55,11 @@ def Register(request):
         try:
             label = request.POST.get('input', None)
             value = request.POST.get('value', None)
-            
+
             if label is not None:
                 #ajax check
                 cdata = {label: value}
-                
+
                 if not userExist(cdata):
                     cdata['status'] = True
                     cdata['msg'] = u'可用'
@@ -79,11 +79,12 @@ def Register(request):
             user = MyUser.objects.create_user(email, password, nickname)
             user.save()#注册成功
             error['msg'] = u'注册成功'
-            
+            print '-----------------------'
             #发送激活邮件
             error['msg'] += send_activate_mail(request)
+            print error['msg']
         except IntegrityError:
-            error['msg'] = u'重复账号，注册失败'
+            error['msg'] += u'重复账号，注册失败'
         except Exception, e:
             error['msg'] = e
                 
@@ -172,7 +173,8 @@ def Verify(request):
     #字号
     font_size = 22
     #加载字体
-    font = ImageFont.truetype('msyh.ttf', font_size)
+    import os
+    font = ImageFont.truetype(os.path.join(os.path.dirname(__file__), 'media/msyh.ttc'), font_size)
     #字体颜色
     font_color = ['black','darkblue','darkred']
     request.session['verify'] = ''
@@ -192,7 +194,7 @@ def Verify(request):
     #写入验证码文字
     x = 3
     for i in code:
-        y = random.randrange(0, 3)
+        y = random.randrange(2, 5)
         draw.text((x,y), i, font=font, fill=random.choice(font_color))
         x += 28
         request.session['verify'] += i

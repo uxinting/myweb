@@ -11,7 +11,7 @@ from books.utils import get_chapters, get_save_folder
 import os
 
 
-class SimpleTest(TestCase):
+'''class SimpleTest(TestCase):
     def test_basic_addition(self):
         """
         Tests that 1 + 1 always equals 2.
@@ -20,3 +20,5 @@ class SimpleTest(TestCase):
     def test_get_chapters(self):
         path = os.path.join(get_save_folder(), '4L')
         get_chapters(u'.*篇第.+', open(path).readlines())
+        '''
+print get_save_folder().decode('gbk')     

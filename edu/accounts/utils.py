@@ -28,9 +28,11 @@ def send_activate_mail(request):
     code = hashlib.md5(repr(time.time())).hexdigest()
     
     url = accounts.ACTIVATE_URL + '?email=' + email + '&code=' + code
+    print url
     #text_content = u'感谢您注册edu请点击链接激活您的账号该链接有效期' + repr(accounts.ACTIVATE_MAIL_EXPIRE) + u'小时'
     html_content = u'<p>感谢您注册edu</p><p>请<a href="' + url + u'">点击链接</a>激活您的账号</p><p>该链接有效期' + repr(accounts.ACTIVATE_MAIL_EXPIRE) + u'小时</p>'
     text_content = html_to_text(html_content)
+    print html_content,  text_content
     
     msg = EmailMultiAlternatives(accounts.ACTIVATE_MAIL_SUBJECT, text_content, accounts.ACTIVATE_MAIL_FROM, [to])
     msg.attach_alternative(html_content, "text/html")
@@ -157,4 +159,5 @@ def userExist(p):
         else:
             return True
     except Exception, e:
+        print 'userexist', e
         raise e

@@ -5,7 +5,7 @@ when you run "manage.py test".
 Replace this with more appropriate tests for your application.
 """
 
-from django.test import TestCase
+'''from django.test import TestCase
 
 
 class SimpleTest(TestCase):
@@ -14,3 +14,10 @@ class SimpleTest(TestCase):
         Tests that 1 + 1 always equals 2.
         """
         self.assertEqual(1 + 1, 2)
+        
+    def test_ImageFonttruetype(self):
+        from PIL import ImageFont
+        #ImageFont.truetype('msyh.ttc')'''
+
+from PIL import ImageFont
+print ImageFont.truetype('msyh.ttc')
