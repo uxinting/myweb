@@ -16,15 +16,26 @@
 					<small class="pull-right">&minus;{{ book.sharer }}&nbsp;&nbsp;&nbsp;&nbsp;{{ book.date }}</small>	
 				</h3>
 				<p>{{ book.desc }}</p>
-				<a href="article.html" class="pull-right">更多</a>
+				<a href="{% url 'books.views.Chapters' book.id %}" class="pull-right">更多</a>
 			</div>
 		</li>
 		{% endfor %}
 	</ul>
 	
-	<div class="icon-arrow-up icon-backtop a" data-toggle="tooltip" title="回到顶部"></div>
+	{% if counts %}
+	<div class="pagination pull-right">
+		<ul>
+			<li data-prev="true"><a href="">&laquo;</a></li>
+			{% for count in counts %}
+			<li><a href="{% url 'books.views.Book' %}?index={{ count }}">{{ count }}</a></li>
+			{% endfor %}
+			<li data-next="true"><a href="">&raquo;</a></li>
+		</ul>
+	</div>
+	{% endif %}
+	<div class="icon-arrow-up icon-backtop a" data-toggle="tooltip" title="回到顶部"></div><!-- 
 	<div class="icon-arrow-left icon-prev a"  data-toggle="tooltip" title="上一篇" data-prev="true"></div>
-	<div class="icon-arrow-right icon-next a" data-toggle="tooltip" title="下一篇" data-next="true"></div>
+	<div class="icon-arrow-right icon-next a" data-toggle="tooltip" title="下一篇" data-next="true"></div>-->
 </div>
 {% endblock %}
 
