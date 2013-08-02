@@ -28,7 +28,7 @@ class Reader(models.Model):
     #高亮字色
     #hlColor     = models.CommaSeparatedIntegerField(default=[88, 88, 88])
     #书签
-    chapter     = models.ForeignKey(Chapter, blank=True)
+    chapter     = models.ForeignKey(Chapter, blank=True, null=True, on_delete=models.SET_NULL)
     #等级
     level       = models.IntegerField(default=0)
     

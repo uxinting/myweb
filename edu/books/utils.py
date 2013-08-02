@@ -3,6 +3,7 @@ import re
 import os
 from books.models import Book
 from django.db import models
+from edu import settings
 
 def get_save_folder():
     return os.path.join(os.path.dirname(__file__), 'books').decode('gbk')
@@ -37,7 +38,7 @@ def get_chapters(rule, lines):
 
 class Page:
     ''' sliced models into pages '''
-    def __init__(self, obj, pageLimit=10):
+    def __init__(self, obj, pageLimit=settings.PAGE_ITEM_LIMIT):
         if not issubclass(obj, models.Model):
             raise TypeError('Model object only!')
         self.model = obj
@@ -53,8 +54,10 @@ class Page:
         
     def currentPageItems(self, page):
         ''' get items in page 'page', index base of 1 '''
-        if page > self.count or page < 1:
-            raise IndexError('Invalid page index!')
+        if page > self.count:
+            page = self.count
+        if page < 1:
+            page = 1;
         try:
             page *= self.limit
             return self.model.objects.all()[page-self.limit: page]

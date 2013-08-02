@@ -10,6 +10,8 @@ from accounts.utils import send_activate_mail, userExist, check_mail_activate,\
     send_mail_forgetpw, check_mail_changepw, check_register_parameter,\
     check_password_new, check_verify
 import cStringIO
+from readers.models import Reader
+from books.models import Chapter
 
 def Login(request):
     title = u'登录'
@@ -78,13 +80,15 @@ def Register(request):
             
             user = MyUser.objects.create_user(email, password, nickname)
             user.save()#注册成功
+
+            Reader.objects.create(user=user,chapter=Chapter.objects.get(id=1)).save()#save a reder with the user
             error['msg'] = u'注册成功'
             print '-----------------------'
             #发送激活邮件
             error['msg'] += send_activate_mail(request)
             print error['msg']
         except IntegrityError:
-            error['msg'] += u'重复账号，注册失败'
+            error['msg'] = u'初始化用户出错'
         except Exception, e:
             error['msg'] = e
                 
@@ -220,5 +224,4 @@ def Verify(request):
     #保存到本地
     bufimage = cStringIO.StringIO();
     newImage.save(bufimage, 'jpeg')
-    print (request.session['verify'])
     return HttpResponse(bufimage.getvalue(), 'image/jpeg')

@@ -43,6 +43,7 @@
 			</ul>
 			{% else %}
 			<ul class="nav pull-right">
+				<li><a href="/accounts/register?next={{ request.path }}" data-toggle="tooltip" data-placement="bottom" title="注册">注册</a></li>
 				<li><a href="/accounts/login?next={{ request.path }}" data-toggle="tooltip" data-placement="bottom" title="登录">登录</a></li>
 			</ul>
 			{% endif %}

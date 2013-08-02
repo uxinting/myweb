@@ -25,11 +25,11 @@
 	{% if counts %}
 	<div class="pagination pull-right">
 		<ul>
-			<li data-prev="true"><a href="">&laquo;</a></li>
+			<li data-prev="true"><a href="{% url 'books.views.Books' %}?index={{ index|add:'-1' }}">&laquo;</a></li>
 			{% for count in counts %}
-			<li><a href="{% url 'books.views.Book' %}?index={{ count }}">{{ count }}</a></li>
+			<li {% ifequal count index %}class="active"{% endifequal %}><a href="{% url 'books.views.Books' %}?index={{ count }}">{{ count }}</a></li>
 			{% endfor %}
-			<li data-next="true"><a href="">&raquo;</a></li>
+			<li data-next="true"><a href="{% url 'books.views.Books' %}?index={{ index|add:'1' }}">&raquo;</a></li>
 		</ul>
 	</div>
 	{% endif %}

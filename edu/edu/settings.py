@@ -21,6 +21,8 @@ EMAIL_HOST_PASSWORD = 'edu_server@#$89'
 
 LOGIN_URL = '/accounts/login'
 
+PAGE_ITEM_LIMIT = 2
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.

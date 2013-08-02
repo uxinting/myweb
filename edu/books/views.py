@@ -10,11 +10,17 @@ from django.core.exceptions import ObjectDoesNotExist
 def Books(request):
     title = u'著作'
     try:
-        index = request.GET.get('index', None)
-        if not index:
+        index = int(request.GET.get('index', 0))
+        
+        pb = Page(Book)
+        counts = range(1, pb.countPage())
+        
+        if not index or index < 1:
             return HttpResponseRedirect('/books?index=1')
-       
-        books = Page(Book).currentPageItems(int(index))
+        if index > len(counts):
+            return HttpResponseRedirect('/books?index=' + repr(len(counts)))
+        
+        books = pb.currentPageItems(index)
         reader = request.user.reader
     except Exception, e:
         print e

@@ -13,8 +13,9 @@ def send_activate_mail(request):
     '''发送一个激活邮件到email所指定的地址，函数返回一个校验码，以后核对.
             将email用base64编码，并加入当时的的时间float格式的md5编码与其中
     '''
-    
     to = request.GET.get('email', None)
+    if to is None:
+        to = request.POST.get('email', None)
     
     #判断此邮箱是否已注册
     if not userExist({'email': to}):
