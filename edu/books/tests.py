@@ -7,8 +7,10 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from books.utils import get_chapters, get_save_folder
+from books.utils import get_chapters, get_save_folder, Page
 import os
+from books.models import Book
+from django.db import models
 
 
 '''class SimpleTest(TestCase):
@@ -21,4 +23,5 @@ import os
         path = os.path.join(get_save_folder(), '4L')
         get_chapters(u'.*篇第.+', open(path).readlines())
         '''
-print get_save_folder().decode('gbk')     
+#print get_save_folder().decode('gbk')    
+print Page(Book).currentPageItems(1)

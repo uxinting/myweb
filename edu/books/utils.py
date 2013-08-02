@@ -2,6 +2,7 @@
 import re
 import os
 from books.models import Book
+from django.db import models
 
 def get_save_folder():
     return os.path.join(os.path.dirname(__file__), 'books').decode('gbk')
@@ -33,3 +34,43 @@ def get_chapters(rule, lines):
         if re.match(c_r, line):
             chapters.append(line)
     return chapters
+
+class Page:
+    ''' sliced models into pages '''
+    def __init__(self, obj, pageLimit=10):
+        if not issubclass(obj, models.Model):
+            raise TypeError('Model object only!')
+        self.model = obj
+        self.limit = pageLimit
+        try:
+            self.count = self.model.objects.count() / self.limit + 1
+        except Exception, e:
+            raise e
+        
+    def countPage(self):
+        ''' return the count of pages while each one contain self.limit model items '''
+        return self.count
+        
+    def currentPageItems(self, page):
+        ''' get items in page 'page', index base of 1 '''
+        if page > self.count or page < 1:
+            raise IndexError('Invalid page index!')
+        try:
+            page *= self.limit
+            return self.model.objects.all()[page-self.limit: page]
+        except Exception, e:
+            raise e
+        
+    def prevPageItems(self, page):
+        ''' get items in previous page of 'page' '''
+        page -= 1
+        if page < 1 or page > self.count:
+            return None
+        return self.currentPageItems(page)
+    
+    def nextPageItems(self, page):
+        ''' get items in next page of 'page' '''
+        page += 1
+        if page < 1 or page > self.count:
+            return None
+        return self.currentPageItems(page)

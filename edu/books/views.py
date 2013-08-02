@@ -1,7 +1,8 @@
 #-*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
-from books.utils import save_file_from_request, get_chapters, get_save_folder
+from books.utils import save_file_from_request, get_chapters, get_save_folder,\
+    Page
 from django.contrib.auth.decorators import login_required
 from books.models import Book, Chapter
 from django.core.exceptions import ObjectDoesNotExist
@@ -11,20 +12,9 @@ def Books(request):
     try:
         index = request.GET.get('index', None)
         if not index:
-            return HttpResponseRedirect('/books?index=0')
-        
-        index = int(index)
-        option = request.GET.get('option', None)
-        if option == 'prev':
-            index = index - 10
-            if index < 0:
-                index = 0;
-        elif option == 'next':
-            index = index + 10
-        else:pass
-
-        books = Book.objects.all()[index : index+10]
-        counts = range(Book.objects.count() / 10)
+            return HttpResponseRedirect('/books?index=1')
+       
+        books = Page(Book).currentPageItems(int(index))
         reader = request.user.reader
     except Exception, e:
         print e
