@@ -9,7 +9,7 @@
 		<title>{{ title }}</title>
 		
 		<!-- CSS -->
-		<link rel="shortcut icon" href="{% static 'books/img/favicon.ico' %}" />
+		<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
 		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
 		<link rel="stylesheet" href="{% static 'css/xinting.css' %}" />
 		{% block css %}{% endblock %}
@@ -37,6 +37,7 @@
 			<a class="brand" href="/" data-toggle="tooltip" data-placement="bottom" title="回主页">eDu</a>
 			{% if request.user.is_authenticated %}
 			<ul class="nav pull-right">
+				<li><a href="{% url 'books.views.BookChapter' request.user.reader.chapter.id %}"><i class="icon-bookmark"></i></a></li>
 				<li><a href="/books/share"><i class="icon-share"></i></a></li>
 				<li><a href="/readers/config"><i class="icon-cog"></i></a></li>
 				<li><a href="/accounts/logout" data-toggle="tooltip" data-placement="bottom" title="退出">{{ request.user.nickname }}</a></li>

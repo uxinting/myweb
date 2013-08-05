@@ -45,6 +45,16 @@ body {
 	bottom: 150px;
 }
 
+.icon-key-cut {
+	position: fixed;
+	right: 100px;
+	top: 100px;
+}
+
+.dragin {
+	background: rgb(194, 222, 197);
+}
+
 .icon-prev {
 	position: fixed;
 	display: block;

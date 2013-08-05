@@ -26,15 +26,6 @@ def save_file_from_request(request, name):
     except Exception, e:
         raise e
 
-def get_chapters(rule, lines):
-    chapters = []
-    c_r = re.compile(rule)
-    for line in lines:
-        line = line.decode('utf-8')
-        if re.match(c_r, line):
-            chapters.append(line)
-    return chapters
-
 class Page:
     ''' sliced models into pages '''
     def __init__(self, obj, pageLimit=10):
@@ -84,7 +75,7 @@ class ChapterManager:
         
     def getChapters(self):
         self.book = Book.objects.get(id=self.bookId)
-        return Chapter.objects.filter(book=self.book)
+        return Chapter.objects.order_by('index').filter(book=self.book)
     
     def chapterParas(self, chapterId, bookPath, charLimit=600):
         chapter = Chapter.objects.get(id=chapterId)

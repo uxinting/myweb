@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
-from books.utils import save_file_from_request, get_chapters, get_save_folder,\
+from books.utils import save_file_from_request, get_save_folder,\
     Page, ChapterManager
 from django.contrib.auth.decorators import login_required
 from books.models import Book, Chapter
@@ -31,17 +31,18 @@ def Chapters(request, bookId):
     try:
         book = Book.objects.get(id=bookId)
         chapters = ChapterManager(bookId).getChapters()
+        first_chapter = chapters[0]
     except ObjectDoesNotExist:
         print "book is not exist"
     return render_to_response('books/chapters.html', locals())
 
-def BookChapter(request, bookId, chapterId):
+def BookChapter(request, chapterId):
     try:
-        book = Book.objects.get(id=bookId)
         chapter = Chapter.objects.get(id=chapterId)
+        book = chapter.book
         import os
         path = os.path.join(get_save_folder(), repr(book.id))
-        lines = ChapterManager(bookId).chapterParas(chapterId, path)
+        lines = ChapterManager(book.id).chapterParas(chapterId, path)
     except Exception, e:
         print e
     return render_to_response('books/article.html', locals())

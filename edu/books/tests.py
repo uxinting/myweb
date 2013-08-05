@@ -7,9 +7,9 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from books.utils import get_chapters, get_save_folder, Page
+from books.utils import get_save_folder, Page, ChapterManager
 import os
-from books.models import Book
+from books.models import Book, Chapter
 from django.db import models
 
 
@@ -24,4 +24,6 @@ from django.db import models
         get_chapters(u'.*篇第.+', open(path).readlines())
         '''
 #print get_save_folder().decode('gbk')    
-print Page(Book).currentPageItems(1)
+#print Page(Book).currentPageItems(1)
+for c in ChapterManager(1).getChapters():
+    print c.subject
