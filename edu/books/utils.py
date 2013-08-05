@@ -1,9 +1,8 @@
 #-*- coding: utf-8 -*-
 import re
 import os
-from books.models import Book
+from books.models import Book, Chapter
 from django.db import models
-from edu import settings
 
 def get_save_folder():
     return os.path.join(os.path.dirname(__file__), 'books').decode('gbk')
@@ -38,7 +37,7 @@ def get_chapters(rule, lines):
 
 class Page:
     ''' sliced models into pages '''
-    def __init__(self, obj, pageLimit=settings.PAGE_ITEM_LIMIT):
+    def __init__(self, obj, pageLimit=10):
         if not issubclass(obj, models.Model):
             raise TypeError('Model object only!')
         self.model = obj
@@ -77,3 +76,34 @@ class Page:
         if page < 1 or page > self.count:
             return None
         return self.currentPageItems(page)
+    
+class ChapterManager:
+    '''  chapter options '''
+    def __init__(self, bookId):
+        self.bookId = bookId
+        
+    def getChapters(self):
+        self.book = Book.objects.get(id=self.bookId)
+        return Chapter.objects.filter(book=self.book)
+    
+    def chapterParas(self, chapterId, bookPath, charLimit=600):
+        chapter = Chapter.objects.get(id=chapterId)
+        index = chapter.index
+        endindex = chapter.endindex
+        
+        f = open(bookPath)
+        f.seek(index)
+        if endindex - index < 1000:
+            return f.read(endindex - index).split('\n')
+        else:
+            lines = []
+            while True:
+                if f.tell()-index > charLimit:
+                    break
+                line = f.readline()
+                if line:
+                    lines.append(line)
+                else:
+                    break
+            return lines
+        f.close()

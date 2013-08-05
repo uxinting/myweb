@@ -27,13 +27,6 @@ body {
 	padding: 20px 8px;
 }
 
-.highlight {
-	background-image: url(../img/article-bg.png);
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-position: 0px 20px;
-}
-
 /* 目录修饰 */
 .article-list li {
 	display: block;

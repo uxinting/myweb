@@ -51,7 +51,7 @@
 		$(document).mousemove(function(e) {
 			var yy = e.clientY;
 			var y = e.pageY;
-			if ($('.article').data('highlight') != true) return;
+			if ($('.article').data('highlight').toLowerCase() != 'true') return;
 			
 			var article = $('.article');
 			var ot = article.offset().top;

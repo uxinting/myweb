@@ -31,8 +31,9 @@ class Chapter(models.Model):
     subject = models.CharField(max_length=255)
     #所在书籍名
     book    = models.ForeignKey(Book, blank=True)
-    #第几章
+    #文章中德position
     index = models.PositiveIntegerField()
+    endindex = models.PositiveIntegerField()
     
     class Meta:
         db_table = 'chapter'

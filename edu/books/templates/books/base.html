@@ -10,8 +10,8 @@
 		
 		<!-- CSS -->
 		<link rel="shortcut icon" href="{% static 'books/img/favicon.ico' %}" />
-		<link rel="stylesheet" href="{% static 'books/css/bootstrap.min.css' %}" />
-		<link rel="stylesheet" href="{% static 'books/css/xinting.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/xinting.css' %}" />
 		{% block css %}{% endblock %}
 		<style>
 		{% if reader %}
@@ -52,10 +52,9 @@
 		{% block body %}{% endblock %}
 				
 		<!-- Scripts -->
-		<script src="{% static 'books/js/jquery-1.9.1.js' %}"></script>
-		<script src="{% static 'books/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/jquery-1.9.1.js' %}"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'books/js/jquery.cookie.js' %}"></script>
-		<script src="{% static 'books/js/xinting.js' %}"></script>
 		{% block js %}{% endblock %}
 	</body>
 </html>
