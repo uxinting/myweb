@@ -33,7 +33,7 @@ class Chapter(models.Model):
     book    = models.ForeignKey(Book, blank=True)
     #文章中德position
     index = models.PositiveIntegerField()
-    endindex = models.PositiveIntegerField()
+    endindex = models.IntegerField()
     
     class Meta:
         db_table = 'chapter'

@@ -7,7 +7,8 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from books.utils import get_save_folder, Page, ChapterManager
+from books.utils import get_save_folder, Page, ChapterManager, ChapterPage,\
+    NoChapterException, removeBlankPara
 import os
 from books.models import Book, Chapter
 from django.db import models
@@ -25,5 +26,19 @@ from django.db import models
         '''
 #print get_save_folder().decode('gbk')    
 #print Page(Book).currentPageItems(1)
-for c in ChapterManager(1).getChapters():
-    print c.subject
+#for c in ChapterManager(1).getChapters():
+#    print c.subject
+''''c = ChapterPage(3, get_save_folder())
+for para in c.currentParas():
+    print para
+    
+for para in c.nextParas():
+    print para
+    
+for para in c.prevParas():
+    print para''''''
+try:
+    raise NoChapterException(1)
+except NoChapterException, e:
+    print e.args'''
+removeBlankPara('./books/4L')
