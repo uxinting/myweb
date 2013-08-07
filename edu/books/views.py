@@ -2,7 +2,7 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from books.utils import save_file_from_request, get_save_folder,\
-    Page, ChapterPage, NewChapterException, NoChapterException
+    Page, ChapterPage, NewChapterException, NoChapterException, createChapter
 from django.contrib.auth.decorators import login_required
 from books.models import Book, Chapter
 from django.core.exceptions import ObjectDoesNotExist
@@ -15,7 +15,7 @@ def Books(request):
         index = int(request.GET.get('index', 0))
         
         pb = Page(Book, pageLimit=settings.PAGE_ITEM_LIMIT)
-        counts = range(1, pb.countPage())
+        counts = [c+1 for c in range(pb.countPage())]
         
         if not index or index < 1:
             return HttpResponseRedirect('/books?index=1')
@@ -42,7 +42,7 @@ def BookChapter(request, chapterId):
         chapter = Chapter.objects.get(id=chapterId)
         book = chapter.book
         
-        cptPg = ChapterPage(chapterId, get_save_folder())
+        cptPg = ChapterPage(chapterId, get_save_folder(), pageLimit=1500)
         lines = cptPg.currentParas()
         request.session['chapter'] = cptPg
     except Exception, e:
@@ -60,10 +60,10 @@ def BookChapterNext(request, chapterId):
         return render_to_response('books/article.html', locals())
     except NewChapterException, e:
         tip = u'后一章节'
-        return HttpResponseRedirect('/books/chapter/' + e.args[0] + '?tip=' + tip)
+        return HttpResponseRedirect('/books/chapter/' + repr(int(e.args[0])) + '?tip=' + tip)
     except NoChapterException, e:
         tip = u'已经是最后一章'
-        return HttpResponseRedirect('/books/chapter/' + e.args[0] + '?tip=' + tip)
+        return HttpResponseRedirect('/books/chapter/' + repr(int(e.args[0])) + '?tip=' + tip)
 
 def BookChapterPrev(request, chapterId):
     try:
@@ -74,12 +74,25 @@ def BookChapterPrev(request, chapterId):
         request.session['chapter'] = cptPg
     except NewChapterException, e:
         tip = u'前一章节'
-        return HttpResponseRedirect('/books/chapter/' + e.args[0] + '?tip=' + tip)
+        return HttpResponseRedirect('/books/chapter/' + repr(int(e.args[0])) + '?tip=' + tip)
     except NoChapterException, e:
         tip = u'已经是最前一章'
-        return HttpResponseRedirect('/books/chapter/' + e.args[0] + '?tip=' + tip)
+        return HttpResponseRedirect('/books/chapter/' + repr(int(e.args[0])) + '?tip=' + tip)
     
     return render_to_response('books/article.html', locals())
+
+def BookChapterCreate(request):
+    try:
+        result = {}
+        cId = request.POST.get('cId', None)
+        cStr = request.POST.get('cStr', None)
+
+        result['msg'] = createChapter(cId, cStr)
+    except Exception, e:
+        print '+++++++++++++++', e
+        result['msg'] = False
+    import json
+    return HttpResponse(json.dumps(result), 'json')
 
 @login_required
 def Share(request):

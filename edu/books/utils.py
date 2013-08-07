@@ -5,41 +5,80 @@ from books.models import Book, Chapter
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 
+SUBJECT_LEN = 32
+
 def get_save_folder():
     return os.path.join(os.path.dirname(__file__), 'books').decode('gbk')
 
 def save_file_from_request(request, name):
     try:
         f = request.FILES.get(name, None)
-        path = get_save_folder()
         book = Book.objects.create(name=''.join(f.name.split('.')[:-1]),
                                    author=request.POST.get('author', 'unknown'),
                                    sharer=request.user,
-                                   path=path,
+                                   path='',
                                    desc=request.POST.get('desc', 'no describe'))
         book.save()
-        out_f = open(os.path.join(path, repr(book.id)), 'wb')
-        for content in f.chunks():
-            out_f.write(content)
         
-        Chapter.objects.create(subject=out_f.readline()[:61], book=book, index=0, endindex=out_f.tell()).save()
+        temp_path = os.path.join(get_save_folder(), 'temp')
+        path = os.path.join(get_save_folder(), repr(book.id))
+        
+        temp_f = open(temp_path, 'wb+')
+        for contents in f.chunks():
+            temp_f.write(contents)
+                
+        #remove blank line
+        temp_f.seek(0)
+        out_f = open(path, 'w+')
+        
+        while True:
+            line = temp_f.readline()
+            if not line:
+                break
+            if re.compile(r'^\s+$').match(line):
+                continue
+            out_f.write(line)
+        temp_f.close()
+        
+        #first para as subject
+        out_f.seek(0)
+        subject = out_f.readline().decode('utf8')[:SUBJECT_LEN]
+        
+        #size of file
+        out_f.seek(0, 2)
+        Chapter.objects.create(subject=subject, book=book, index=0, endindex=out_f.tell()).save()
+        
         out_f.close()
-        return os.path.join(path, repr(book.id))
+        return path
     except Exception, e:
         raise e
 
-def removeBlankPara(path):
-    f = open(path)
-    lines = []
-    for line in f.readlines():
-        if line == '\n':
-            continue
-        lines.append(line)
-    f.close()
-    f = open(path, 'w')
-    for line in lines:
-        f.write(line)
-    f.close()
+def createChapter(chapterId, chapterString):
+    try:
+        book = Chapter.objects.get(id=chapterId).book
+        path = os.path.join(get_save_folder(), repr(book.id))
+        f = open(path)
+
+        while True:
+            line = f.readline()
+            
+            if not line:
+                return False
+            if line.startswith(chapterString.encode('utf8')):
+                index = f.tell()
+                subject = f.readline().decode('utf8')[:SUBJECT_LEN]
+                
+                #the chapter should be divide
+                chapter = Chapter.objects.get(index__lte=index, endindex__gte=index, book=book)
+                
+                Chapter.objects.create(book=book, subject=subject, index=index, endindex=chapter.endindex).save()
+                chapter.endindex = index
+                chapter.save()
+                return True
+            
+    except Exception, e:
+        print '--------------', e
+        return False
 
 class Page:
     ''' sliced models into pages '''
@@ -91,10 +130,10 @@ class NoChapterException(Exception):
 
 class ChapterPage:
     ''' chapter pages '''
-    def __init__(self, chapterId, dirPath, pageLimit=600):
+    def __init__(self, chapterId, dirPath, **args):
         self.id = chapterId
         self.path = os.path.join(dirPath, repr(Chapter.objects.get(id=self.id).book.id))
-        self.limit = pageLimit
+        self.limit = args.get('pageLimit', -1)
         self.previndex = []
         self.index = None
         self.book = None
@@ -115,9 +154,15 @@ class ChapterPage:
         book = open(self.path)
         self.previndex.append(self.index)
         print self.previndex
-        if self.endindex != -1 and self.endindex - self.index < self.limit*3*2:#两倍之内，直接显示
+        if self.limit == -1 or self.endindex - self.index < self.limit*3*2:#两倍之内，直接显示
             book.seek(self.index)
-            lines = book.read(self.endindex-self.index-1).split('\n')
+            lines = []
+            
+            while True:
+                lines.append(book.readline())
+                if book.tell() >= self.endindex:
+                    break
+                
             self.index = book.tell()
             book.close()
             return lines
@@ -159,41 +204,3 @@ class ChapterPage:
                 raise NoChapterException(self.id)
         
         return self.currentParas()
-    
-        
-class ChapterManager:
-    '''  chapter options '''
-    def __init__(self, bookId):
-        self.bookId = bookId
-        
-    def getChapters(self):
-        self.book = Book.objects.get(id=self.bookId)
-        return Chapter.objects.order_by('index').filter(book=self.book)
-    
-    def chapterParas(self, chapterId, bookPath, charLimit=1600):
-        chapter = Chapter.objects.get(id=chapterId)
-        index = chapter.index
-        endindex = chapter.endindex
-        
-        f = open(bookPath)
-        f.seek(index)
-        if endindex - index < 1000 and endindex != -1:
-            return f.read(endindex - index).split('\n')
-        else:
-            lines = []
-            number = 0;
-            while True:
-                if number-index > charLimit:
-                    break
-                line = f.readline()
-                number += len(line.decode('utf8'))
-                if line or line == '\n':
-                    lines.append(line)
-                else:
-                    print f.tell(), 'break'
-                    break
-            return lines
-        f.close()
-        
-    def nextParas(self):
-        pass

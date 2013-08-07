@@ -21,7 +21,7 @@ EMAIL_HOST_PASSWORD = 'edu_server@#$89'
 
 LOGIN_URL = '/accounts/login'
 
-PAGE_ITEM_LIMIT = 2
+PAGE_ITEM_LIMIT = 10
 
 DATABASES = {
     'default': {

@@ -55,6 +55,22 @@ form { margin-top: 150px; }
 <script src="{% static 'books/js/jquery.form.js' %}"></script>
 <script>
 $(function () {
+	//csrf django functions
+	function csrfSafeMethod(method) {
+	    // these HTTP methods do not require CSRF protection
+	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	}
+	
+	//ajax safe post
+	$.ajaxSetup({
+	    crossDomain: false, // obviates need for sameOrigin test
+	    beforeSend: function(xhr, settings) {
+	        if (!csrfSafeMethod(settings.type)) {
+	            xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+	        }
+	    }
+	});
+
 	var options = {
 		dataType: 'json',
 		success: function(data, status) {

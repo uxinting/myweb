@@ -7,8 +7,8 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from books.utils import get_save_folder, Page, ChapterManager, ChapterPage,\
-    NoChapterException, removeBlankPara
+from books.utils import get_save_folder, Page, ChapterPage,\
+    NoChapterException, createChapter
 import os
 from books.models import Book, Chapter
 from django.db import models
@@ -41,4 +41,4 @@ try:
     raise NoChapterException(1)
 except NoChapterException, e:
     print e.args'''
-removeBlankPara('./books/4L')
+createChapter(9, u'卷第一')
