@@ -37,3 +37,4 @@ class Chapter(models.Model):
     
     class Meta:
         db_table = 'chapter'
+        

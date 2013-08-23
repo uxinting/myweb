@@ -10,6 +10,9 @@ SUBJECT_LEN = 32
 def get_save_folder():
     return os.path.join(os.path.dirname(__file__), 'books').decode('gbk')
 
+def get_review_folder():
+    return os.path.join(os.path.dirname(__file__), 'reviews').decode('gbk')
+
 def save_file_from_request(request, name):
     try:
         f = request.FILES.get(name, None)

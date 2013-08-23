@@ -9,6 +9,7 @@ from books.models import Book, Chapter
 from django.core.exceptions import ObjectDoesNotExist
 from edu import settings
 from django.http.response import Http404
+from readers.models import Review
 
 def Books(request):
     title = u'著作'
@@ -38,6 +39,18 @@ def Chapters(request, bookId):
         print "book is not exist"
     return render_to_response('books/chapters.html', locals())
 
+def Reviews(request, bookId):
+    try:
+        print bookId
+        book = Book.objects.get(id=bookId)
+        reviews = Review.objects.order_by('date').filter(book=book)
+    except ObjectDoesNotExist:
+        print "book is not exist"
+    except Exception, e:
+        print e
+    
+    return render_to_response('books/reviews.html', locals())
+
 def BookChapter(request, chapterId):
     try:
         chapter = Chapter.objects.get(id=chapterId)
@@ -52,6 +65,15 @@ def BookChapter(request, chapterId):
         print e
     tip = request.GET.get('tip', '')
     return render_to_response('books/article.html', locals())
+
+def BookReview(request, reviewId):
+    return render_to_response('books/review.html', locals())
+
+def BookReviewCreate(request):
+    return render_to_response('books/review-create.html', locals())
+
+def BookReviewRemove(request):
+    return render_to_response('books/review-remove.html', locals())
 
 def BookChapterNext(request, chapterId):
     try:

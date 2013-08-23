@@ -9,5 +9,10 @@ urlpatterns = patterns('books.views',
                        url(r'^/chapter/(\d+)/prev', 'BookChapterPrev'),
                        url(r'^/chapter/create', 'BookChapterCreate'),
                        url(r'^/chapter/remove', 'BookChapterRemove'),
+                       
+                       url(r'^/(\d+)/reviews/$', 'Reviews'),
+                       url(r'^/review/(\d+)/$', 'BookReview'),
+                       url(r'^/review/create', 'BookReviewCreate'),
+                       url(r'^/review/remove', 'BookReviewRemove'),
                        url(r'share', 'Share'),
                        )
