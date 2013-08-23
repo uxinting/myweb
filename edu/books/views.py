@@ -2,7 +2,8 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from books.utils import save_file_from_request, get_save_folder,\
-    Page, ChapterPage, NewChapterException, NoChapterException, createChapter
+    Page, ChapterPage, NewChapterException, NoChapterException, createChapter,\
+    removeChapter
 from django.contrib.auth.decorators import login_required
 from books.models import Book, Chapter
 from django.core.exceptions import ObjectDoesNotExist
@@ -45,6 +46,8 @@ def BookChapter(request, chapterId):
         cptPg = ChapterPage(chapterId, get_save_folder(), pageLimit=1500)
         lines = cptPg.currentParas()
         request.session['chapter'] = cptPg
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect('/books')
     except Exception, e:
         print e
     tip = request.GET.get('tip', '')
@@ -91,6 +94,20 @@ def BookChapterCreate(request):
     except Exception, e:
         print '+++++++++++++++', e
         result['msg'] = False
+    import json
+    return HttpResponse(json.dumps(result), 'json')
+
+def BookChapterRemove(request):
+    try:
+        result = {}
+        
+        cId = request.POST.get('cId', None)
+        cStr = request.POST.get('cStr', None)
+        
+        result['msg'] = removeChapter(cId, cStr)
+    except Exception, e:
+        result['msg'] = False
+    
     import json
     return HttpResponse(json.dumps(result), 'json')
 

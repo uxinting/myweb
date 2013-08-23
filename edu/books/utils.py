@@ -80,6 +80,19 @@ def createChapter(chapterId, chapterString):
         print '--------------', e
         return False
 
+def removeChapter(chapterId, chapterString):
+    try:
+        chapter = Chapter.objects.get(id=chapterId)
+        chapterbefore = Chapter.objects.get(endindex=chapter.index)
+        
+        chapterbefore.endindex = chapter.endindex
+        chapterbefore.save()
+        
+        chapter.delete()
+    except Exception, e:
+        print '----------------', e
+        return False
+
 class Page:
     ''' sliced models into pages '''
     def __init__(self, obj, pageLimit=10):
