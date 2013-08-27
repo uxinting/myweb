@@ -1,0 +1,29 @@
+{% extends 'books/base.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+<div class="container">
+	<div class="article">
+		<h3>
+			{{ book.name }}
+			<br>
+			<small class="pull-right">&minus;{{ book.sharer }}&nbsp;&nbsp;&nbsp;&nbsp;{{ book.date }}</small>	
+		</h3>
+		<p>{{ book.desc }}</p>
+		
+		<p>
+			<a class="btn" href="{% url 'books.views.BookChapter' first_chapter.id %}">阅读全文</a>
+			<a class="btn" href="{% url 'books.views.Reviews' book.id %}">书评</a>
+		</p>
+		
+		<ul class="nav nav-tabs nav-stacked">
+			{% for chapter in chapters %}
+			<li><a href="{% url 'books.views.BookChapter' chapter.id %}">{{ chapter.subject }}</a></li>
+			{% empty %}
+			<strong>对不起，本书尚未分章。</strong>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock %}
