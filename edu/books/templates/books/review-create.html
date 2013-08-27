@@ -1,0 +1,41 @@
+{% extends 'books/base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'books/yellow-text-master/stylesheets/jquery.texteditor.css' %}" />
+<style>
+#review-content {
+	width: 100%;
+	height: 600px;
+}
+a {
+	color: black;
+}
+
+a:hover {
+	text-decoration: none;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+	<div id="review-content"></div>
+	<button id="ok">getcontent</button>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'books/yellow-text-master/javascripts/jquery.texteditor.js' %}"></script>
+<script>
+$(function() {
+	var editor = $('#review-content').texteditor({
+		height: '600px'
+	});
+	$('#ok').click(function(){
+		alert(editor.texteditor('content'));
+	});
+});
+</script>
+{% endblock %}

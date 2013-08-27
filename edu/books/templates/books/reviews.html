@@ -1,0 +1,24 @@
+{% extends 'books/base.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+<div class="container">
+	<div class="article">
+		<h3>
+			{{ book.name }}
+			<br>
+			<small class="pull-right">&minus;{{ book.sharer }}&nbsp;&nbsp;&nbsp;&nbsp;{{ book.date }}</small>	
+		</h3>
+		<p>{{ book.desc }}</p>
+		
+		<ul class="nav nav-tabs nav-stacked">
+			{% for review in revies %}
+			<li><a href="{% url 'books.views.BookReview' review.id %}">{{ review.subject }}</a></li>
+			{% empty %}
+			<p><b>暂时还没有书评&nbsp;&nbsp;</b><a href="{% url 'books.views.BookReviewCreate' %}">写书评</a></p>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock %}
