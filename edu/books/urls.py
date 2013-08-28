@@ -12,7 +12,7 @@ urlpatterns = patterns('books.views',
                        
                        url(r'^/(\d+)/reviews/$', 'Reviews'),
                        url(r'^/review/(\d+)/$', 'BookReview'),
-                       url(r'^/review/create', 'BookReviewCreate'),
+                       url(r'^/(\d+)/review/create/$', 'BookReviewCreate'),
                        url(r'^/review/remove', 'BookReviewRemove'),
                        url(r'share', 'Share'),
                        )

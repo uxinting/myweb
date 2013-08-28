@@ -58,6 +58,24 @@
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'books/js/jquery.cookie.js' %}"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script>
+		$(function(){
+			$.ajaxSetup({
+			    crossDomain: false, // obviates need for sameOrigin test
+			    beforeSend: function(xhr, settings) {
+			        if (!csrfSafeMethod(settings.type)) {
+			            xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+			        }
+			    }
+			});
+			
+			//csrf django functions
+			function csrfSafeMethod(method) {
+			    // these HTTP methods do not require CSRF protection
+			    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+			}
+		});
+		</script>
 		{% block js %}{% endblock %}
 	</body>
 </html>

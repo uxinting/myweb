@@ -20,9 +20,10 @@ a:hover {
 {% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container">{%csrf_token%}
+	<input type="text" id="subject" />
 	<div id="review-content"></div>
-	<button id="ok">getcontent</button>
+	<button id="save">保存</button>
 </div>
 {% endblock %}
 
@@ -33,9 +34,31 @@ $(function() {
 	var editor = $('#review-content').texteditor({
 		height: '600px'
 	});
-	$('#ok').click(function(){
-		alert(editor.texteditor('content'));
-	});
+	
+	setInterval(function() {
+		$.cookie('review', {
+			"subject": $('#subject').val().toString(),
+			"content": editor.texteditor('content')
+		});
+	}, 5*60*1000);
+	
+	$('#save').click(function(){save();});
+	
+	function save() {
+		$.ajax({
+			type: "POST",
+			url: location.pathname,
+			dataType: 'json',
+			data: {
+				"subject": $('#subject').val().toString(),
+				"content": editor.texteditor('content').toString()
+			},
+			success: function(data) {
+				alert(data.msg);
+			},
+			error: function(e, msg) {}
+		});
+	}
 });
 </script>
 {% endblock %}

@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from books.utils import save_file_from_request, get_save_folder,\
     Page, ChapterPage, NewChapterException, NoChapterException, createChapter,\
-    removeChapter
+    removeChapter, save_review, read_review
 from django.contrib.auth.decorators import login_required
 from books.models import Book, Chapter
 from django.core.exceptions import ObjectDoesNotExist
@@ -41,7 +41,6 @@ def Chapters(request, bookId):
 
 def Reviews(request, bookId):
     try:
-        print bookId
         book = Book.objects.get(id=bookId)
         reviews = Review.objects.order_by('date').filter(book=book)
     except ObjectDoesNotExist:
@@ -67,9 +66,22 @@ def BookChapter(request, chapterId):
     return render_to_response('books/article.html', locals())
 
 def BookReview(request, reviewId):
+    try:
+        review = Review.objects.get(id=reviewId)
+        lines = read_review(repr(review.id))
+    except Exception, e:
+        print e
     return render_to_response('books/review.html', locals())
 
-def BookReviewCreate(request):
+def BookReviewCreate(request, bookId):
+    if request.method == 'POST':
+        subject = request.POST.get('subject', None)
+        content = request.POST.get('content', None)
+        
+        review = Review.objects.create(subject=subject, author=request.user.reader, book=Book.objects.get(id=bookId))
+        review.save();
+        save_review(repr(review.id), content)
+        return HttpResponse({"msg": "ok"}, 'json');
     return render_to_response('books/review-create.html', locals())
 
 def BookReviewRemove(request):

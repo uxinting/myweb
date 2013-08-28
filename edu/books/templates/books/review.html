@@ -1,0 +1,38 @@
+{% extends 'books/base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'books/css/highlight.css' %}" />
+{% endblock %}
+
+{% block body %}
+<div class="container">
+	<div id="article" class="article hl-container" data-highlight="{{ request.user.reader.hlBackground }}">
+		<div class="hl-ground">
+			<h3>
+				{{ review.subject }}
+				<br>
+				<small class="pull-right">&minus;{{ review.author.user.nickname }} &nbsp;&nbsp;&nbsp;&nbsp; {{ review.date }}</small>
+			</h3>
+			
+			{% for line in lines %}
+			<p>{{ line }}</p>
+			{% endfor %}
+			
+		</div>
+	</div>
+	<div id="bk" class="icon-arrow-up icon-backtop a" data-toggle="tooltip" title="回到顶部"></div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'books/js/highlight.min.js' %}"></script>
+<script src="{% static 'books/js/backtop.min.js' %}"></script>
+<script>
+$(function(){
+	new highLight('article');
+	new backTop('bk');
+});
+</script>
+{% endblock %}

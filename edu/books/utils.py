@@ -13,6 +13,16 @@ def get_save_folder():
 def get_review_folder():
     return os.path.join(os.path.dirname(__file__), 'reviews').decode('gbk')
 
+def save_review(subject, content):
+    path = os.path.join(get_review_folder(), subject)
+    try:
+        open(path, 'w+').write(content.encode('utf8').replace('<br>', '\n')[:-8])
+    except Exception, e:
+        print e
+
+def read_review(name):
+    return open(os.path.join(get_review_folder(), name)).readlines()
+
 def save_file_from_request(request, name):
     try:
         f = request.FILES.get(name, None)

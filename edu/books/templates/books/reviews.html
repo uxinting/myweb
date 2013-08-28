@@ -11,12 +11,13 @@
 			<small class="pull-right">&minus;{{ book.sharer }}&nbsp;&nbsp;&nbsp;&nbsp;{{ book.date }}</small>	
 		</h3>
 		<p>{{ book.desc }}</p>
+		<p><a class="btn" href="{% url 'books.views.BookReviewCreate' book.id %}">写书评</a></p>
 		
 		<ul class="nav nav-tabs nav-stacked">
-			{% for review in revies %}
-			<li><a href="{% url 'books.views.BookReview' review.id %}">{{ review.subject }}</a></li>
+			{% for review in reviews %}
+			<li><a href="{% url 'books.views.BookReview' review.id %}" title="{{ review.author.user.nickname }}&nbsp;&nbsp;&nbsp;&nbsp;{{ review.date }}">{{ review.subject }}</a></li>
 			{% empty %}
-			<p><b>暂时还没有书评&nbsp;&nbsp;</b><a href="{% url 'books.views.BookReviewCreate' %}">写书评</a></p>
+			<p><b>暂时还没有书评</b></p>
 			{% endfor %}
 		</ul>
 	</div>
