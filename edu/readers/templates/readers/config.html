@@ -1,32 +1,37 @@
 {% extends 'readers/base.html' %}
 
+{% load staticfiles %}
+
 {% block css %}
 <style>
 form { margin-top: 150px; }
+input {border: none;}
 </style>
 {% endblock %}
 
 {% block body %}
 <!-- 设置样式 -->
 <div class="row-fluid" id="config-container">
-<div class="offset2 span5">
+<div class="span5">
 	<form class="form-horizontal" method="post">
 		<div class="control-group">
-			<label class="control-label" for="inputBackground">背景色</label>
 			<div class="controls controls-row">
-				<input type="text" class="pick-a-color" id="inputBackground" placeholder="cce8cf" name="background" value="{{ reader.background }}">
+				<label class="radio inline">
+					<input id="inputBackground" type="radio" name="color" value="{{ reader.background }}" checked="checked">背景
+				</label>
+				<label class="radio inline">
+					<input id="inputFontColor" type="radio" name="color" value="{{ reader.fontColor }}">字色
+				</label>
+				<div id="color-pick" style="width: 300px;"></div>
+				<input type="hidden"  name="background" value="{{ reader.background }}">
+				<input type="hidden"  name="fontColor" value="{{ reader.fontColor }}">
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label" for="inputFontColor">文字颜色</label>
-			<div class="controls controls-row">
-				<input type="text" class="pick-a-color" placeholder="47484a" id="inputFontColor" name="fontColor" value="{{ reader.fontColor }}">
-			</div>
-		</div>
+				
 		<div class="control-group">
 			<label class="control-label" for="selectFontFamily">字体</label>
 			<div class="controls">
-				<select  name="fontFamily" id="selectFontFamily" value="{{ reader.fontFamily }}">
+				<select name="fontFamily" id="selectFontFamily" value="{{ reader.fontFamily }}">
 					<option checked="checked">微软雅黑</option>
 					<option>宋体</option>
 					<option>黑体</option>
@@ -86,7 +91,7 @@ form { margin-top: 150px; }
 		<input type="hidden" value="false" id="noError" />
 	</form>
 </div>
-<div id="testbody" class="span4" style="margin-top: 150px;">
+<div id="testbody" class="span6" style="margin-top: 150px; color: #{{ reader.fontColor }}; background-color: #{{ reader.background }};">
 	<div class="article">
 		<p>测试1</p>
 		<p>测试2</p>
@@ -96,11 +101,7 @@ form { margin-top: 150px; }
 {% endblock %}
 
 {% block js %}
-<script>
-$(function() {
-	$('.pick-a-color').pickAColor({
-		showSavedColors: false
-	});
-});
-</script>
+<script src="{% static 'readers/js/jquery-ui-color-picker.js' %}"></script>
+<script src="{% static 'readers/js/jquery.mousewheel.js' %}"></script>
+<script src="{% static 'readers/js/config.js' %}"></script>
 {% endblock %}

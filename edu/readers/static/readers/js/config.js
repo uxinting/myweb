@@ -7,6 +7,51 @@ $(function() {
 	};
 	$('#config-container form').ajaxForm(options);
 	
+	var cp = new colorpicker('color-pick', function(color) {
+		if ($('#inputBackground')[0].checked) {
+			$('#testbody').css({'background-color': '#' +color});
+			$('[name="background"]').val(color);
+		} else {
+			$('#testbody').css({'color': '#' + color});
+			$('[name="fontColor"]').val(color);
+		}
+	});
+
+	var bg;
+	if ($('#inputBackground')[0].checked) {
+		bg = $('#testbody').css('background-color');
+	} else {
+		bg = $('#testbody').css('color');
+	}
+	var rgbs = bg.substring(4, bg.length-1).split(',');
+	cp.setColor(parseInt(rgbs[0]), parseInt(rgbs[1]), parseInt(rgbs[2]));
+	
+	$('#inputBackground, #inputFontColor').change(function() {
+		var bg;
+		if ($('#inputBackground')[0].checked) {
+			bg = $('#testbody').css('background-color');
+		} else {
+			bg = $('#testbody').css('color');
+		}
+		var rgbs = bg.substring(4, bg.length-1).split(',');
+		cp.setColor(parseInt(rgbs[0]), parseInt(rgbs[1]), parseInt(rgbs[2]));
+	})
+	
+	//mousewheel of text
+	$('[type="text"]').mousewheel(function(event, delta){
+		var value = parseInt($(this).val());
+		if (delta > 0) {
+			value += 1;
+		} else {
+			value -= 1;
+			if (value < 0) value = 0;
+		}
+		
+		$(this).val(value);
+		$(this).blur();
+		$(this).focus();
+	});
+	
 	//默认
 	$('#goDefault').click(function () {
 		$('body').css({
@@ -19,6 +64,12 @@ $(function() {
 		
 		$('#inputBackground').val('cce8cf');
 		$('#inputFontColor').val('47484a');
+		if ($('#inputBackground')[0].checked) {
+			cp.setColor(204, 232, 207);
+		} else {
+			cp.setColor(71, 72, 74);
+		};
+		
 		$('#selectFontFamily')[0].options[0].selected = true;
 		$('#inputFontSize').val('15');
 		$('#inputLetterSpace').val('1');

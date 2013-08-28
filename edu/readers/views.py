@@ -11,7 +11,8 @@ def Config(request):
         title = u'个人设置'
         try:
             reader = request.user.reader
-        except:pass
+        except Exception, e:
+            print e
         return render_to_response('readers/config.html', locals())
     else:
         try:

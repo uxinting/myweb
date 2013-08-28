@@ -10,8 +10,9 @@
 		
 		<!-- CSS -->
 		<link rel="shortcut icon" href="{% static 'readers/img/favicon.ico' %}" />
-		<link rel="stylesheet" href="{% static 'readers/css/bootstrap.min.css' %}" />
-		<link rel="stylesheet" href="{% static 'readers/css/pick-a-color-1.1.6.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'readers/css/bootstrap.min.css' %}" /><!-- 
+		<link rel="stylesheet" href="{% static 'readers/css/pick-a-color-1.1.6.min.css' %}" /> -->
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 		<link rel="stylesheet" href="{% static 'readers/css/xinting.css' %}" />
 		{% block css %}{% endblock %}
 	</head>
@@ -38,11 +39,11 @@
 		<script src="{% static 'readers/js/jquery-1.9.1.js' %}"></script>
 		<script src="{% static 'readers/js/jquery.form.js' %}"></script>
 		<script src="{% static 'readers/js/jquery.cookie.js' %}"></script>
-		<script src="{% static 'readers/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'readers/js/bootstrap.min.js' %}"></script><!-- 
 		<script src="{% static 'readers/js/pick-a-color-1.1.6.min.js' %}"></script>
-		<script src="{% static 'readers/js/tinycolor-0.9.14.min.js' %}"></script>
+		<script src="{% static 'readers/js/tinycolor-0.9.14.min.js' %}"></script> -->
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script src="{% static 'readers/js/xinting.js' %}"></script>
-		<script src="{% static 'readers/js/config.js' %}"></script>
 		{% block js %}{% endblock %}
 	</body>
 </html>

@@ -30,11 +30,6 @@
 		
 		});
 		
-		//data-toggle
-		$('[data-toggle="tooltip"]').mouseover(function() {
-			$(this).tooltip('show');
-		});
-		
 		//highlight 文章高亮效果
 		$(document).mousemove(function(e) {
 			var yy = e.clientY;
