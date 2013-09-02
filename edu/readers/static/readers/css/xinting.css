@@ -66,13 +66,6 @@ body {
 	bottom: 130px;
 }
 
-/* loggo */
-.brand {
-	position: fixed;
-	left: 50px;
-	top: 100px;
-}
-
 .a:hover {
 	cursor: pointer;
 }

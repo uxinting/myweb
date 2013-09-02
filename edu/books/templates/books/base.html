@@ -32,27 +32,42 @@
 		{% endif %}
 		</style>
 	</head>
-	<body>
-	<div class="navbar">
-		<div>
-			<a class="brand" href="/" data-toggle="tooltip" data-placement="bottom" title="回主页">eDu</a>
-			{% if request.user.is_authenticated %}
-			<ul class="nav pull-right">
-				{% if request.user.reader.chapter %}
-				<li><a href="{% url 'books.views.BookChapter' request.user.reader.chapter.id %}" data-toggle="tooltip" data-placement="bottom" title="书签"><i class="icon-bookmark"></i></a></li>
+	<body style="padding-top: 25px;">
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner" style="padding: 0 50px;">
+				<a class="brand" href="/" data-toggle="tooltip" data-placement="bottom" title="回主页">eDu</a>
+				{% if request.user.is_authenticated %}
+				<ul class="nav pull-right">
+					{% if request.user.reader.chapter %}
+					<li><a href="{% url 'books.views.BookChapter' request.user.reader.chapter.id %}" data-toggle="tooltip" data-placement="bottom" title="书签"><i class="icon-bookmark"></i></a></li>
+					{% endif %}
+					<li class="dropdown">
+						<a href="#" data-toggle="dropdown" class="dropdown-toggle" title="设置" role="button">
+							{{ request.user.nickname }}
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li>
+								<a title="个人" href="/readers/config">
+									个人设置
+								</a>
+							</li>
+							<li>
+								<a href="/accounts/logout">
+									退出
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				{% else %}
+				<ul class="nav pull-right">
+					<li><a href="/accounts/register?next={{ request.path }}" data-toggle="tooltip" data-placement="bottom" title="注册">注册</a></li>
+					<li><a href="/accounts/login?next={{ request.path }}" data-toggle="tooltip" data-placement="bottom" title="登录">登录</a></li>
+				</ul>
 				{% endif %}
-				<li><a href="/books/share" data-toggle="tooltip" data-placement="bottom" title="分享"><i class="icon-share"></i></a></li>
-				<li><a href="/readers/config" data-toggle="tooltip" data-placement="bottom" title="个人"><i class="icon-cog"></i></a></li>
-				<li><a href="/accounts/logout" data-toggle="tooltip" data-placement="bottom" title="退出">{{ request.user.nickname }}</a></li>
-			</ul>
-			{% else %}
-			<ul class="nav pull-right">
-				<li><a href="/accounts/register?next={{ request.path }}" data-toggle="tooltip" data-placement="bottom" title="注册">注册</a></li>
-				<li><a href="/accounts/login?next={{ request.path }}" data-toggle="tooltip" data-placement="bottom" title="登录">登录</a></li>
-			</ul>
-			{% endif %}
+			</div>
 		</div>
-	</div>
 		{% block body %}{% endblock %}
 				
 		<!-- Scripts -->

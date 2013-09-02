@@ -12,10 +12,6 @@
 		</h3>
 		<p>{{ book.desc }}</p>
 		
-		<p>
-			<a class="btn" href="{% url 'books.views.Reviews' book.id %}">书评</a>
-		</p>
-		
 		<ul class="nav nav-tabs nav-stacked">
 			{% for chapter in chapters %}
 			<li><a href="{% url 'books.views.BookChapter' chapter.id %}">{{ chapter.subject }}</a></li>

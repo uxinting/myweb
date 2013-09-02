@@ -16,14 +16,15 @@
 					<small class="pull-right">&minus;{{ book.author }}</small>	
 				</h3>
 				<p>{{ book.desc }}</p>
-				<a href="{% url 'books.views.Chapters' book.id %}" class="pull-right">更多</a>
+				<a href="{% url 'books.views.Reviews' book.id %}" class="pull-right">&nbsp;书评</a>
+				<a href="{% url 'books.views.Chapters' book.id %}" class="pull-right">更多&nbsp;</a>
 			</div>
 		</li>
 		{% endfor %}
 	</ul>
 	
 	{% if counts %}
-	<div class="pagination pull-right">
+	<div class="pagination pagination-right">
 		<ul>
 			<li data-prev="true"><a href="{% url 'books.views.Books' %}?index={{ index|add:'-1' }}">&laquo;</a></li>
 			{% for count in counts %}
@@ -33,7 +34,7 @@
 		</ul>
 	</div>
 	{% endif %}
-	<div class="icon-arrow-up icon-backtop a" data-toggle="tooltip" title="回到顶部"></div><!-- 
+	<div id="bk" class="icon-arrow-up icon-backtop a" data-toggle="tooltip" title="回到顶部"></div><!-- 
 	<div class="icon-arrow-left icon-prev a"  data-toggle="tooltip" title="上一篇" data-prev="true"></div>
 	<div class="icon-arrow-right icon-next a" data-toggle="tooltip" title="下一篇" data-next="true"></div>-->
 </div>
@@ -41,4 +42,10 @@
 
 {% block js %}
 <script src="{% static 'books/js/jquery.form.js' %}"></script>
+<script src="{% static 'books/js/backtop.min.js' %}"></script>
+<script>
+$(function(){
+	new backTop('bk');
+})
+</script>
 {% endblock %}
