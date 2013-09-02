@@ -18,10 +18,9 @@ def Config(request):
         try:
             reader = Reader.objects.get_or_create(user=request.user)
             for k,v in request.POST.items():
-                print k,v
                 if hasattr(reader[0], k) and v:
                     setattr(reader[0], k, v)
-            print reader
+            reader[0].hlBackground = request.POST.get('hlBackground', False)
             reader[0].save()
             error['msg'] = u'保存成功'
         except Exception, e:

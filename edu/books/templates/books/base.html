@@ -15,24 +15,25 @@
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 		{% block css %}{% endblock %}
 		<style>
-		{% if reader %}
+		{% if request.user.reader %}
 		body { 
-			color: #{{ reader.fontColor }};
-			background-color: #{{ reader.background }};
-			font-family: {{ reader.fontFamily }};
+			color: #{{ request.user.reader.fontColor }};
+			background-color: #{{ request.user.reader.background }};
+			font-family: {{ request.user.reader.fontFamily }};
 		}
 		
 		.article p {
-			font-size: {{ reader.fontSize }}px;
-			line-height: {{ reader.lineHeight }}px;
-			letter-spacing: {{ reader.letterSpace }}px;
-			padding: {{ reader.paraPadding }}px, 8px;
+			font-size: {{ request.user.reader.fontSize }}px;
+			line-height: {{ request.user.reader.lineHeight }}px;
+			letter-spacing: {{ request.user.reader.letterSpace }}px;
+			padding: {{ request.user.reader.paraPadding }}px, 8px;
 					
 		}
 		{% endif %}
+
 		</style>
 	</head>
-	<body style="padding-top: 25px;">
+	<body style="padding-top: 50px;">
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner" style="padding: 0 50px;">
 				<a class="brand" href="/" data-toggle="tooltip" data-placement="bottom" title="回主页">eDu</a>
@@ -54,7 +55,7 @@
 							</li>
 							<li>
 								<a href="/accounts/logout">
-									退出
+									注销
 								</a>
 							</li>
 						</ul>

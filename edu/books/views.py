@@ -25,7 +25,6 @@ def Books(request):
             return HttpResponseRedirect('/books?index=' + repr(len(counts)))
         
         books = pb.currentPageItems(index)
-        reader = request.user.reader
     except Exception, e:
         print e
     return render_to_response('books/books.html', locals())

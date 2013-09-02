@@ -21,9 +21,13 @@ a:hover {
 
 {% block body %}
 <div class="container">{%csrf_token%}
-	<input type="text" id="subject" />
+	<div>
+		<label>标题</label>
+		<input type="text" id="subject" />
+	</div>
 	<div id="review-content"></div>
-	<button id="save">保存</button>
+	<a href="{% url 'books.views.Reviews' bookId %}" class="btn pull-right">返回</a>
+	<div id="save" class="btn btn-primary pull-right">保存</div>
 </div>
 {% endblock %}
 

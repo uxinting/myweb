@@ -66,6 +66,11 @@ body {
 	bottom: 130px;
 }
 
-.a:hover {
+a {
+	color: black;
+}
+
+a:hover {
 	cursor: pointer;
+	text-decoration: none;
 }

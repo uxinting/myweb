@@ -20,6 +20,7 @@
 			<p>{{ line }}</p>
 			{% endfor %}
 			
+			<a href="{% url 'books.views.Reviews' review.book.id %}" class="btn pull-right">返回</a>
 		</div>
 	</div>
 	<div id="bk" class="icon-arrow-up icon-backtop a" data-toggle="tooltip" title="回到顶部"></div>

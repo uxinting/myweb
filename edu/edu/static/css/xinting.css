@@ -86,6 +86,7 @@ body {
 	top: 100px;
 }*/
 
-.a:hover {
+a:hover {
 	cursor: pointer;
+	text-decoration: none;
 }

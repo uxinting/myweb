@@ -5,14 +5,14 @@
 {% block body %}
 <div class="container">
 	<div class="article">
-		<h3>
-			{{ book.name }}
+		<h3><a href="{% url 'books.views.Chapters' bookId %}" style="color: black;">
+			{{ book.name }}</a>
 			<br>
 			<small class="pull-right">&minus;{{ book.sharer }}&nbsp;&nbsp;&nbsp;&nbsp;{{ book.date }}</small>	
 		</h3>
 		<p>{{ book.desc }}</p>
-		<p><a class="btn" href="{% url 'books.views.BookReviewCreate' book.id %}">写书评</a></p>
-		
+		<a class="btn pull-right" href="{% url 'books.views.BookReviewCreate' book.id %}">写书评</a>
+		<br><br>
 		<ul class="nav nav-tabs nav-stacked">
 			{% for review in reviews %}
 			<li><a href="{% url 'books.views.BookReview' review.id %}" title="{{ review.author.user.nickname }}&nbsp;&nbsp;&nbsp;&nbsp;{{ review.date }}">{{ review.subject }}</a></li>

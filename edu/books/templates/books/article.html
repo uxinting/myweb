@@ -13,7 +13,7 @@
 			<h3>{{ chapter.book.name }}</h3>
 			<h5>{{ chapter.subject }}</h5>
 			
-			<div class="pagination pull-right">
+			<div class="pagination pagination-right">
 				<ul>
 					<li data-prev="true"><a href="{% url 'books.views.BookChapterPrev' chapter.id %}">&laquo;</a></li>
 					<li><a href="{% url 'books.views.Chapters' chapter.book.id %}">章目录</a></li>
@@ -25,7 +25,7 @@
 			<p>{{ line }}</p>
 			{% endfor %}
 			
-			<div class="pagination pull-right">
+			<div class="pagination pagination-right">
 				<ul>
 					<li data-prev="true"><a href="{% url 'books.views.BookChapterPrev' chapter.id %}">&laquo;</a></li>
 					<li><a href="{% url 'books.views.Chapters' chapter.book.id %}">章目录</a></li>
