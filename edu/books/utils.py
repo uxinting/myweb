@@ -106,6 +106,52 @@ def removeChapter(chapterId, chapterString):
         print '----------------', e
         return False
 
+def init_books(folder):
+    books = os.listdir(folder)
+    import pickle
+    for book in books:
+        path = os.path.join(folder, book)
+        info = pickle.load(open(os.path.join(path, '.information'), 'rb'))
+        try:
+            b = Book.objects.create(name=info['title'], author=info['author'], path=path, desc=info['desc'])
+            b.save()
+            init_chapter(b)
+        except Exception, e:
+            print e
+
+def init_chapter(book):
+    chapters = os.listdir(book.path)
+    for chapter in chapters:
+        if chapter == '.information':
+            continue
+        i = re.search('\d+', chapter).end()
+        
+        try:
+            Chapter.objects.create(book=book, subject=chapter[i:], index=int(chapter[:i])).save()
+        except Exception, e:
+            print e
+
+def next_chapter(id):
+    chapter = Chapter.objects.get(id=id)
+    chapters = Chapter.objects.filter(book=chapter.book)
+    index = chapter.index+1
+    
+    for c in chapters:
+        if c.index == index:
+            return c.id
+    
+    return None
+
+def prev_chapter(id):
+    chapter = Chapter.objects.get(id=id)
+    chapters = Chapter.objects.filter(book=chapter.book)
+    index = chapter.index-1
+    
+    for c in chapters:
+        if c.index == index:
+            return c.id
+    
+    return None
 class Page:
     ''' sliced models into pages '''
     def __init__(self, obj, pageLimit=10):

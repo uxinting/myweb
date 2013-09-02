@@ -8,7 +8,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 from books.utils import get_save_folder, Page, ChapterPage,\
-    NoChapterException, createChapter
+    NoChapterException, createChapter, init_books
 import os
 from books.models import Book, Chapter
 from django.db import models
@@ -41,4 +41,5 @@ try:
     raise NoChapterException(1)
 except NoChapterException, e:
     print e.args'''
-createChapter(9, u'卷第一')
+#createChapter(9, u'卷第一')
+init_books(get_save_folder())

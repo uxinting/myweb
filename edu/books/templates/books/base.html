@@ -38,7 +38,9 @@
 			<a class="brand" href="/" data-toggle="tooltip" data-placement="bottom" title="回主页">eDu</a>
 			{% if request.user.is_authenticated %}
 			<ul class="nav pull-right">
+				{% if request.user.reader.chapter %}
 				<li><a href="{% url 'books.views.BookChapter' request.user.reader.chapter.id %}" data-toggle="tooltip" data-placement="bottom" title="书签"><i class="icon-bookmark"></i></a></li>
+				{% endif %}
 				<li><a href="/books/share" data-toggle="tooltip" data-placement="bottom" title="分享"><i class="icon-share"></i></a></li>
 				<li><a href="/readers/config" data-toggle="tooltip" data-placement="bottom" title="个人"><i class="icon-cog"></i></a></li>
 				<li><a href="/accounts/logout" data-toggle="tooltip" data-placement="bottom" title="退出">{{ request.user.nickname }}</a></li>

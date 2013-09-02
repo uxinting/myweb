@@ -10,7 +10,7 @@ class Book(models.Model):
     #书作者
     author  = models.CharField(max_length=128)
     #分享者
-    sharer  = models.ForeignKey(MyUser)
+    sharer  = models.ForeignKey(MyUser, blank=True)
     #所在路径
     path    = models.FilePathField()
     #分享日期
@@ -33,7 +33,6 @@ class Chapter(models.Model):
     book    = models.ForeignKey(Book, blank=True)
     #文章中德position
     index = models.PositiveIntegerField()
-    endindex = models.IntegerField()
     
     class Meta:
         db_table = 'chapter'

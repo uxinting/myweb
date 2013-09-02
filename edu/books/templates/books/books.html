@@ -13,7 +13,7 @@
 				<h3>
 					{{ book.name }}
 					<br>
-					<small class="pull-right">&minus;{{ book.sharer }}&nbsp;&nbsp;&nbsp;&nbsp;{{ book.date }}</small>	
+					<small class="pull-right">&minus;{{ book.author }}</small>	
 				</h3>
 				<p>{{ book.desc }}</p>
 				<a href="{% url 'books.views.Chapters' book.id %}" class="pull-right">更多</a>

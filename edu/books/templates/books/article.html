@@ -10,13 +10,13 @@
 <div class="container">
 	<div id="article" class="article hl-container" data-highlight="{{ request.user.reader.hlBackground }}">
 		<div class="hl-ground">
-			<h3>{{ book.name }}</h3>
+			<h3>{{ chapter.book.name }}</h3>
 			<h5>{{ chapter.subject }}</h5>
 			
 			<div class="pagination pull-right">
 				<ul>
 					<li data-prev="true"><a href="{% url 'books.views.BookChapterPrev' chapter.id %}">&laquo;</a></li>
-					<li><a href="{% url 'books.views.Chapters' book.id %}">章目录</a></li>
+					<li><a href="{% url 'books.views.Chapters' chapter.book.id %}">章目录</a></li>
 					<li data-next="true"><a href="{% url 'books.views.BookChapterNext' chapter.id %}">&raquo;</a></li>
 				</ul>
 			</div>
@@ -28,15 +28,15 @@
 			<div class="pagination pull-right">
 				<ul>
 					<li data-prev="true"><a href="{% url 'books.views.BookChapterPrev' chapter.id %}">&laquo;</a></li>
-					<li><a href="{% url 'books.views.Chapters' book.id %}">章目录</a></li>
+					<li><a href="{% url 'books.views.Chapters' chapter.book.id %}">章目录</a></li>
 					<li data-next="true"><a href="{% url 'books.views.BookChapterNext' chapter.id %}">&raquo;</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
-	<div id="bk" class="icon-arrow-up icon-backtop a" data-toggle="tooltip" title="回到顶部"></div>
+	<div id="bk" class="icon-arrow-up icon-backtop a" data-toggle="tooltip" title="回到顶部"></div><!-- 
 	<div id="bm" class="icon-hand-down icon-para-create a" data-toggle="tooltip" title="指向最后一段以新建章"></div>
-	<div id="cbm" class="icon-hand-up icon-para-del a" data-toggle="tooltip" title="指向最前一段以取消章"></div>
+	<div id="cbm" class="icon-hand-up icon-para-del a" data-toggle="tooltip" title="指向最前一段以取消章"></div> -->
 </div>
 {% if tip %}
 <div id="tip">{{ tip }}</div>
@@ -69,58 +69,6 @@ $(function(){
 	new highLight('article');
 	new backTop('bk');
 	new autoHideTip('tip').show(2000);
-	new key({
-		id: 'bm',
-		ts: '.article p',
-		data: 'cut',
-		drag: function(ev) {},
-		drop: function(ev) {
-			$(ev.target).removeClass('dragin');
-			//提示		
-			$('body').append('<div id="tip"></div>');
-			
-			var re = /\d+/;
-			var cId = parseInt(re.exec(location.pathname)[0]);
-			var href = '';
-			
-			if (ev.dataTransfer.getData('data') == 'cut') {
-				new autoHideTip('tip').show(2000, '下一段将作为新一章的起始段');
-				href = '/books/chapter/create';
-			} else { //cancel
-				new autoHideTip('tip').show(2000, '删除此章节');
-				href = '/books/chapter/remove';
-			}
-			
-			$.ajax({
-				type: 'post',
-				url: href,
-				datatype: 'json',
-				contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-				data: {
-					'cId': cId,
-					'cStr': $(ev.target).text().substring(0, 20).toString()
-				},
-				success: function(result) {
-					$('#tip').remove();
-					alert(result.msg);
-				}
-			});
-		},
-		allowDrop: function(ev) {
-			return true;
-		},
-		dragenter: function(ev) {
-			$(ev.target).addClass('dragin');
-		},
-		dragleave: function(ev) {
-			$(ev.target).removeClass('dragin');
-		}
-	});
-	
-	new key({
-		id: 'cbm',
-		data: 'cancel',
-	});
 })
 </script>
 {% endblock %}

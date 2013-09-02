@@ -8,12 +8,11 @@
 		<h3>
 			{{ book.name }}
 			<br>
-			<small class="pull-right">&minus;{{ book.sharer }}&nbsp;&nbsp;&nbsp;&nbsp;{{ book.date }}</small>	
+			<small class="pull-right">&minus;{{ book.author }}</small>	
 		</h3>
 		<p>{{ book.desc }}</p>
 		
 		<p>
-			<a class="btn" href="{% url 'books.views.BookChapter' first_chapter.id %}">阅读全文</a>
 			<a class="btn" href="{% url 'books.views.Reviews' book.id %}">书评</a>
 		</p>
 		
