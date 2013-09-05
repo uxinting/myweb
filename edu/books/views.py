@@ -1,30 +1,32 @@
 #-*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
-from books.utils import save_file_from_request, get_save_folder,\
-    Page, ChapterPage, NewChapterException, NoChapterException, createChapter,\
+from books.utils import save_file_from_request, Page, createChapter,\
     removeChapter, save_review, read_review, next_chapter, prev_chapter
 from django.contrib.auth.decorators import login_required
 from books.models import Book, Chapter
 from django.core.exceptions import ObjectDoesNotExist
 from edu import settings
-from django.http.response import Http404
 from readers.models import Review
 
 def Books(request):
     title = u'著作'
     try:
         index = int(request.GET.get('index', 0))
-        
-        pb = Page(Book, pageLimit=settings.PAGE_ITEM_LIMIT)
-        counts = [c+1 for c in range(pb.countPage())]
-        
-        if not index or index < 1:
-            return HttpResponseRedirect('/books?index=1')
-        if index > len(counts):
-            return HttpResponseRedirect('/books?index=' + repr(len(counts)))
-        
-        books = pb.currentPageItems(index)
+        search = request.GET.get('search', False)
+        recent_books = request.session.get('recent_books', {})
+
+        if not search:
+            pb = Page(Book, pageLimit=settings.PAGE_ITEM_LIMIT)
+            counts = [c+1 for c in range(pb.countPage())]
+            if not index:
+                return HttpResponseRedirect('/books?index=1')
+            else:
+                books = pb.currentPageItems(index)
+        else:
+            name = request.GET.get('name', '')
+            author = request.GET.get('author', '')
+            books = Book.objects.filter(name__contains=name, author__contains=author)
     except Exception, e:
         print e
     return render_to_response('books/books.html', locals())
@@ -33,6 +35,10 @@ def Chapters(request, bookId):
     try:
         book = Book.objects.get(id=bookId)
         chapters = Chapter.objects.order_by('index').filter(book=book)
+        
+        rb = request.session.get('recent_books', {})
+        rb[book.id] = book.name
+        request.session['recent_books'] = rb
     except ObjectDoesNotExist:
         print "book is not exist"
     return render_to_response('books/chapters.html', locals())
@@ -106,8 +112,7 @@ def BookChapterCreate(request):
         cStr = request.POST.get('cStr', None)
 
         result['msg'] = createChapter(cId, cStr)
-    except Exception, e:
-        print '+++++++++++++++', e
+    except:
         result['msg'] = False
     import json
     return HttpResponse(json.dumps(result), 'json')
@@ -120,7 +125,7 @@ def BookChapterRemove(request):
         cStr = request.POST.get('cStr', None)
         
         result['msg'] = removeChapter(cId, cStr)
-    except Exception, e:
+    except:
         result['msg'] = False
     
     import json

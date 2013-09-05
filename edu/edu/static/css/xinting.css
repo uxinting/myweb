@@ -8,7 +8,7 @@ body {
 .article {
 	display: block;
 	margin: 0 auto;
-	width: 80%;
+	width: 90%;
 	height: auto;
 }
 
@@ -28,7 +28,7 @@ body {
 	letter-spacing: 1px;
 	line-height: 25px;
 	margin: 0;
-	padding: 20px 8px;
+	padding: 20px 0px;
 }
 
 /* 目录修饰 */
@@ -46,7 +46,7 @@ body {
 	position: fixed;
 	display: none;
 	right: 100px;
-	bottom: 150px;
+	bottom: 80px;
 }
 
 .icon-para-create {
@@ -86,7 +86,22 @@ body {
 	top: 100px;
 }*/
 
-a:hover {
+.a:hover {
 	cursor: pointer;
 	text-decoration: none;
+}
+
+.information {
+	position: fixed;
+	right: 10px;
+}
+
+.filter {
+	display: block;
+	width: 100%;
+}
+
+.recent {
+	display: block;
+	width: 100%;
 }

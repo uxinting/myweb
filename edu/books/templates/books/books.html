@@ -5,38 +5,62 @@
 {% block css %}{% endblock %}
 
 {% block body %}
-<div class="container">
-	<ul class="article-list">
-		{% for book in books %}
-		<li>
-			<div class="article">
-				<h3>
-					{{ book.name }}
-					<br>
-					<small class="pull-right">&minus;{{ book.author }}</small>	
-				</h3>
-				<p>{{ book.desc }}</p>
-				<a href="{% url 'books.views.Reviews' book.id %}" class="pull-right">&nbsp;书评</a>
-				<a href="{% url 'books.views.Chapters' book.id %}" class="pull-right">更多&nbsp;</a>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span9">
+			<ul class="article-list">
+				{% for book in books %}
+				<li>
+					<div class="article">
+						<h3>
+							{{ book.name }}
+							<br>
+							<small class="pull-right">&minus;{{ book.author }}</small>	
+						</h3>
+						<p>{{ book.desc }}</p>
+						<a href="{% url 'books.views.Reviews' book.id %}" class="pull-right">&nbsp;书评</a>
+						<a href="{% url 'books.views.Chapters' book.id %}" class="pull-right">更多&nbsp;</a>
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+			
+			{% if counts %}
+			<div class="pagination pagination-right">
+				<ul>
+					<li data-prev="true"><a href="{% url 'books.views.Books' %}?index={{ index|add:'-1' }}">&laquo;</a></li>
+					{% for count in counts %}
+					<li {% ifequal count index %}class="active"{% endifequal %}><a href="{% url 'books.views.Books' %}?index={{ count }}">{{ count }}</a></li>
+					{% endfor %}
+					<li data-next="true"><a href="{% url 'books.views.Books' %}?index={{ index|add:'1' }}">&raquo;</a></li>
+				</ul>
 			</div>
-		</li>
-		{% endfor %}
-	</ul>
-	
-	{% if counts %}
-	<div class="pagination pagination-right">
-		<ul>
-			<li data-prev="true"><a href="{% url 'books.views.Books' %}?index={{ index|add:'-1' }}">&laquo;</a></li>
-			{% for count in counts %}
-			<li {% ifequal count index %}class="active"{% endifequal %}><a href="{% url 'books.views.Books' %}?index={{ count }}">{{ count }}</a></li>
-			{% endfor %}
-			<li data-next="true"><a href="{% url 'books.views.Books' %}?index={{ index|add:'1' }}">&raquo;</a></li>
-		</ul>
+			{% endif %}
+			<div id="bk" class="icon-arrow-up icon-backtop a" data-toggle="tooltip" title="回到顶部"></div><!-- 
+			<div class="icon-arrow-left icon-prev a"  data-toggle="tooltip" title="上一篇" data-prev="true"></div>
+			<div class="icon-arrow-right icon-next a" data-toggle="tooltip" title="下一篇" data-next="true"></div>-->
+		</div>
+		<div class="span3 information">
+			<div class="filter">
+				<form method="GET">
+					<label>书名</label>
+					<input type="text" name="name" placeholder="{{ name }}" />
+					<label>作者</label>
+					<input type="text" name="author" placeholder="{{ author }}" /><br>
+					<input type="hidden" name="search" value="true" />
+					<button type="submit" class="btn">查询</button>
+				</form>
+			</div>
+			<div class="recent">
+				<p>我浏览过的书籍</p>
+				{% for k,v in recent_books.items %}
+				<p><a href="{% url 'books.views.Chapters' k %}">{{ v }}</a></p>
+				{% empty %}
+				<p>你尚未浏览书籍</p>
+				{% endfor %}
+			</div>
+		</div>
 	</div>
-	{% endif %}
-	<div id="bk" class="icon-arrow-up icon-backtop a" data-toggle="tooltip" title="回到顶部"></div><!-- 
-	<div class="icon-arrow-left icon-prev a"  data-toggle="tooltip" title="上一篇" data-prev="true"></div>
-	<div class="icon-arrow-right icon-next a" data-toggle="tooltip" title="下一篇" data-next="true"></div>-->
 </div>
 {% endblock %}
 

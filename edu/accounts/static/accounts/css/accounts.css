@@ -1,0 +1,27 @@
+body {
+	color: rgb(71, 72, 74);
+	background: rgb(204, 232, 207);
+	font-family: 微软雅黑, Verdana, sans-serif, 宋体;
+	font-size: 14px;
+}
+
+form { 
+	margin-top: 150px;
+}
+
+/* loggo */
+.brand {
+	position: fixed;
+	left: 150px;
+	top: 100px;
+}
+
+.a:hover {
+	cursor: pointer;
+}
+
+.book {
+	position: fixed;
+	top: 100px;
+	left: 100px;
+}
